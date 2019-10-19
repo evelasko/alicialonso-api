@@ -1,0 +1,15 @@
+overwrite: true
+schema: "src/generated/schema/nexus-schema.graphql"
+documents: "api/**/*.ts"
+generates:
+  ./api/aaxapi-sdk.ts:
+    config:
+      preResolveTypes: true
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
+   
+  ./src/generated/schema/codegen-graphql.schema.json:
+    plugins:
+      - "introspection"
