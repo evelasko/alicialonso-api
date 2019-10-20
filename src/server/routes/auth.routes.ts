@@ -1,12 +1,9 @@
 import express from 'express'
 import cors from 'cors'
-// TODO Implement Photon
-import { prisma } from '../../../generated/client/prisma'
+import { Photon } from '@generated/photon'
 import { AAxError, processGroupRequest } from '@helpers'
 import { redisInstance } from '@libs'
 import { errorMessages } from '@constants'
-
-// -- User Authentication Routes Config
 // eslint-disable-next-line new-cap
 export const authRoutes = express.Router()
 authRoutes.use(express.json())
@@ -19,7 +16,8 @@ export const authApproveGroupRequest = `/grouprequest/approve`
 export const authResetPassword = `/password/reset`
 export const authChangePassword = `/password/change`
 
-// -- ROUTES
+// ROUTES
+
 // verify email address
 authRoutes.get(`${authConfirmationRoute}/:key`, express.urlencoded({ extended: true }), async (req, res, next) => {
     try {
@@ -27,11 +25,14 @@ authRoutes.get(`${authConfirmationRoute}/:key`, express.urlencoded({ extended: t
         const email = await redisInstance.get(key)
 
         if (email) {
-            await prisma.updateUser({
+            const photon = new Photon()
+            await photon.connect()
+            await photon.users.update({
                 where: { email },
                 data: { emailVerified: true }
             })
             res.send(`Ok`)
+            photon.disconnect()
         } else {
             next(
                 new AAxError(

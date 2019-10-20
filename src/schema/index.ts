@@ -1,42 +1,33 @@
-import * as path from 'path'
-// FIXTHIS Implement new nexus-prisma
-import { makePrismaSchema } from 'nexus-prisma'
-import datamodelInfo from '../generated/client/nexus'
-import { prisma } from '../generated/client/prisma'
-import * as allTypes from './resolvers'
+import path from 'path'
+import { makeSchema } from 'nexus'
+import { nexusPrismaPlugin } from 'nexus-prisma'
+import * as types from './resolvers'
 
-const schema = makePrismaSchema({
-    // Code implemented Graphql
-    types: allTypes,
-
-    // interface to Prisma
-    prisma: {
-        datamodelInfo,
-        client: prisma
-    },
-
-    // Nexus generated files output
+const schema = makeSchema({
+    types,
     outputs: {
-        schema: path.join(__dirname, '../generated/schema/nexus-schema.graphql'),
-        typegen: path.join(__dirname, '../generated/schema/nexus-typings.ts')
+        schema: path.join(__dirname, './schema.graphql'),
+        typegen: path.join(__dirname, '../types/generated/nexus.ts')
     },
-
-    // Configure nullability of input arguments
+    plugins: [nexusPrismaPlugin()],
+    typegenAutoConfig: {
+        contextType: 'Context.Context',
+        sources: [
+            {
+                source: '@generated/photon',
+                alias: 'photon'
+            },
+            {
+                source: require.resolve('../types/context'),
+                alias: 'Context'
+            }
+        ]
+    },
+    // Configure nullability of input arguments / output results
     nonNullDefaults: {
         input: true,
         output: true
     },
-
-    // Configure automatic type resolution for the TS representation of the associated types
-    typegenAutoConfig: {
-        sources: [
-            {
-                source: path.join(__dirname, '../types/index.ts'),
-                alias: 'types'
-            }
-        ],
-        contextType: 'types.Context'
-    }
 })
 
 export default schema

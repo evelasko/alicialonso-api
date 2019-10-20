@@ -1,8 +1,4 @@
-/* eslint-disable no-sequences */
-/* eslint-disable no-unused-expressions */
-// FIXTHIS Implement new nexus-prisma
 import { objectType } from 'nexus'
-import { prismaObjectType } from 'nexus-prisma'
 
 export const AuthPayload = objectType({
     name: 'AuthPayload',
@@ -12,13 +8,17 @@ export const AuthPayload = objectType({
     }
 })
 
-// @ts-ignore
-export const User = prismaObjectType({
+export const User = objectType({
     name: 'User',
     definition(t) {
-        t.prismaFields(['*']),
-            t.string('fullname', {
-                resolve: ({ firstname, lastname }) => `${firstname} ${lastname}`
-            })
+        t.model.id()
+        t.model.firstname()
+        t.model.lastname()
+        t.model.email()
+        t.model.emailVerified()
+        t.model.password()
+        t.model.group()
+        t.model.groupRequest()
+        t.model.isAdmin()
     }
 })

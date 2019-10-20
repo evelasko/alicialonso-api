@@ -1,4 +1,4 @@
-import 'module-alias/register'
+// import 'module-alias/register'
 import server from './server'
 
 process.on('unhandledRejection', err => {

@@ -6,21 +6,21 @@ import hbs from 'express-handlebars'
 import { webHookMailgun, authBaseRoute, authRoutes } from './routes'
 import { redisInstance, redisClient, RedisStore } from '@libs'
 import { redisSessionPrefix } from '@constants'
-// FIXTHIS Implememnt Photon
-import { prisma } from '../generated/client/prisma'
+import { Photon } from '@generated/photon'
 import permissions from '@permissions'
 import { Context } from '@aatypes'
 import { AAxError } from '@helpers'
 import schema from '@schema'
 import authMiddleware from './middleware/authentication.mw'
 
-// graphql server
+const photon = new Photon()
+
 const server = new GraphQLServer({
     // @ts-ignore
     schema,
     middlewares: [permissions],
     context: async ({ request, response }): Promise<Context> => ({
-        prisma,
+        photon,
         request,
         response,
         redis: redisInstance,

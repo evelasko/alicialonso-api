@@ -1,6 +1,6 @@
 import { Job } from 'bull'
 // FIXTHIS Implement Photon
-import { getAdminEmails } from '../../../utils/prismaQueries'
+import { getAdminEmails } from '@helpers'
 import { sendEmail, encryptString } from '../../helpers'
 // TODO JSDoc
 

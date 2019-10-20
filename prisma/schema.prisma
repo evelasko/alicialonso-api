@@ -33,9 +33,9 @@ model User {
     devices					Device[] 			@relation(name: "UserDevices", onDelete: CASCADE)
     officialDocuments		OfficialDocument[]	@relation(name: "UserOfficialDocuments", onDelete: CASCADE)
     socialNetworkLinks		SocialLink[]	 	@relation(name: "UserSocialNetworks", onDelete: CASCADE)
-    metadata				String
-
-    department				Department          @relation(name: "DepartmentMembers", onDelete: NONE)
+    metadata				String?
+    
+    department				Department?         @relation(name: "DepartmentMembers", onDelete: NONE)
 
     newses                  News[]              @relation(name: "UserNewses", onDelete: CASCADE)
     events                  Event[]             @relation(name: "UserEvents", onDelete: CASCADE)

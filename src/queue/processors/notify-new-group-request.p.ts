@@ -1,8 +1,6 @@
 import { Job } from 'bull'
-// FIXTHIS Implememnt Photon
-import { getAdminEmails } from '../../../utils/prismaQueries'
-import { prisma, User } from '../../../generated/client/prisma'
-import { sendEmail } from '../../helpers'
+import { Photon } from '@generated/photon'
+import { sendEmail, getAdminEmails } from '@helpers'
 import { links } from '../../constants'
 // TODO JSDoc
 
@@ -14,12 +12,14 @@ import { links } from '../../constants'
  * @return {Promise<void>}
  */
 export default async function(job: Job): Promise<void> {
+    const photon = new Photon()
     const { userEmail } = job.data
 
     const adminEmails = await getAdminEmails()
-    const { firstname, lastname, groupRequest }: User = await prisma
-        .user({ email: userEmail })
-        .$fragment(`{ firstname lastname groupRequest }`)
+    const { firstname, lastname, groupRequest } = await photon.users.findOne({
+        where: { email: userEmail },
+        select: { firstname: true, lastname: true, groupRequest: true }
+    })
 
     // TODO design email template for new group request admin notification
     adminEmails.forEach(async (adminEmail: string) => {

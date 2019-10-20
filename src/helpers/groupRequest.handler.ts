@@ -1,10 +1,8 @@
-// FIXME implement Photon
-import { prisma } from '../generated/client/prisma'
+import { Photon } from '@generated/photon'
 import { AAxError } from './error.handler'
 import { errorMessages } from '@constants'
 import { sendQueuedEmail } from './email.handler'
 import { processEncryptedEmail } from './crypto.handler'
-
 /**
  * Process (approve or reject) a Group Request if exists
  * @param {('approve' | 'reject')} action the action to process the group request
@@ -18,9 +16,12 @@ export async function processGroupRequest(
     emailOrAdminSignature: string
 ): Promise<string | AAxError> {
     try {
+        const photon = new Photon()
+        await photon.connect()
+
         const email = processEncryptedEmail(emailOrUserSignature)
         if (email) {
-            const groupRequest = await prisma.user({ email }).groupRequest()
+            const { groupRequest } = await photon.users.findOne({ where: { email }, select: { groupRequest: true } })
             if (!groupRequest) {
                 return new AAxError(
                     `no groupRequest of user found`,
@@ -33,7 +34,7 @@ export async function processGroupRequest(
                 case 'approve':
                     try {
                         // process approval
-                        await prisma.updateUser({
+                        await photon.users.update({
                             where: { email },
                             data: { group: groupRequest, groupRequest: null }
                         })
@@ -48,6 +49,7 @@ export async function processGroupRequest(
                         })
                         // TODO add a log entry setting the ACTION, the MODIFIER user (admin), and the MODIFIED user (public user)
                         console.log(`${emailOrAdminSignature} was the one approving the request`)
+                        photon.disconnect()
                         return 'done'
                     } catch (err) {
                         return new AAxError(
@@ -60,7 +62,7 @@ export async function processGroupRequest(
                 case 'reject':
                     try {
                         // delete the request
-                        await prisma.updateUser({
+                        await photon.users.update({
                             where: { email },
                             data: { groupRequest: null }
                         })
@@ -77,6 +79,7 @@ export async function processGroupRequest(
                         console.log(`${emailOrAdminSignature} was the one rejecting the request`)
                         return 'done'
                     } catch (err) {
+                        photon.disconnect()
                         return new AAxError(
                             `some error ocurred in try/catch block: ${err}`,
                             'processGroupRequest:reject',
@@ -85,6 +88,7 @@ export async function processGroupRequest(
                         )
                     }
                 default:
+                    photon.disconnect()
                     return new AAxError(
                         `the switch statement failed to make a choice`,
                         'processGroupRequest:switch statement default',
@@ -93,6 +97,7 @@ export async function processGroupRequest(
                     )
             }
         } else {
+            photon.disconnect()
             return new AAxError(
                 `got no email address from caller function`,
                 'RejectGroupRequestRoute',

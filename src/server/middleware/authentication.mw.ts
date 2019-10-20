@@ -1,7 +1,10 @@
 import { Request } from 'express'
-import { prisma } from '../../generated/client/prisma'
+import { Photon } from '@generated/photon'
 import { AAxError, decodeLoginToken } from '@helpers'
 import { LoginPayload } from '@aatypes'
+
+const photon = new Photon()
+
 // TODO JSDoc
 /**
  *
@@ -26,11 +29,12 @@ export default async ({ headers }: Request): Promise<LoginPayload | null> => {
     }
     // authentication by device id
     if (Object.prototype.hasOwnProperty.call(headers, 'device')) {
-        const user: LoginPayload = await prisma
-            .device({ id: headers.device as string })
-            .owner()
-            .$fragment(`{ id isAdmin group email }`)
+        const user: LoginPayload = await photon.devices
+            .findOne({ where: { id: headers.device as string } })
+            .owner({ select: { id: true, isAdmin: true, group: true, email: true } })
+
         if (user) return user
     }
+    photon.disconnect()
     return null
 }

@@ -1,15 +1,9 @@
-// import { extendType } from 'nexus'
-// import { Context } from '../../../../types'
+import { queryField } from 'nexus'
 
-// export const GetAllGroupRequests = extendType({
-//     type: 'Query',
-//     definition(t) {
-//         t.field('me', {
-//             type: 'User',
-//             resolve: (parent, args, {prisma, session}:Context) => {
-//                 const {userId} = session
-//                 return prisma.user({ id: userId })
-//             },
-//         })
-//     },
-// })
+export const GetAllGroupRequests = queryField('allGroupRequest', {
+    type: 'User',
+    list: true,
+    resolve: async (root, args, { photon }) => {
+        return photon.users.findMany({ where: { NOT: { groupRequest: null } } })
+    }
+})

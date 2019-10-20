@@ -1,6 +1,5 @@
 import { stringArg, arg, mutationField } from 'nexus'
 import bcrypt from 'bcryptjs'
-import { Context } from '@aatypes'
 import { sendVerificationEmail, notifyNewGroupRequest, sendPasswordResetEmail, generateLoginToken } from '@helpers'
 import { generateVerificationKey, generateResetPasswordKey } from '@constants'
 import { LoginPayload } from '@aatypes'
@@ -15,9 +14,9 @@ export const SignUpUser = mutationField('signUpUser', {
         password: stringArg({ required: true }),
         groupRequest: arg({ type: 'UserGroup', required: false })
     },
-    resolve: async (parent, args, { prisma }: Context) => {
+    resolve: async (parent, args, { photon }) => {
         args.password = await bcrypt.hash(args.password, 8)
-        await prisma.createUser({ ...args })
+        await photon.users.create({ data: { ...args } })
 
         const { email, groupRequest } = args
 
@@ -25,7 +24,7 @@ export const SignUpUser = mutationField('signUpUser', {
         await sendVerificationEmail(email, key)
 
         // process group request if present
-        if (groupRequest && groupRequest !== 'PUBLIC') {
+        if (groupRequest && groupRequest !== 'GENERAL') {
             await notifyNewGroupRequest(email)
         }
         return { token: key }
@@ -38,9 +37,12 @@ export const Login = mutationField('login', {
         email: stringArg({ required: true }),
         password: stringArg({ required: true })
     },
-    resolve: async (parent, { email }, { prisma }: Context) => {
+    resolve: async (parent, { email }, { photon }) => {
         // retreive user's data
-        const user: LoginPayload = await prisma.user({ email }).$fragment(`{ id isAdmin group email }`)
+        const user: LoginPayload = await photon.users.findOne({
+            where: { email },
+            select: { id: true, isAdmin: true, group: true, email: true }
+        })
         if (!user) {
             return { token: '#' }
         }
@@ -50,7 +52,6 @@ export const Login = mutationField('login', {
         // session.userId = id
         // session.isAdmin = isAdmin
         // session.group = group
-
         return {
             token: await generateLoginToken(user)
         }
@@ -62,14 +63,13 @@ export const RequestResetPassword = mutationField('requestResetPassword', {
     args: {
         email: stringArg({ required: true })
     },
-    resolve: async (parent, { email }, { prisma }: Context) => {
+    resolve: async (parent, { email }, { photon }) => {
         // send reset password email with link to reset password
         const key = generateResetPasswordKey()
         await sendPasswordResetEmail(key, email)
 
         // lock account
-        await prisma.updateUser({ where: { email }, data: { password: '*' } })
-
+        await photon.users.update({ where: { email }, data: { password: '*' } })
         return { token: key }
     }
 })
@@ -80,8 +80,8 @@ export const ChangePassword = mutationField('changePassword', {
         key: stringArg({ required: true }),
         newPassword: stringArg({ required: true })
     },
-    resolve: async (parent, { key, newPassword }, { prisma }: Context) => {
-        await prisma.updateUser({
+    resolve: async (parent, { key, newPassword }, { photon }) => {
+        await photon.users.update({
             where: { email: await redisInstance.get(key) },
             data: { password: await bcrypt.hash(newPassword, 8) }
         })
