@@ -30,7 +30,6 @@
     },
     "include": [
         "src/**/*.ts",
-        "tests/**/*.ts"
     ],
     "exclude": [
         "dist",

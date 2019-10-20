@@ -27,7 +27,7 @@ const schema = makeSchema({
     nonNullDefaults: {
         input: true,
         output: true
-    },
+    }
 })
 
 export default schema

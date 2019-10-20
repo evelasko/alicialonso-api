@@ -12,6 +12,8 @@ import { Context } from '@aatypes'
 import { AAxError } from '@helpers'
 import schema from '@schema'
 import authMiddleware from './middleware/authentication.mw'
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
+import { arena } from './middleware/arena.mw'
 
 const photon = new Photon()
 
@@ -54,6 +56,11 @@ server.express.use('/wh/mailgun', webHookMailgun)
 server.express.use(authBaseRoute, authRoutes)
 server.express.use('/images', express.static('images'))
 server.express.use('/resources', express.static('resources'))
+
+// voyager route
+server.express.use('/gqlmap', voyagerMiddleware({ endpointUrl: 'http://localhost:4000' }))
+// arena route
+server.express.use('/queues', arena)
 
 // mobile routes proxy
 server.express.enable('trust proxy')

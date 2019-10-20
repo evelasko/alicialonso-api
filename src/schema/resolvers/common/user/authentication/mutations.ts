@@ -7,6 +7,8 @@ import { redisInstance } from '@libs'
 
 export const SignUpUser = mutationField('signUpUser', {
     type: 'AuthPayload',
+    description: `Signs up a new user.
+                  Returns the token required to verify its email account.`,
     args: {
         firstname: stringArg({ required: true }),
         lastname: stringArg({ required: true }),
@@ -33,6 +35,8 @@ export const SignUpUser = mutationField('signUpUser', {
 
 export const Login = mutationField('login', {
     type: 'AuthPayload',
+    description: `Login a registered user.
+                  Returns the token required for authentication.`,
     args: {
         email: stringArg({ required: true }),
         password: stringArg({ required: true })
@@ -60,6 +64,8 @@ export const Login = mutationField('login', {
 
 export const RequestResetPassword = mutationField('requestResetPassword', {
     type: 'AuthPayload',
+    description: `Creates a reset password request, locks the account requested, and sends an email to the requestee with a link to create a new password.
+                  Returns the key to restore the password.`,
     args: {
         email: stringArg({ required: true })
     },
@@ -76,6 +82,7 @@ export const RequestResetPassword = mutationField('requestResetPassword', {
 
 export const ChangePassword = mutationField('changePassword', {
     type: 'AuthPayload',
+    description: `Changes the password of the account whose reset request matches the provided key.`,
     args: {
         key: stringArg({ required: true }),
         newPassword: stringArg({ required: true })

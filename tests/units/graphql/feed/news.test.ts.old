@@ -1,0 +1,52 @@
+import ApolloBoost, { gql } from 'apollo-boost';
+import bcrypt from 'bcryptjs';
+import 'cross-fetch/polyfill';
+import { cacheUsers } from '../src/cache';
+import prisma from '../src/prisma';
+import { userQandM } from './utils/userQandM'
+import { newsQandM } from './utils/newsQandM'
+const testData = require('../prisma/scripts/seedTestData')
+const client = new ApolloBoost({ uri: 'http://localhost:4000' })
+
+const password = '1234567890'
+
+const { loginUser } = userQandM
+const userPublic = testData[1]
+const userStudent = testData[4]
+const userStaff = testData[3]
+
+beforeEach(async () => {
+    await cacheUsers()
+})
+
+afterAll(async () => {
+    await cacheUsers()
+})
+
+test('Should retreive news for guest user', async() => {
+    const newses:any = await client.query({
+        query: newsQandM.newses,
+    })
+    expect(newses.length).not.toBe(0)
+})
+// test('Should retreive news for public user', async() => {
+//     const { data: { loginUser: { token } } } = await client.mutate({
+//         mutation: loginUser,
+//         variables: { email, password: '1234567890' }
+//     })
+//     const newses = await client.query({
+//         query: newsQandM.newses,
+//     })
+//     expect(newses.length).not.toBe(0)
+// })
+// test('Should retrieve newses, alerts and calls for student user', async () => {
+
+// })
+
+// test('Should retrieve newses, alerts and calls for staff users', async () => {})
+
+// test('Should retrieve all newses, alerts and calls if logged in as admin', async () => {})
+
+// test('Should retrieve a single news', async () => {})
+
+// test('Should retreive all news,calls and alerts regardless of admin', async () => {})

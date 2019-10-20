@@ -2,7 +2,7 @@ import { objectType } from 'nexus'
 
 export const AuthPayload = objectType({
     name: 'AuthPayload',
-    description: 'Authorization payload data',
+    description: 'Authorization payload token with the key required for the mutation action requested',
     definition(t) {
         t.string('token', { nullable: false })
     }
@@ -10,6 +10,7 @@ export const AuthPayload = objectType({
 
 export const User = objectType({
     name: 'User',
+    description: `Registered user`,
     definition(t) {
         t.model.id()
         t.model.firstname()

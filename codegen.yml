@@ -1,5 +1,5 @@
 overwrite: true
-schema: "src/generated/schema/nexus-schema.graphql"
+schema: "src/schema/schema.graphql"
 documents: "api/**/*.ts"
 generates:
   ./api/aaxapi-sdk.ts:
@@ -10,6 +10,6 @@ generates:
       - "typescript-operations"
       - "typescript-graphql-request"
    
-  ./src/generated/schema/codegen-graphql.schema.json:
+  ./api/codegen-graphql.schema.json:
     plugins:
       - "introspection"

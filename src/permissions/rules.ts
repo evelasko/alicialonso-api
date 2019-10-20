@@ -1,17 +1,15 @@
 import { v4 } from 'uuid'
 import bcrypt from 'bcryptjs'
 import { rule } from 'graphql-shield'
-// FIXTHIS implement Photon
 import { sendVerificationEmail } from '@helpers'
 import { emailVerificationPrefix, errorMessages } from '@constants'
 import { redisInstance } from '@libs'
 import { Context } from '@aatypes'
 
-// TODO stop using photon from context in rules so that you can leverage the args cache of graphqlshield
 export const isAuthenticatedUser = rule({ cache: 'contextual' })(async (parent, args, { user }) =>
     user ? true : errorMessages.s_loginRequired
 )
-// TODO isAdmin may only be present when authenticated so this rule can be used for both cases
+
 export const isAdminUser = rule({ cache: 'contextual' })((parent, args, { user }) =>
     user && user.isAdmin ? true : errorMessages.s_adminPrivilegesRequired
 )
