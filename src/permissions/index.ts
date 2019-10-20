@@ -14,7 +14,9 @@ const permissions = shield(
             changePassword: and(validationRules.validNewPassword, rules.keyExists),
             createGroupRequest: and(validationRules.groupRequestValidationRule, rules.isAuthenticatedUser),
             approveGroupRequest: and(rules.isAdminUser, rules.groupRequestPending),
-            rejectGroupRequest: and(rules.isAdminUser, rules.groupRequestPending)
+            rejectGroupRequest: and(rules.isAdminUser, rules.groupRequestPending),
+            createSpace: rules.isAdminUser,
+            createVenue: rules.isAdminUser
         }
     },
     {

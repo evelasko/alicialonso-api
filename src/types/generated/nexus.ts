@@ -20,10 +20,1001 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  AddressCreateManyWithoutAddressesInput: { // input type
+    connect?: NexusGenInputs['AddressWhereUniqueInput'][] | null; // [AddressWhereUniqueInput!]
+    create?: NexusGenInputs['AddressCreateWithoutOwnerInput'][] | null; // [AddressCreateWithoutOwnerInput!]
+  }
+  AddressCreateWithoutOwnerInput: { // input type
+    address1: string; // String!
+    address2?: string | null; // String
+    city?: string | null; // String
+    code: string; // String!
+    country: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    primary?: boolean | null; // Boolean
+    region: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  AddressWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  AsignaturaCreateOneWithoutAsignaturaInput: { // input type
+    connect?: NexusGenInputs['AsignaturaWhereUniqueInput'] | null; // AsignaturaWhereUniqueInput
+    create?: NexusGenInputs['AsignaturaCreateWithoutDesdoblesInput'] | null; // AsignaturaCreateWithoutDesdoblesInput
+  }
+  AsignaturaCreateWithoutDesdoblesInput: { // input type
+    code: string; // String!
+    createdAt?: any | null; // DateTime
+    creditosECTS?: number | null; // Int
+    curso: NexusGenInputs['CursoCreateOneWithoutCursoInput']; // CursoCreateOneWithoutCursoInput!
+    description?: string | null; // String
+    horasBalance?: number | null; // Int
+    horasSemanasPlanificadas?: number | null; // Int
+    horasSemanasPresenciales?: number | null; // Int
+    horasTotalesPlanificadas?: number | null; // Int
+    horasTotalesPresenciales?: number | null; // Int
+    id?: any | null; // UUID
+    name: string; // String!
+    ratio: NexusGenInputs['RatioCreateOneWithoutRatioInput']; // RatioCreateOneWithoutRatioInput!
+    semsestre?: NexusGenEnums['Semestre'] | null; // Semestre
+    shortName: string; // String!
+    spacerequirements?: string | null; // String
+    titulacion: NexusGenInputs['TitulacionCreateOneWithoutTitulacionInput']; // TitulacionCreateOneWithoutTitulacionInput!
+    updatedAt?: any | null; // DateTime
+  }
+  AsignaturaWhereUniqueInput: { // input type
+    code?: string | null; // String
+    id?: any | null; // UUID
+    name?: string | null; // String
+    shortName?: string | null; // String
+  }
+  AsistenciaCreateManyWithoutAsistenciaInput: { // input type
+    connect?: NexusGenInputs['AsistenciaWhereUniqueInput'][] | null; // [AsistenciaWhereUniqueInput!]
+    create?: NexusGenInputs['AsistenciaCreateWithoutSesionInput'][] | null; // [AsistenciaCreateWithoutSesionInput!]
+  }
+  AsistenciaCreateManyWithoutAsistenciasInput: { // input type
+    connect?: NexusGenInputs['AsistenciaWhereUniqueInput'][] | null; // [AsistenciaWhereUniqueInput!]
+    create?: NexusGenInputs['AsistenciaCreateWithoutEstudianteInput'][] | null; // [AsistenciaCreateWithoutEstudianteInput!]
+  }
+  AsistenciaCreateWithoutEstudianteInput: { // input type
+    atendida?: boolean | null; // Boolean
+    dispensada?: boolean | null; // Boolean
+    id?: any | null; // UUID
+    justificada?: boolean | null; // Boolean
+    sesion: NexusGenInputs['SesionCreateOneWithoutSesionInput']; // SesionCreateOneWithoutSesionInput!
+  }
+  AsistenciaCreateWithoutSesionInput: { // input type
+    atendida?: boolean | null; // Boolean
+    dispensada?: boolean | null; // Boolean
+    estudiante: NexusGenInputs['UserCreateOneWithoutEstudianteInput']; // UserCreateOneWithoutEstudianteInput!
+    id?: any | null; // UUID
+    justificada?: boolean | null; // Boolean
+  }
+  AsistenciaWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  ContentDocumentCreateManyWithoutContentDocumentsInput: { // input type
+    connect?: NexusGenInputs['ContentDocumentWhereUniqueInput'][] | null; // [ContentDocumentWhereUniqueInput!]
+    create?: NexusGenInputs['ContentDocumentCreateWithoutCreatorInput'][] | null; // [ContentDocumentCreateWithoutCreatorInput!]
+  }
+  ContentDocumentCreateWithoutCreatorInput: { // input type
+    body: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    metadata: string; // String!
+    subtitle: string; // String!
+    title: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  ContentDocumentWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  ConvocatoriaExamenCreateOneWithoutConvocatoriaInput: { // input type
+    connect?: NexusGenInputs['ConvocatoriaExamenWhereUniqueInput'] | null; // ConvocatoriaExamenWhereUniqueInput
+    create?: NexusGenInputs['ConvocatoriaExamenCreateWithoutExamenesInput'] | null; // ConvocatoriaExamenCreateWithoutExamenesInput
+  }
+  ConvocatoriaExamenCreateWithoutExamenesInput: { // input type
+    createdAt?: any | null; // DateTime
+    dateEnd: any; // DateTime!
+    dateStart: any; // DateTime!
+    id?: any | null; // UUID
+    name: string; // String!
+    periodo: NexusGenInputs['PeriodoOperativoCreateOneWithoutPeriodoInput']; // PeriodoOperativoCreateOneWithoutPeriodoInput!
+    updatedAt?: any | null; // DateTime
+  }
+  ConvocatoriaExamenWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  CursoCreateOneWithoutCursoInput: { // input type
+    connect?: NexusGenInputs['CursoWhereUniqueInput'] | null; // CursoWhereUniqueInput
+    create?: NexusGenInputs['CursoCreateWithoutAsignaturasInput'] | null; // CursoCreateWithoutAsignaturasInput
+  }
+  CursoCreateWithoutAsignaturasInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    identifier: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  CursoWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    identifier?: string | null; // String
+  }
+  DepartmentCreateOneWithoutDepartmentInput: { // input type
+    connect?: NexusGenInputs['DepartmentWhereUniqueInput'] | null; // DepartmentWhereUniqueInput
+    create?: NexusGenInputs['DepartmentCreateWithoutMembersInput'] | null; // DepartmentCreateWithoutMembersInput
+  }
+  DepartmentCreateWithoutMembersInput: { // input type
+    id?: any | null; // UUID
+    name: string; // String!
+  }
+  DepartmentWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  DesdobleCreateManyWithoutDesdoblesInput: { // input type
+    connect?: NexusGenInputs['DesdobleWhereUniqueInput'][] | null; // [DesdobleWhereUniqueInput!]
+    create?: NexusGenInputs['DesdobleCreateWithoutLeccionesInput'][] | null; // [DesdobleCreateWithoutLeccionesInput!]
+  }
+  DesdobleCreateWithoutLeccionesInput: { // input type
+    asignatura: NexusGenInputs['AsignaturaCreateOneWithoutAsignaturaInput']; // AsignaturaCreateOneWithoutAsignaturaInput!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    matriculas?: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'] | null; // MatriculaCreateManyWithoutMatriculasInput
+    mencion: NexusGenInputs['MencionCreateOneWithoutMencionInput']; // MencionCreateOneWithoutMencionInput!
+    updatedAt?: any | null; // DateTime
+  }
+  DesdobleWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  DeviceCreateManyWithoutDevicesInput: { // input type
+    connect?: NexusGenInputs['DeviceWhereUniqueInput'][] | null; // [DeviceWhereUniqueInput!]
+    create?: NexusGenInputs['DeviceCreateWithoutOwnerInput'][] | null; // [DeviceCreateWithoutOwnerInput!]
+  }
+  DeviceCreateWithoutOwnerInput: { // input type
+    countryCode?: string | null; // String
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    notificationsDevice: string; // String!
+    notificationsPermission?: boolean | null; // Boolean
+    number?: string | null; // String
+    type?: NexusGenEnums['DeviceType'] | null; // DeviceType
+    updatedAt?: any | null; // DateTime
+    verified?: boolean | null; // Boolean
+  }
+  DeviceWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    notificationsDevice?: string | null; // String
+  }
+  DiscountCreateManyWithoutDiscountsInput: { // input type
+    connect?: NexusGenInputs['DiscountWhereUniqueInput'][] | null; // [DiscountWhereUniqueInput!]
+    create?: NexusGenInputs['DiscountCreateWithoutProductInput'][] | null; // [DiscountCreateWithoutProductInput!]
+  }
+  DiscountCreateOneWithoutDiscountInput: { // input type
+    connect?: NexusGenInputs['DiscountWhereUniqueInput'] | null; // DiscountWhereUniqueInput
+    create?: NexusGenInputs['DiscountCreateWithoutItemsInput'] | null; // DiscountCreateWithoutItemsInput
+  }
+  DiscountCreateWithoutItemsInput: { // input type
+    code: string; // String!
+    createdAt?: any | null; // DateTime
+    description: string; // String!
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    id?: any | null; // UUID
+    name: string; // String!
+    product: NexusGenInputs['ProductCreateOneWithoutProductInput']; // ProductCreateOneWithoutProductInput!
+    requirements: string; // String!
+    unitPrice: number; // Float!
+    updatedAt?: any | null; // DateTime
+  }
+  DiscountCreateWithoutProductInput: { // input type
+    code: string; // String!
+    createdAt?: any | null; // DateTime
+    description: string; // String!
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    id?: any | null; // UUID
+    items?: NexusGenInputs['ItemCreateManyWithoutItemsInput'] | null; // ItemCreateManyWithoutItemsInput
+    name: string; // String!
+    requirements: string; // String!
+    unitPrice: number; // Float!
+    updatedAt?: any | null; // DateTime
+  }
+  DiscountRequestCreateManyWithoutDiscountRequestsInput: { // input type
+    connect?: NexusGenInputs['DiscountRequestWhereUniqueInput'][] | null; // [DiscountRequestWhereUniqueInput!]
+    create?: NexusGenInputs['DiscountRequestCreateWithoutDiscountInput'][] | null; // [DiscountRequestCreateWithoutDiscountInput!]
+  }
+  DiscountRequestCreateWithoutDiscountInput: { // input type
+    applied?: boolean | null; // Boolean
+    approved?: boolean | null; // Boolean
+    createdAt?: any | null; // DateTime
+    documentation?: NexusGenInputs['DiscountRequestCreatedocumentationInput'] | null; // DiscountRequestCreatedocumentationInput
+    id?: any | null; // UUID
+    updatedAt?: any | null; // DateTime
+    user: NexusGenInputs['UserCreateOneWithoutUserInput']; // UserCreateOneWithoutUserInput!
+  }
+  DiscountRequestCreatedocumentationInput: { // input type
+    set?: string[] | null; // [String!]
+  }
+  DiscountRequestWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  DiscountWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  EstudioCreateOneWithoutEstudioInput: { // input type
+    connect?: NexusGenInputs['EstudioWhereUniqueInput'] | null; // EstudioWhereUniqueInput
+    create?: NexusGenInputs['EstudioCreateWithoutTitulacionesInput'] | null; // EstudioCreateWithoutTitulacionesInput
+  }
+  EstudioCreateWithoutTitulacionesInput: { // input type
+    createdAt?: any | null; // DateTime
+    description?: string | null; // String
+    id?: any | null; // UUID
+    name: string; // String!
+    shortName: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  EstudioWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    name?: string | null; // String
+    shortName?: string | null; // String
+  }
+  EventCreateManyWithoutEventsInput: { // input type
+    connect?: NexusGenInputs['EventWhereUniqueInput'][] | null; // [EventWhereUniqueInput!]
+    create?: NexusGenInputs['EventCreateWithoutAuthorInput'][] | null; // [EventCreateWithoutAuthorInput!]
+  }
+  EventCreateWithoutAuthorInput: { // input type
+    access?: string | null; // String
+    accessPoint?: string | null; // String
+    body: string; // String!
+    createdAt?: any | null; // DateTime
+    date: any; // DateTime!
+    id?: any | null; // UUID
+    imageURL?: string | null; // String
+    organizer?: string | null; // String
+    place: NexusGenInputs['SpaceCreateOneWithoutPlaceInput']; // SpaceCreateOneWithoutPlaceInput!
+    status?: NexusGenEnums['AppNodeStatus'] | null; // AppNodeStatus
+    subtitle: string; // String!
+    target: NexusGenEnums['UserGroup']; // UserGroup!
+    title: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  EventWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  ExamenCreateManyWithoutExamenesInput: { // input type
+    connect?: NexusGenInputs['ExamenWhereUniqueInput'][] | null; // [ExamenWhereUniqueInput!]
+    create?: NexusGenInputs['ExamenCreateWithoutEspacioInput'][] | null; // [ExamenCreateWithoutEspacioInput!]
+  }
+  ExamenCreateWithoutEspacioInput: { // input type
+    convocatoria: NexusGenInputs['ConvocatoriaExamenCreateOneWithoutConvocatoriaInput']; // ConvocatoriaExamenCreateOneWithoutConvocatoriaInput!
+    createdAt?: any | null; // DateTime
+    dateTime: any; // DateTime!
+    endTime: string; // String!
+    id?: any | null; // UUID
+    leccion: NexusGenInputs['LeccionCreateOneWithoutLeccionInput']; // LeccionCreateOneWithoutLeccionInput!
+    updatedAt?: any | null; // DateTime
+  }
+  ExamenWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  ItemCreateManyWithoutItemsInput: { // input type
+    connect?: NexusGenInputs['ItemWhereUniqueInput'][] | null; // [ItemWhereUniqueInput!]
+    create?: NexusGenInputs['ItemCreateWithoutOrderInput'][] | null; // [ItemCreateWithoutOrderInput!]
+  }
+  ItemCreateWithoutOrderInput: { // input type
+    createdAt?: any | null; // DateTime
+    discount?: NexusGenInputs['DiscountCreateOneWithoutDiscountInput'] | null; // DiscountCreateOneWithoutDiscountInput
+    id?: any | null; // UUID
+    orderPrice: number; // Float!
+    product: NexusGenInputs['ProductCreateOneWithoutProductInput']; // ProductCreateOneWithoutProductInput!
+    quantity: number; // Int!
+    updatedAt?: any | null; // DateTime
+  }
+  ItemWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  LeccionCreateManyWithoutLeccionesDisponiblesInput: { // input type
+    connect?: NexusGenInputs['LeccionWhereUniqueInput'][] | null; // [LeccionWhereUniqueInput!]
+    create?: NexusGenInputs['LeccionCreateWithoutProfesoresDisponiblesInput'][] | null; // [LeccionCreateWithoutProfesoresDisponiblesInput!]
+  }
+  LeccionCreateManyWithoutLeccionesGestionadasInput: { // input type
+    connect?: NexusGenInputs['LeccionWhereUniqueInput'][] | null; // [LeccionWhereUniqueInput!]
+    create?: NexusGenInputs['LeccionCreateWithoutGestorInput'][] | null; // [LeccionCreateWithoutGestorInput!]
+  }
+  LeccionCreateManyWithoutLeccionesInput: { // input type
+    connect?: NexusGenInputs['LeccionWhereUniqueInput'][] | null; // [LeccionWhereUniqueInput!]
+    create?: NexusGenInputs['LeccionCreateWithoutPeriodoInput'][] | null; // [LeccionCreateWithoutPeriodoInput!]
+  }
+  LeccionCreateOneWithoutLeccionInput: { // input type
+    connect?: NexusGenInputs['LeccionWhereUniqueInput'] | null; // LeccionWhereUniqueInput
+    create?: NexusGenInputs['LeccionCreateWithoutSesionesInput'] | null; // LeccionCreateWithoutSesionesInput
+  }
+  LeccionCreateWithoutGestorInput: { // input type
+    createdAt?: any | null; // DateTime
+    desdobles?: NexusGenInputs['DesdobleCreateManyWithoutDesdoblesInput'] | null; // DesdobleCreateManyWithoutDesdoblesInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    id?: any | null; // UUID
+    name: string; // String!
+    periodo: NexusGenInputs['PeriodoOperativoCreateOneWithoutPeriodoInput']; // PeriodoOperativoCreateOneWithoutPeriodoInput!
+    profesoresDisponibles?: NexusGenInputs['UserCreateManyWithoutProfesoresDisponiblesInput'] | null; // UserCreateManyWithoutProfesoresDisponiblesInput
+    recurrencias?: NexusGenInputs['RecurrenciaCreateManyWithoutRecurrenciasInput'] | null; // RecurrenciaCreateManyWithoutRecurrenciasInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+  }
+  LeccionCreateWithoutPeriodoInput: { // input type
+    createdAt?: any | null; // DateTime
+    desdobles?: NexusGenInputs['DesdobleCreateManyWithoutDesdoblesInput'] | null; // DesdobleCreateManyWithoutDesdoblesInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    gestor: NexusGenInputs['UserCreateOneWithoutGestorInput']; // UserCreateOneWithoutGestorInput!
+    id?: any | null; // UUID
+    name: string; // String!
+    profesoresDisponibles?: NexusGenInputs['UserCreateManyWithoutProfesoresDisponiblesInput'] | null; // UserCreateManyWithoutProfesoresDisponiblesInput
+    recurrencias?: NexusGenInputs['RecurrenciaCreateManyWithoutRecurrenciasInput'] | null; // RecurrenciaCreateManyWithoutRecurrenciasInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+  }
+  LeccionCreateWithoutProfesoresDisponiblesInput: { // input type
+    createdAt?: any | null; // DateTime
+    desdobles?: NexusGenInputs['DesdobleCreateManyWithoutDesdoblesInput'] | null; // DesdobleCreateManyWithoutDesdoblesInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    gestor: NexusGenInputs['UserCreateOneWithoutGestorInput']; // UserCreateOneWithoutGestorInput!
+    id?: any | null; // UUID
+    name: string; // String!
+    periodo: NexusGenInputs['PeriodoOperativoCreateOneWithoutPeriodoInput']; // PeriodoOperativoCreateOneWithoutPeriodoInput!
+    recurrencias?: NexusGenInputs['RecurrenciaCreateManyWithoutRecurrenciasInput'] | null; // RecurrenciaCreateManyWithoutRecurrenciasInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+  }
+  LeccionCreateWithoutSesionesInput: { // input type
+    createdAt?: any | null; // DateTime
+    desdobles?: NexusGenInputs['DesdobleCreateManyWithoutDesdoblesInput'] | null; // DesdobleCreateManyWithoutDesdoblesInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    gestor: NexusGenInputs['UserCreateOneWithoutGestorInput']; // UserCreateOneWithoutGestorInput!
+    id?: any | null; // UUID
+    name: string; // String!
+    periodo: NexusGenInputs['PeriodoOperativoCreateOneWithoutPeriodoInput']; // PeriodoOperativoCreateOneWithoutPeriodoInput!
+    profesoresDisponibles?: NexusGenInputs['UserCreateManyWithoutProfesoresDisponiblesInput'] | null; // UserCreateManyWithoutProfesoresDisponiblesInput
+    recurrencias?: NexusGenInputs['RecurrenciaCreateManyWithoutRecurrenciasInput'] | null; // RecurrenciaCreateManyWithoutRecurrenciasInput
+    updatedAt?: any | null; // DateTime
+  }
+  LeccionWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  MatriculaCreateManyWithoutMatriculasInput: { // input type
+    connect?: NexusGenInputs['MatriculaWhereUniqueInput'][] | null; // [MatriculaWhereUniqueInput!]
+    create?: NexusGenInputs['MatriculaCreateWithoutDesdobleInput'][] | null; // [MatriculaCreateWithoutDesdobleInput!]
+  }
+  MatriculaCreateWithoutDesdobleInput: { // input type
+    alumno: NexusGenInputs['UserCreateOneWithoutAlumnoInput']; // UserCreateOneWithoutAlumnoInput!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    updatedAt?: any | null; // DateTime
+  }
+  MatriculaWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  MediaCategoryCreateOneWithoutCategoryInput: { // input type
+    connect?: NexusGenInputs['MediaCategoryWhereUniqueInput'] | null; // MediaCategoryWhereUniqueInput
+    create?: NexusGenInputs['MediaCategoryCreateWithoutFilesInput'] | null; // MediaCategoryCreateWithoutFilesInput
+  }
+  MediaCategoryCreateWithoutFilesInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  MediaCategoryWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    name?: string | null; // String
+  }
+  MediaCreateManyWithoutMediasInput: { // input type
+    connect?: NexusGenInputs['MediaWhereUniqueInput'][] | null; // [MediaWhereUniqueInput!]
+    create?: NexusGenInputs['MediaCreateWithoutUploaderInput'][] | null; // [MediaCreateWithoutUploaderInput!]
+  }
+  MediaCreateWithoutUploaderInput: { // input type
+    category: NexusGenInputs['MediaCategoryCreateOneWithoutCategoryInput']; // MediaCategoryCreateOneWithoutCategoryInput!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    metadata: string; // String!
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+    url: string; // String!
+  }
+  MediaWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  MencionCreateOneWithoutMencionInput: { // input type
+    connect?: NexusGenInputs['MencionWhereUniqueInput'] | null; // MencionWhereUniqueInput
+    create?: NexusGenInputs['MencionCreateWithoutDesdoblesInput'] | null; // MencionCreateWithoutDesdoblesInput
+  }
+  MencionCreateWithoutDesdoblesInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    name: string; // String!
+    shortName: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  MencionWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    name?: string | null; // String
+    shortName?: string | null; // String
+  }
+  NewsCreateManyWithoutNewsesInput: { // input type
+    connect?: NexusGenInputs['NewsWhereUniqueInput'][] | null; // [NewsWhereUniqueInput!]
+    create?: NexusGenInputs['NewsCreateWithoutAuthorInput'][] | null; // [NewsCreateWithoutAuthorInput!]
+  }
+  NewsCreateWithoutAuthorInput: { // input type
+    body: string; // String!
+    category?: NexusGenEnums['NewsFeedCategories'] | null; // NewsFeedCategories
+    createdAt?: any | null; // DateTime
+    expiration: any; // DateTime!
+    featured?: boolean | null; // Boolean
+    id?: any | null; // UUID
+    imageURL?: string | null; // String
+    status?: NexusGenEnums['AppNodeStatus'] | null; // AppNodeStatus
+    subtitle: string; // String!
+    target: NexusGenEnums['UserGroup']; // UserGroup!
+    title: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  NewsWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  OfficialDocumentCreateManyWithoutOfficialDocumentsInput: { // input type
+    connect?: NexusGenInputs['OfficialDocumentWhereUniqueInput'][] | null; // [OfficialDocumentWhereUniqueInput!]
+    create?: NexusGenInputs['OfficialDocumentCreateWithoutOwnerInput'][] | null; // [OfficialDocumentCreateWithoutOwnerInput!]
+  }
+  OfficialDocumentCreateWithoutOwnerInput: { // input type
+    createdAt?: any | null; // DateTime
+    expiration: any; // DateTime!
+    id?: any | null; // UUID
+    number: string; // String!
+    other?: string | null; // String
+    type?: NexusGenEnums['OfficialDocumentType'] | null; // OfficialDocumentType
+    updatedAt?: any | null; // DateTime
+  }
+  OfficialDocumentWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    number?: string | null; // String
+  }
+  OrderCreateManyWithoutOrdersInput: { // input type
+    connect?: NexusGenInputs['OrderWhereUniqueInput'][] | null; // [OrderWhereUniqueInput!]
+    create?: NexusGenInputs['OrderCreateWithoutCustomerInput'][] | null; // [OrderCreateWithoutCustomerInput!]
+  }
+  OrderCreateWithoutCustomerInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    items?: NexusGenInputs['ItemCreateManyWithoutItemsInput'] | null; // ItemCreateManyWithoutItemsInput
+    metadata: string; // String!
+    paymentDue: any; // DateTime!
+    paymentSettled?: boolean | null; // Boolean
+    reference: string; // String!
+    total: number; // Float!
+    transactions?: NexusGenInputs['TransactionCreateManyWithoutTransactionsInput'] | null; // TransactionCreateManyWithoutTransactionsInput
+    updatedAt?: any | null; // DateTime
+    vatRate?: number | null; // Int
+  }
+  OrderWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    reference?: string | null; // String
+  }
+  PeriodoOperativoCreateOneWithoutPeriodoInput: { // input type
+    connect?: NexusGenInputs['PeriodoOperativoWhereUniqueInput'] | null; // PeriodoOperativoWhereUniqueInput
+    create?: NexusGenInputs['PeriodoOperativoCreateWithoutConvocatoriasExamenesInput'] | null; // PeriodoOperativoCreateWithoutConvocatoriasExamenesInput
+  }
+  PeriodoOperativoCreateWithoutConvocatoriasExamenesInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    lecciones?: NexusGenInputs['LeccionCreateManyWithoutLeccionesInput'] | null; // LeccionCreateManyWithoutLeccionesInput
+    updatedAt?: any | null; // DateTime
+    yearEnd: number; // Int!
+    yearStart: number; // Int!
+  }
+  PeriodoOperativoWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  ProductCategoryCreateOneWithoutCategoryInput: { // input type
+    connect?: NexusGenInputs['ProductCategoryWhereUniqueInput'] | null; // ProductCategoryWhereUniqueInput
+    create?: NexusGenInputs['ProductCategoryCreateWithoutProductsInput'] | null; // ProductCategoryCreateWithoutProductsInput
+  }
+  ProductCategoryCreateWithoutProductsInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  ProductCategoryWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    name?: string | null; // String
+  }
+  ProductCreateOneWithoutProductInput: { // input type
+    connect?: NexusGenInputs['ProductWhereUniqueInput'] | null; // ProductWhereUniqueInput
+    create?: NexusGenInputs['ProductCreateWithoutOrdersInput'] | null; // ProductCreateWithoutOrdersInput
+  }
+  ProductCreateWithoutOrdersInput: { // input type
+    category: NexusGenInputs['ProductCategoryCreateOneWithoutCategoryInput']; // ProductCategoryCreateOneWithoutCategoryInput!
+    content: string; // String!
+    createdAt?: any | null; // DateTime
+    description: string; // String!
+    discounts?: NexusGenInputs['DiscountCreateManyWithoutDiscountsInput'] | null; // DiscountCreateManyWithoutDiscountsInput
+    id?: any | null; // UUID
+    imageURLs?: NexusGenInputs['ProductCreateimageURLsInput'] | null; // ProductCreateimageURLsInput
+    name: string; // String!
+    unitPrice: number; // Float!
+    updatedAt?: any | null; // DateTime
+  }
+  ProductCreateimageURLsInput: { // input type
+    set?: string[] | null; // [String!]
+  }
+  ProductWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  RatioCreateOneWithoutRatioInput: { // input type
+    connect?: NexusGenInputs['RatioWhereUniqueInput'] | null; // RatioWhereUniqueInput
+    create?: NexusGenInputs['RatioCreateWithoutAsignaturasInput'] | null; // RatioCreateWithoutAsignaturasInput
+  }
+  RatioCreateWithoutAsignaturasInput: { // input type
+    id?: any | null; // UUID
+    multiplier?: number | null; // Int
+    name: string; // String!
+  }
+  RatioWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    name?: string | null; // String
+  }
+  RecurrenciaCreateManyWithoutLeccionesPlanificadasInput: { // input type
+    connect?: NexusGenInputs['RecurrenciaWhereUniqueInput'][] | null; // [RecurrenciaWhereUniqueInput!]
+    create?: NexusGenInputs['RecurrenciaCreateWithoutPlannedSpacesInput'][] | null; // [RecurrenciaCreateWithoutPlannedSpacesInput!]
+  }
+  RecurrenciaCreateManyWithoutRecurrenciasInput: { // input type
+    connect?: NexusGenInputs['RecurrenciaWhereUniqueInput'][] | null; // [RecurrenciaWhereUniqueInput!]
+    create?: NexusGenInputs['RecurrenciaCreateWithoutLeccionInput'][] | null; // [RecurrenciaCreateWithoutLeccionInput!]
+  }
+  RecurrenciaCreateWithoutLeccionInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    plannedSpaces?: NexusGenInputs['SpaceCreateManyWithoutPlannedSpacesInput'] | null; // SpaceCreateManyWithoutPlannedSpacesInput
+    timeEnd: string; // String!
+    timeStart: string; // String!
+    updatedAt?: any | null; // DateTime
+    weekday?: NexusGenEnums['WeekDay'] | null; // WeekDay
+  }
+  RecurrenciaCreateWithoutPlannedSpacesInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    leccion: NexusGenInputs['LeccionCreateOneWithoutLeccionInput']; // LeccionCreateOneWithoutLeccionInput!
+    timeEnd: string; // String!
+    timeStart: string; // String!
+    updatedAt?: any | null; // DateTime
+    weekday?: NexusGenEnums['WeekDay'] | null; // WeekDay
+  }
+  RecurrenciaWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  RoleCreateManyWithoutRolesInput: { // input type
+    connect?: NexusGenInputs['RoleWhereUniqueInput'][] | null; // [RoleWhereUniqueInput!]
+    create?: NexusGenInputs['RoleCreateWithoutUsersInput'][] | null; // [RoleCreateWithoutUsersInput!]
+  }
+  RoleCreateWithoutUsersInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  RoleWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  SesionCreateManyWithoutSesionesInput: { // input type
+    connect?: NexusGenInputs['SesionWhereUniqueInput'][] | null; // [SesionWhereUniqueInput!]
+    create?: NexusGenInputs['SesionCreateWithoutAtInput'][] | null; // [SesionCreateWithoutAtInput!]
+  }
+  SesionCreateOneWithoutSesionInput: { // input type
+    connect?: NexusGenInputs['SesionWhereUniqueInput'] | null; // SesionWhereUniqueInput
+    create?: NexusGenInputs['SesionCreateWithoutAsistenciaInput'] | null; // SesionCreateWithoutAsistenciaInput
+  }
+  SesionCreateWithoutAsistenciaInput: { // input type
+    at: NexusGenInputs['SpaceCreateOneWithoutAtInput']; // SpaceCreateOneWithoutAtInput!
+    by: NexusGenInputs['UserCreateOneWithoutByInput']; // UserCreateOneWithoutByInput!
+    closedAt: any; // DateTime!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    leccion: NexusGenInputs['LeccionCreateOneWithoutLeccionInput']; // LeccionCreateOneWithoutLeccionInput!
+    updatedAt?: any | null; // DateTime
+  }
+  SesionCreateWithoutAtInput: { // input type
+    asistencia?: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciaInput'] | null; // AsistenciaCreateManyWithoutAsistenciaInput
+    by: NexusGenInputs['UserCreateOneWithoutByInput']; // UserCreateOneWithoutByInput!
+    closedAt: any; // DateTime!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    leccion: NexusGenInputs['LeccionCreateOneWithoutLeccionInput']; // LeccionCreateOneWithoutLeccionInput!
+    updatedAt?: any | null; // DateTime
+  }
+  SesionWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  SocialLinkCreateManyWithoutSocialNetworkLinksInput: { // input type
+    connect?: NexusGenInputs['SocialLinkWhereUniqueInput'][] | null; // [SocialLinkWhereUniqueInput!]
+    create?: NexusGenInputs['SocialLinkCreateWithoutOwnerInput'][] | null; // [SocialLinkCreateWithoutOwnerInput!]
+  }
+  SocialLinkCreateWithoutOwnerInput: { // input type
+    id?: any | null; // UUID
+    link: string; // String!
+    socialNetwork: NexusGenInputs['SocialNetworkCreateOneWithoutSocialNetworkInput']; // SocialNetworkCreateOneWithoutSocialNetworkInput!
+  }
+  SocialLinkWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+    link?: string | null; // String
+  }
+  SocialNetworkCreateOneWithoutSocialNetworkInput: { // input type
+    connect?: NexusGenInputs['SocialNetworkWhereUniqueInput'] | null; // SocialNetworkWhereUniqueInput
+    create?: NexusGenInputs['SocialNetworkCreateWithoutUserLinksInput'] | null; // SocialNetworkCreateWithoutUserLinksInput
+  }
+  SocialNetworkCreateWithoutUserLinksInput: { // input type
+    baseURL: string; // String!
+    id?: any | null; // UUID
+    name: string; // String!
+    ownURL: string; // String!
+  }
+  SocialNetworkWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  SpaceCreateInput: { // input type
+    createdAt?: any | null; // DateTime
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    id?: any | null; // UUID
+    leccionesPlanificadas?: NexusGenInputs['RecurrenciaCreateManyWithoutLeccionesPlanificadasInput'] | null; // RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+    name: string; // String!
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+    venue: NexusGenInputs['VenueCreateOneWithoutVenueInput']; // VenueCreateOneWithoutVenueInput!
+  }
+  SpaceCreateManyWithoutPlannedSpacesInput: { // input type
+    connect?: NexusGenInputs['SpaceWhereUniqueInput'][] | null; // [SpaceWhereUniqueInput!]
+    create?: NexusGenInputs['SpaceCreateWithoutLeccionesPlanificadasInput'][] | null; // [SpaceCreateWithoutLeccionesPlanificadasInput!]
+  }
+  SpaceCreateManyWithoutSpacesInput: { // input type
+    connect?: NexusGenInputs['SpaceWhereUniqueInput'][] | null; // [SpaceWhereUniqueInput!]
+    create?: NexusGenInputs['SpaceCreateWithoutVenueInput'][] | null; // [SpaceCreateWithoutVenueInput!]
+  }
+  SpaceCreateOneWithoutAtInput: { // input type
+    connect?: NexusGenInputs['SpaceWhereUniqueInput'] | null; // SpaceWhereUniqueInput
+    create?: NexusGenInputs['SpaceCreateWithoutSesionesInput'] | null; // SpaceCreateWithoutSesionesInput
+  }
+  SpaceCreateOneWithoutPlaceInput: { // input type
+    connect?: NexusGenInputs['SpaceWhereUniqueInput'] | null; // SpaceWhereUniqueInput
+    create?: NexusGenInputs['SpaceCreateWithoutEventsInput'] | null; // SpaceCreateWithoutEventsInput
+  }
+  SpaceCreateWithoutEventsInput: { // input type
+    createdAt?: any | null; // DateTime
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    id?: any | null; // UUID
+    leccionesPlanificadas?: NexusGenInputs['RecurrenciaCreateManyWithoutLeccionesPlanificadasInput'] | null; // RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+    name: string; // String!
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+    venue: NexusGenInputs['VenueCreateOneWithoutVenueInput']; // VenueCreateOneWithoutVenueInput!
+  }
+  SpaceCreateWithoutLeccionesPlanificadasInput: { // input type
+    createdAt?: any | null; // DateTime
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    id?: any | null; // UUID
+    name: string; // String!
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+    venue: NexusGenInputs['VenueCreateOneWithoutVenueInput']; // VenueCreateOneWithoutVenueInput!
+  }
+  SpaceCreateWithoutSesionesInput: { // input type
+    createdAt?: any | null; // DateTime
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    id?: any | null; // UUID
+    leccionesPlanificadas?: NexusGenInputs['RecurrenciaCreateManyWithoutLeccionesPlanificadasInput'] | null; // RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+    venue: NexusGenInputs['VenueCreateOneWithoutVenueInput']; // VenueCreateOneWithoutVenueInput!
+  }
+  SpaceCreateWithoutVenueInput: { // input type
+    createdAt?: any | null; // DateTime
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    examenes?: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'] | null; // ExamenCreateManyWithoutExamenesInput
+    id?: any | null; // UUID
+    leccionesPlanificadas?: NexusGenInputs['RecurrenciaCreateManyWithoutLeccionesPlanificadasInput'] | null; // RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+    name: string; // String!
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+  }
+  SpaceWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  TitulacionCreateOneWithoutTitulacionInput: { // input type
+    connect?: NexusGenInputs['TitulacionWhereUniqueInput'] | null; // TitulacionWhereUniqueInput
+    create?: NexusGenInputs['TitulacionCreateWithoutAsignaturasInput'] | null; // TitulacionCreateWithoutAsignaturasInput
+  }
+  TitulacionCreateWithoutAsignaturasInput: { // input type
+    code: string; // String!
+    createdAt?: any | null; // DateTime
+    description?: string | null; // String
+    estudio: NexusGenInputs['EstudioCreateOneWithoutEstudioInput']; // EstudioCreateOneWithoutEstudioInput!
+    id?: any | null; // UUID
+    name: string; // String!
+    shortName: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  TitulacionWhereUniqueInput: { // input type
+    code?: string | null; // String
+    id?: any | null; // UUID
+    name?: string | null; // String
+    shortName?: string | null; // String
+  }
+  TransactionCreateManyWithoutTransactionsInput: { // input type
+    connect?: NexusGenInputs['TransactionWhereUniqueInput'][] | null; // [TransactionWhereUniqueInput!]
+    create?: NexusGenInputs['TransactionCreateWithoutOrderInput'][] | null; // [TransactionCreateWithoutOrderInput!]
+  }
+  TransactionCreateWithoutOrderInput: { // input type
+    amount: number; // Int!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    reference: string; // String!
+    type?: NexusGenEnums['TxType'] | null; // TxType
+    updatedAt?: any | null; // DateTime
+  }
+  TransactionWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
+  UserCreateManyWithoutProfesoresDisponiblesInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    create?: NexusGenInputs['UserCreateWithoutLeccionesDisponiblesInput'][] | null; // [UserCreateWithoutLeccionesDisponiblesInput!]
+  }
+  UserCreateOneWithoutAlumnoInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutMatriculasInput'] | null; // UserCreateWithoutMatriculasInput
+  }
+  UserCreateOneWithoutByInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutSesionesInput'] | null; // UserCreateWithoutSesionesInput
+  }
+  UserCreateOneWithoutEstudianteInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutAsistenciasInput'] | null; // UserCreateWithoutAsistenciasInput
+  }
+  UserCreateOneWithoutGestorInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutLeccionesGestionadasInput'] | null; // UserCreateWithoutLeccionesGestionadasInput
+  }
+  UserCreateOneWithoutUserInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutDiscountRequestsInput'] | null; // UserCreateWithoutDiscountRequestsInput
+  }
+  UserCreateWithoutAsistenciasInput: { // input type
+    addresses?: NexusGenInputs['AddressCreateManyWithoutAddressesInput'] | null; // AddressCreateManyWithoutAddressesInput
+    avatar?: string | null; // String
+    contentDocuments?: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'] | null; // ContentDocumentCreateManyWithoutContentDocumentsInput
+    createdAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'] | null; // DepartmentCreateOneWithoutDepartmentInput
+    devices?: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'] | null; // DeviceCreateManyWithoutDevicesInput
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    email: string; // String!
+    emailVerified?: boolean | null; // Boolean
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    firstname: string; // String!
+    group?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    groupRequest?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    id?: any | null; // UUID
+    isAdmin?: boolean | null; // Boolean
+    lastname: string; // String!
+    leccionesDisponibles?: NexusGenInputs['LeccionCreateManyWithoutLeccionesDisponiblesInput'] | null; // LeccionCreateManyWithoutLeccionesDisponiblesInput
+    leccionesGestionadas?: NexusGenInputs['LeccionCreateManyWithoutLeccionesGestionadasInput'] | null; // LeccionCreateManyWithoutLeccionesGestionadasInput
+    matriculas?: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'] | null; // MatriculaCreateManyWithoutMatriculasInput
+    medias?: NexusGenInputs['MediaCreateManyWithoutMediasInput'] | null; // MediaCreateManyWithoutMediasInput
+    metadata?: string | null; // String
+    newses?: NexusGenInputs['NewsCreateManyWithoutNewsesInput'] | null; // NewsCreateManyWithoutNewsesInput
+    officialDocuments?: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'] | null; // OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+    orders?: NexusGenInputs['OrderCreateManyWithoutOrdersInput'] | null; // OrderCreateManyWithoutOrdersInput
+    password: string; // String!
+    roles?: NexusGenInputs['RoleCreateManyWithoutRolesInput'] | null; // RoleCreateManyWithoutRolesInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    socialNetworkLinks?: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'] | null; // SocialLinkCreateManyWithoutSocialNetworkLinksInput
+    updatedAt?: any | null; // DateTime
+  }
+  UserCreateWithoutDiscountRequestsInput: { // input type
+    addresses?: NexusGenInputs['AddressCreateManyWithoutAddressesInput'] | null; // AddressCreateManyWithoutAddressesInput
+    asistencias?: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciasInput'] | null; // AsistenciaCreateManyWithoutAsistenciasInput
+    avatar?: string | null; // String
+    contentDocuments?: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'] | null; // ContentDocumentCreateManyWithoutContentDocumentsInput
+    createdAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'] | null; // DepartmentCreateOneWithoutDepartmentInput
+    devices?: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'] | null; // DeviceCreateManyWithoutDevicesInput
+    email: string; // String!
+    emailVerified?: boolean | null; // Boolean
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    firstname: string; // String!
+    group?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    groupRequest?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    id?: any | null; // UUID
+    isAdmin?: boolean | null; // Boolean
+    lastname: string; // String!
+    leccionesDisponibles?: NexusGenInputs['LeccionCreateManyWithoutLeccionesDisponiblesInput'] | null; // LeccionCreateManyWithoutLeccionesDisponiblesInput
+    leccionesGestionadas?: NexusGenInputs['LeccionCreateManyWithoutLeccionesGestionadasInput'] | null; // LeccionCreateManyWithoutLeccionesGestionadasInput
+    matriculas?: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'] | null; // MatriculaCreateManyWithoutMatriculasInput
+    medias?: NexusGenInputs['MediaCreateManyWithoutMediasInput'] | null; // MediaCreateManyWithoutMediasInput
+    metadata?: string | null; // String
+    newses?: NexusGenInputs['NewsCreateManyWithoutNewsesInput'] | null; // NewsCreateManyWithoutNewsesInput
+    officialDocuments?: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'] | null; // OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+    orders?: NexusGenInputs['OrderCreateManyWithoutOrdersInput'] | null; // OrderCreateManyWithoutOrdersInput
+    password: string; // String!
+    roles?: NexusGenInputs['RoleCreateManyWithoutRolesInput'] | null; // RoleCreateManyWithoutRolesInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    socialNetworkLinks?: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'] | null; // SocialLinkCreateManyWithoutSocialNetworkLinksInput
+    updatedAt?: any | null; // DateTime
+  }
+  UserCreateWithoutLeccionesDisponiblesInput: { // input type
+    addresses?: NexusGenInputs['AddressCreateManyWithoutAddressesInput'] | null; // AddressCreateManyWithoutAddressesInput
+    asistencias?: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciasInput'] | null; // AsistenciaCreateManyWithoutAsistenciasInput
+    avatar?: string | null; // String
+    contentDocuments?: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'] | null; // ContentDocumentCreateManyWithoutContentDocumentsInput
+    createdAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'] | null; // DepartmentCreateOneWithoutDepartmentInput
+    devices?: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'] | null; // DeviceCreateManyWithoutDevicesInput
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    email: string; // String!
+    emailVerified?: boolean | null; // Boolean
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    firstname: string; // String!
+    group?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    groupRequest?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    id?: any | null; // UUID
+    isAdmin?: boolean | null; // Boolean
+    lastname: string; // String!
+    leccionesGestionadas?: NexusGenInputs['LeccionCreateManyWithoutLeccionesGestionadasInput'] | null; // LeccionCreateManyWithoutLeccionesGestionadasInput
+    matriculas?: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'] | null; // MatriculaCreateManyWithoutMatriculasInput
+    medias?: NexusGenInputs['MediaCreateManyWithoutMediasInput'] | null; // MediaCreateManyWithoutMediasInput
+    metadata?: string | null; // String
+    newses?: NexusGenInputs['NewsCreateManyWithoutNewsesInput'] | null; // NewsCreateManyWithoutNewsesInput
+    officialDocuments?: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'] | null; // OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+    orders?: NexusGenInputs['OrderCreateManyWithoutOrdersInput'] | null; // OrderCreateManyWithoutOrdersInput
+    password: string; // String!
+    roles?: NexusGenInputs['RoleCreateManyWithoutRolesInput'] | null; // RoleCreateManyWithoutRolesInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    socialNetworkLinks?: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'] | null; // SocialLinkCreateManyWithoutSocialNetworkLinksInput
+    updatedAt?: any | null; // DateTime
+  }
+  UserCreateWithoutLeccionesGestionadasInput: { // input type
+    addresses?: NexusGenInputs['AddressCreateManyWithoutAddressesInput'] | null; // AddressCreateManyWithoutAddressesInput
+    asistencias?: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciasInput'] | null; // AsistenciaCreateManyWithoutAsistenciasInput
+    avatar?: string | null; // String
+    contentDocuments?: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'] | null; // ContentDocumentCreateManyWithoutContentDocumentsInput
+    createdAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'] | null; // DepartmentCreateOneWithoutDepartmentInput
+    devices?: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'] | null; // DeviceCreateManyWithoutDevicesInput
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    email: string; // String!
+    emailVerified?: boolean | null; // Boolean
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    firstname: string; // String!
+    group?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    groupRequest?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    id?: any | null; // UUID
+    isAdmin?: boolean | null; // Boolean
+    lastname: string; // String!
+    leccionesDisponibles?: NexusGenInputs['LeccionCreateManyWithoutLeccionesDisponiblesInput'] | null; // LeccionCreateManyWithoutLeccionesDisponiblesInput
+    matriculas?: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'] | null; // MatriculaCreateManyWithoutMatriculasInput
+    medias?: NexusGenInputs['MediaCreateManyWithoutMediasInput'] | null; // MediaCreateManyWithoutMediasInput
+    metadata?: string | null; // String
+    newses?: NexusGenInputs['NewsCreateManyWithoutNewsesInput'] | null; // NewsCreateManyWithoutNewsesInput
+    officialDocuments?: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'] | null; // OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+    orders?: NexusGenInputs['OrderCreateManyWithoutOrdersInput'] | null; // OrderCreateManyWithoutOrdersInput
+    password: string; // String!
+    roles?: NexusGenInputs['RoleCreateManyWithoutRolesInput'] | null; // RoleCreateManyWithoutRolesInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    socialNetworkLinks?: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'] | null; // SocialLinkCreateManyWithoutSocialNetworkLinksInput
+    updatedAt?: any | null; // DateTime
+  }
+  UserCreateWithoutMatriculasInput: { // input type
+    addresses?: NexusGenInputs['AddressCreateManyWithoutAddressesInput'] | null; // AddressCreateManyWithoutAddressesInput
+    asistencias?: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciasInput'] | null; // AsistenciaCreateManyWithoutAsistenciasInput
+    avatar?: string | null; // String
+    contentDocuments?: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'] | null; // ContentDocumentCreateManyWithoutContentDocumentsInput
+    createdAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'] | null; // DepartmentCreateOneWithoutDepartmentInput
+    devices?: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'] | null; // DeviceCreateManyWithoutDevicesInput
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    email: string; // String!
+    emailVerified?: boolean | null; // Boolean
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    firstname: string; // String!
+    group?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    groupRequest?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    id?: any | null; // UUID
+    isAdmin?: boolean | null; // Boolean
+    lastname: string; // String!
+    leccionesDisponibles?: NexusGenInputs['LeccionCreateManyWithoutLeccionesDisponiblesInput'] | null; // LeccionCreateManyWithoutLeccionesDisponiblesInput
+    leccionesGestionadas?: NexusGenInputs['LeccionCreateManyWithoutLeccionesGestionadasInput'] | null; // LeccionCreateManyWithoutLeccionesGestionadasInput
+    medias?: NexusGenInputs['MediaCreateManyWithoutMediasInput'] | null; // MediaCreateManyWithoutMediasInput
+    metadata?: string | null; // String
+    newses?: NexusGenInputs['NewsCreateManyWithoutNewsesInput'] | null; // NewsCreateManyWithoutNewsesInput
+    officialDocuments?: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'] | null; // OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+    orders?: NexusGenInputs['OrderCreateManyWithoutOrdersInput'] | null; // OrderCreateManyWithoutOrdersInput
+    password: string; // String!
+    roles?: NexusGenInputs['RoleCreateManyWithoutRolesInput'] | null; // RoleCreateManyWithoutRolesInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    socialNetworkLinks?: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'] | null; // SocialLinkCreateManyWithoutSocialNetworkLinksInput
+    updatedAt?: any | null; // DateTime
+  }
+  UserCreateWithoutSesionesInput: { // input type
+    addresses?: NexusGenInputs['AddressCreateManyWithoutAddressesInput'] | null; // AddressCreateManyWithoutAddressesInput
+    asistencias?: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciasInput'] | null; // AsistenciaCreateManyWithoutAsistenciasInput
+    avatar?: string | null; // String
+    contentDocuments?: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'] | null; // ContentDocumentCreateManyWithoutContentDocumentsInput
+    createdAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'] | null; // DepartmentCreateOneWithoutDepartmentInput
+    devices?: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'] | null; // DeviceCreateManyWithoutDevicesInput
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    email: string; // String!
+    emailVerified?: boolean | null; // Boolean
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    firstname: string; // String!
+    group?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    groupRequest?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    id?: any | null; // UUID
+    isAdmin?: boolean | null; // Boolean
+    lastname: string; // String!
+    leccionesDisponibles?: NexusGenInputs['LeccionCreateManyWithoutLeccionesDisponiblesInput'] | null; // LeccionCreateManyWithoutLeccionesDisponiblesInput
+    leccionesGestionadas?: NexusGenInputs['LeccionCreateManyWithoutLeccionesGestionadasInput'] | null; // LeccionCreateManyWithoutLeccionesGestionadasInput
+    matriculas?: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'] | null; // MatriculaCreateManyWithoutMatriculasInput
+    medias?: NexusGenInputs['MediaCreateManyWithoutMediasInput'] | null; // MediaCreateManyWithoutMediasInput
+    metadata?: string | null; // String
+    newses?: NexusGenInputs['NewsCreateManyWithoutNewsesInput'] | null; // NewsCreateManyWithoutNewsesInput
+    officialDocuments?: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'] | null; // OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+    orders?: NexusGenInputs['OrderCreateManyWithoutOrdersInput'] | null; // OrderCreateManyWithoutOrdersInput
+    password: string; // String!
+    roles?: NexusGenInputs['RoleCreateManyWithoutRolesInput'] | null; // RoleCreateManyWithoutRolesInput
+    socialNetworkLinks?: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'] | null; // SocialLinkCreateManyWithoutSocialNetworkLinksInput
+    updatedAt?: any | null; // DateTime
+  }
+  UserWhereUniqueInput: { // input type
+    email?: string | null; // String
+    id?: any | null; // UUID
+  }
+  VenueCreateInput: { // input type
+    address: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    latitude: number; // Float!
+    longitude: number; // Float!
+    name: string; // String!
+    placeID: string; // String!
+    spaces?: NexusGenInputs['SpaceCreateManyWithoutSpacesInput'] | null; // SpaceCreateManyWithoutSpacesInput
+    updatedAt?: any | null; // DateTime
+  }
+  VenueCreateOneWithoutVenueInput: { // input type
+    connect?: NexusGenInputs['VenueWhereUniqueInput'] | null; // VenueWhereUniqueInput
+    create?: NexusGenInputs['VenueCreateWithoutSpacesInput'] | null; // VenueCreateWithoutSpacesInput
+  }
+  VenueCreateWithoutSpacesInput: { // input type
+    address: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: any | null; // UUID
+    latitude: number; // Float!
+    longitude: number; // Float!
+    name: string; // String!
+    placeID: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  VenueWhereUniqueInput: { // input type
+    id?: any | null; // UUID
+  }
 }
 
 export interface NexusGenEnums {
+  AppNodeStatus: photon.AppNodeStatus
+  DeviceType: photon.DeviceType
+  NewsFeedCategories: photon.NewsFeedCategories
+  OfficialDocumentType: photon.OfficialDocumentType
+  Semestre: photon.Semestre
+  TxType: photon.TxType
   UserGroup: photon.UserGroup
+  WeekDay: photon.WeekDay
 }
 
 export interface NexusGenRootTypes {
@@ -32,17 +1023,172 @@ export interface NexusGenRootTypes {
   }
   Mutation: {};
   Query: {};
+  Space: photon.Space;
   User: photon.User;
+  Venue: photon.Venue;
   String: string;
   Int: number;
   Float: number;
   Boolean: boolean;
   ID: string;
+  DateTime: any;
   UUID: any;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  AddressCreateManyWithoutAddressesInput: NexusGenInputs['AddressCreateManyWithoutAddressesInput'];
+  AddressCreateWithoutOwnerInput: NexusGenInputs['AddressCreateWithoutOwnerInput'];
+  AddressWhereUniqueInput: NexusGenInputs['AddressWhereUniqueInput'];
+  AsignaturaCreateOneWithoutAsignaturaInput: NexusGenInputs['AsignaturaCreateOneWithoutAsignaturaInput'];
+  AsignaturaCreateWithoutDesdoblesInput: NexusGenInputs['AsignaturaCreateWithoutDesdoblesInput'];
+  AsignaturaWhereUniqueInput: NexusGenInputs['AsignaturaWhereUniqueInput'];
+  AsistenciaCreateManyWithoutAsistenciaInput: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciaInput'];
+  AsistenciaCreateManyWithoutAsistenciasInput: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciasInput'];
+  AsistenciaCreateWithoutEstudianteInput: NexusGenInputs['AsistenciaCreateWithoutEstudianteInput'];
+  AsistenciaCreateWithoutSesionInput: NexusGenInputs['AsistenciaCreateWithoutSesionInput'];
+  AsistenciaWhereUniqueInput: NexusGenInputs['AsistenciaWhereUniqueInput'];
+  ContentDocumentCreateManyWithoutContentDocumentsInput: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'];
+  ContentDocumentCreateWithoutCreatorInput: NexusGenInputs['ContentDocumentCreateWithoutCreatorInput'];
+  ContentDocumentWhereUniqueInput: NexusGenInputs['ContentDocumentWhereUniqueInput'];
+  ConvocatoriaExamenCreateOneWithoutConvocatoriaInput: NexusGenInputs['ConvocatoriaExamenCreateOneWithoutConvocatoriaInput'];
+  ConvocatoriaExamenCreateWithoutExamenesInput: NexusGenInputs['ConvocatoriaExamenCreateWithoutExamenesInput'];
+  ConvocatoriaExamenWhereUniqueInput: NexusGenInputs['ConvocatoriaExamenWhereUniqueInput'];
+  CursoCreateOneWithoutCursoInput: NexusGenInputs['CursoCreateOneWithoutCursoInput'];
+  CursoCreateWithoutAsignaturasInput: NexusGenInputs['CursoCreateWithoutAsignaturasInput'];
+  CursoWhereUniqueInput: NexusGenInputs['CursoWhereUniqueInput'];
+  DepartmentCreateOneWithoutDepartmentInput: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'];
+  DepartmentCreateWithoutMembersInput: NexusGenInputs['DepartmentCreateWithoutMembersInput'];
+  DepartmentWhereUniqueInput: NexusGenInputs['DepartmentWhereUniqueInput'];
+  DesdobleCreateManyWithoutDesdoblesInput: NexusGenInputs['DesdobleCreateManyWithoutDesdoblesInput'];
+  DesdobleCreateWithoutLeccionesInput: NexusGenInputs['DesdobleCreateWithoutLeccionesInput'];
+  DesdobleWhereUniqueInput: NexusGenInputs['DesdobleWhereUniqueInput'];
+  DeviceCreateManyWithoutDevicesInput: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'];
+  DeviceCreateWithoutOwnerInput: NexusGenInputs['DeviceCreateWithoutOwnerInput'];
+  DeviceWhereUniqueInput: NexusGenInputs['DeviceWhereUniqueInput'];
+  DiscountCreateManyWithoutDiscountsInput: NexusGenInputs['DiscountCreateManyWithoutDiscountsInput'];
+  DiscountCreateOneWithoutDiscountInput: NexusGenInputs['DiscountCreateOneWithoutDiscountInput'];
+  DiscountCreateWithoutItemsInput: NexusGenInputs['DiscountCreateWithoutItemsInput'];
+  DiscountCreateWithoutProductInput: NexusGenInputs['DiscountCreateWithoutProductInput'];
+  DiscountRequestCreateManyWithoutDiscountRequestsInput: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'];
+  DiscountRequestCreateWithoutDiscountInput: NexusGenInputs['DiscountRequestCreateWithoutDiscountInput'];
+  DiscountRequestCreatedocumentationInput: NexusGenInputs['DiscountRequestCreatedocumentationInput'];
+  DiscountRequestWhereUniqueInput: NexusGenInputs['DiscountRequestWhereUniqueInput'];
+  DiscountWhereUniqueInput: NexusGenInputs['DiscountWhereUniqueInput'];
+  EstudioCreateOneWithoutEstudioInput: NexusGenInputs['EstudioCreateOneWithoutEstudioInput'];
+  EstudioCreateWithoutTitulacionesInput: NexusGenInputs['EstudioCreateWithoutTitulacionesInput'];
+  EstudioWhereUniqueInput: NexusGenInputs['EstudioWhereUniqueInput'];
+  EventCreateManyWithoutEventsInput: NexusGenInputs['EventCreateManyWithoutEventsInput'];
+  EventCreateWithoutAuthorInput: NexusGenInputs['EventCreateWithoutAuthorInput'];
+  EventWhereUniqueInput: NexusGenInputs['EventWhereUniqueInput'];
+  ExamenCreateManyWithoutExamenesInput: NexusGenInputs['ExamenCreateManyWithoutExamenesInput'];
+  ExamenCreateWithoutEspacioInput: NexusGenInputs['ExamenCreateWithoutEspacioInput'];
+  ExamenWhereUniqueInput: NexusGenInputs['ExamenWhereUniqueInput'];
+  ItemCreateManyWithoutItemsInput: NexusGenInputs['ItemCreateManyWithoutItemsInput'];
+  ItemCreateWithoutOrderInput: NexusGenInputs['ItemCreateWithoutOrderInput'];
+  ItemWhereUniqueInput: NexusGenInputs['ItemWhereUniqueInput'];
+  LeccionCreateManyWithoutLeccionesDisponiblesInput: NexusGenInputs['LeccionCreateManyWithoutLeccionesDisponiblesInput'];
+  LeccionCreateManyWithoutLeccionesGestionadasInput: NexusGenInputs['LeccionCreateManyWithoutLeccionesGestionadasInput'];
+  LeccionCreateManyWithoutLeccionesInput: NexusGenInputs['LeccionCreateManyWithoutLeccionesInput'];
+  LeccionCreateOneWithoutLeccionInput: NexusGenInputs['LeccionCreateOneWithoutLeccionInput'];
+  LeccionCreateWithoutGestorInput: NexusGenInputs['LeccionCreateWithoutGestorInput'];
+  LeccionCreateWithoutPeriodoInput: NexusGenInputs['LeccionCreateWithoutPeriodoInput'];
+  LeccionCreateWithoutProfesoresDisponiblesInput: NexusGenInputs['LeccionCreateWithoutProfesoresDisponiblesInput'];
+  LeccionCreateWithoutSesionesInput: NexusGenInputs['LeccionCreateWithoutSesionesInput'];
+  LeccionWhereUniqueInput: NexusGenInputs['LeccionWhereUniqueInput'];
+  MatriculaCreateManyWithoutMatriculasInput: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'];
+  MatriculaCreateWithoutDesdobleInput: NexusGenInputs['MatriculaCreateWithoutDesdobleInput'];
+  MatriculaWhereUniqueInput: NexusGenInputs['MatriculaWhereUniqueInput'];
+  MediaCategoryCreateOneWithoutCategoryInput: NexusGenInputs['MediaCategoryCreateOneWithoutCategoryInput'];
+  MediaCategoryCreateWithoutFilesInput: NexusGenInputs['MediaCategoryCreateWithoutFilesInput'];
+  MediaCategoryWhereUniqueInput: NexusGenInputs['MediaCategoryWhereUniqueInput'];
+  MediaCreateManyWithoutMediasInput: NexusGenInputs['MediaCreateManyWithoutMediasInput'];
+  MediaCreateWithoutUploaderInput: NexusGenInputs['MediaCreateWithoutUploaderInput'];
+  MediaWhereUniqueInput: NexusGenInputs['MediaWhereUniqueInput'];
+  MencionCreateOneWithoutMencionInput: NexusGenInputs['MencionCreateOneWithoutMencionInput'];
+  MencionCreateWithoutDesdoblesInput: NexusGenInputs['MencionCreateWithoutDesdoblesInput'];
+  MencionWhereUniqueInput: NexusGenInputs['MencionWhereUniqueInput'];
+  NewsCreateManyWithoutNewsesInput: NexusGenInputs['NewsCreateManyWithoutNewsesInput'];
+  NewsCreateWithoutAuthorInput: NexusGenInputs['NewsCreateWithoutAuthorInput'];
+  NewsWhereUniqueInput: NexusGenInputs['NewsWhereUniqueInput'];
+  OfficialDocumentCreateManyWithoutOfficialDocumentsInput: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'];
+  OfficialDocumentCreateWithoutOwnerInput: NexusGenInputs['OfficialDocumentCreateWithoutOwnerInput'];
+  OfficialDocumentWhereUniqueInput: NexusGenInputs['OfficialDocumentWhereUniqueInput'];
+  OrderCreateManyWithoutOrdersInput: NexusGenInputs['OrderCreateManyWithoutOrdersInput'];
+  OrderCreateWithoutCustomerInput: NexusGenInputs['OrderCreateWithoutCustomerInput'];
+  OrderWhereUniqueInput: NexusGenInputs['OrderWhereUniqueInput'];
+  PeriodoOperativoCreateOneWithoutPeriodoInput: NexusGenInputs['PeriodoOperativoCreateOneWithoutPeriodoInput'];
+  PeriodoOperativoCreateWithoutConvocatoriasExamenesInput: NexusGenInputs['PeriodoOperativoCreateWithoutConvocatoriasExamenesInput'];
+  PeriodoOperativoWhereUniqueInput: NexusGenInputs['PeriodoOperativoWhereUniqueInput'];
+  ProductCategoryCreateOneWithoutCategoryInput: NexusGenInputs['ProductCategoryCreateOneWithoutCategoryInput'];
+  ProductCategoryCreateWithoutProductsInput: NexusGenInputs['ProductCategoryCreateWithoutProductsInput'];
+  ProductCategoryWhereUniqueInput: NexusGenInputs['ProductCategoryWhereUniqueInput'];
+  ProductCreateOneWithoutProductInput: NexusGenInputs['ProductCreateOneWithoutProductInput'];
+  ProductCreateWithoutOrdersInput: NexusGenInputs['ProductCreateWithoutOrdersInput'];
+  ProductCreateimageURLsInput: NexusGenInputs['ProductCreateimageURLsInput'];
+  ProductWhereUniqueInput: NexusGenInputs['ProductWhereUniqueInput'];
+  RatioCreateOneWithoutRatioInput: NexusGenInputs['RatioCreateOneWithoutRatioInput'];
+  RatioCreateWithoutAsignaturasInput: NexusGenInputs['RatioCreateWithoutAsignaturasInput'];
+  RatioWhereUniqueInput: NexusGenInputs['RatioWhereUniqueInput'];
+  RecurrenciaCreateManyWithoutLeccionesPlanificadasInput: NexusGenInputs['RecurrenciaCreateManyWithoutLeccionesPlanificadasInput'];
+  RecurrenciaCreateManyWithoutRecurrenciasInput: NexusGenInputs['RecurrenciaCreateManyWithoutRecurrenciasInput'];
+  RecurrenciaCreateWithoutLeccionInput: NexusGenInputs['RecurrenciaCreateWithoutLeccionInput'];
+  RecurrenciaCreateWithoutPlannedSpacesInput: NexusGenInputs['RecurrenciaCreateWithoutPlannedSpacesInput'];
+  RecurrenciaWhereUniqueInput: NexusGenInputs['RecurrenciaWhereUniqueInput'];
+  RoleCreateManyWithoutRolesInput: NexusGenInputs['RoleCreateManyWithoutRolesInput'];
+  RoleCreateWithoutUsersInput: NexusGenInputs['RoleCreateWithoutUsersInput'];
+  RoleWhereUniqueInput: NexusGenInputs['RoleWhereUniqueInput'];
+  SesionCreateManyWithoutSesionesInput: NexusGenInputs['SesionCreateManyWithoutSesionesInput'];
+  SesionCreateOneWithoutSesionInput: NexusGenInputs['SesionCreateOneWithoutSesionInput'];
+  SesionCreateWithoutAsistenciaInput: NexusGenInputs['SesionCreateWithoutAsistenciaInput'];
+  SesionCreateWithoutAtInput: NexusGenInputs['SesionCreateWithoutAtInput'];
+  SesionWhereUniqueInput: NexusGenInputs['SesionWhereUniqueInput'];
+  SocialLinkCreateManyWithoutSocialNetworkLinksInput: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'];
+  SocialLinkCreateWithoutOwnerInput: NexusGenInputs['SocialLinkCreateWithoutOwnerInput'];
+  SocialLinkWhereUniqueInput: NexusGenInputs['SocialLinkWhereUniqueInput'];
+  SocialNetworkCreateOneWithoutSocialNetworkInput: NexusGenInputs['SocialNetworkCreateOneWithoutSocialNetworkInput'];
+  SocialNetworkCreateWithoutUserLinksInput: NexusGenInputs['SocialNetworkCreateWithoutUserLinksInput'];
+  SocialNetworkWhereUniqueInput: NexusGenInputs['SocialNetworkWhereUniqueInput'];
+  SpaceCreateInput: NexusGenInputs['SpaceCreateInput'];
+  SpaceCreateManyWithoutPlannedSpacesInput: NexusGenInputs['SpaceCreateManyWithoutPlannedSpacesInput'];
+  SpaceCreateManyWithoutSpacesInput: NexusGenInputs['SpaceCreateManyWithoutSpacesInput'];
+  SpaceCreateOneWithoutAtInput: NexusGenInputs['SpaceCreateOneWithoutAtInput'];
+  SpaceCreateOneWithoutPlaceInput: NexusGenInputs['SpaceCreateOneWithoutPlaceInput'];
+  SpaceCreateWithoutEventsInput: NexusGenInputs['SpaceCreateWithoutEventsInput'];
+  SpaceCreateWithoutLeccionesPlanificadasInput: NexusGenInputs['SpaceCreateWithoutLeccionesPlanificadasInput'];
+  SpaceCreateWithoutSesionesInput: NexusGenInputs['SpaceCreateWithoutSesionesInput'];
+  SpaceCreateWithoutVenueInput: NexusGenInputs['SpaceCreateWithoutVenueInput'];
+  SpaceWhereUniqueInput: NexusGenInputs['SpaceWhereUniqueInput'];
+  TitulacionCreateOneWithoutTitulacionInput: NexusGenInputs['TitulacionCreateOneWithoutTitulacionInput'];
+  TitulacionCreateWithoutAsignaturasInput: NexusGenInputs['TitulacionCreateWithoutAsignaturasInput'];
+  TitulacionWhereUniqueInput: NexusGenInputs['TitulacionWhereUniqueInput'];
+  TransactionCreateManyWithoutTransactionsInput: NexusGenInputs['TransactionCreateManyWithoutTransactionsInput'];
+  TransactionCreateWithoutOrderInput: NexusGenInputs['TransactionCreateWithoutOrderInput'];
+  TransactionWhereUniqueInput: NexusGenInputs['TransactionWhereUniqueInput'];
+  UserCreateManyWithoutProfesoresDisponiblesInput: NexusGenInputs['UserCreateManyWithoutProfesoresDisponiblesInput'];
+  UserCreateOneWithoutAlumnoInput: NexusGenInputs['UserCreateOneWithoutAlumnoInput'];
+  UserCreateOneWithoutByInput: NexusGenInputs['UserCreateOneWithoutByInput'];
+  UserCreateOneWithoutEstudianteInput: NexusGenInputs['UserCreateOneWithoutEstudianteInput'];
+  UserCreateOneWithoutGestorInput: NexusGenInputs['UserCreateOneWithoutGestorInput'];
+  UserCreateOneWithoutUserInput: NexusGenInputs['UserCreateOneWithoutUserInput'];
+  UserCreateWithoutAsistenciasInput: NexusGenInputs['UserCreateWithoutAsistenciasInput'];
+  UserCreateWithoutDiscountRequestsInput: NexusGenInputs['UserCreateWithoutDiscountRequestsInput'];
+  UserCreateWithoutLeccionesDisponiblesInput: NexusGenInputs['UserCreateWithoutLeccionesDisponiblesInput'];
+  UserCreateWithoutLeccionesGestionadasInput: NexusGenInputs['UserCreateWithoutLeccionesGestionadasInput'];
+  UserCreateWithoutMatriculasInput: NexusGenInputs['UserCreateWithoutMatriculasInput'];
+  UserCreateWithoutSesionesInput: NexusGenInputs['UserCreateWithoutSesionesInput'];
+  UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
+  VenueCreateInput: NexusGenInputs['VenueCreateInput'];
+  VenueCreateOneWithoutVenueInput: NexusGenInputs['VenueCreateOneWithoutVenueInput'];
+  VenueCreateWithoutSpacesInput: NexusGenInputs['VenueCreateWithoutSpacesInput'];
+  VenueWhereUniqueInput: NexusGenInputs['VenueWhereUniqueInput'];
+  AppNodeStatus: NexusGenEnums['AppNodeStatus'];
+  DeviceType: NexusGenEnums['DeviceType'];
+  NewsFeedCategories: NexusGenEnums['NewsFeedCategories'];
+  OfficialDocumentType: NexusGenEnums['OfficialDocumentType'];
+  Semestre: NexusGenEnums['Semestre'];
+  TxType: NexusGenEnums['TxType'];
   UserGroup: NexusGenEnums['UserGroup'];
+  WeekDay: NexusGenEnums['WeekDay'];
 }
 
 export interface NexusGenFieldTypes {
@@ -53,6 +1199,8 @@ export interface NexusGenFieldTypes {
     approveGroupRequest: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     changePassword: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     createGroupRequest: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    createSpace: NexusGenRootTypes['Space']; // Space!
+    createVenue: NexusGenRootTypes['Venue']; // Venue!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     rejectGroupRequest: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     requestResetPassword: NexusGenRootTypes['AuthPayload']; // AuthPayload!
@@ -60,6 +1208,15 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     me: NexusGenRootTypes['User']; // User!
+    space: NexusGenRootTypes['Space'] | null; // Space
+    spaces: NexusGenRootTypes['Space'][]; // [Space!]!
+    venue: NexusGenRootTypes['Venue'] | null; // Venue
+    venues: NexusGenRootTypes['Venue'][]; // [Venue!]!
+  }
+  Space: { // field return type
+    id: any; // UUID!
+    name: string; // String!
+    venue: NexusGenRootTypes['Venue'][]; // [Venue!]!
   }
   User: { // field return type
     email: string; // String!
@@ -71,6 +1228,15 @@ export interface NexusGenFieldTypes {
     isAdmin: boolean; // Boolean!
     lastname: string; // String!
     password: string; // String!
+  }
+  Venue: { // field return type
+    address: string; // String!
+    id: any; // UUID!
+    latitude: number; // Float!
+    longitude: number; // Float!
+    name: string; // String!
+    placeID: string; // String!
+    spaces: NexusGenRootTypes['Space'][]; // [Space!]!
   }
 }
 
@@ -85,6 +1251,12 @@ export interface NexusGenArgTypes {
     }
     createGroupRequest: { // args
       groupRequest: NexusGenEnums['UserGroup']; // UserGroup!
+    }
+    createSpace: { // args
+      data: NexusGenInputs['SpaceCreateInput']; // SpaceCreateInput!
+    }
+    createVenue: { // args
+      data: NexusGenInputs['VenueCreateInput']; // VenueCreateInput!
     }
     login: { // args
       email: string; // String!
@@ -104,6 +1276,28 @@ export interface NexusGenArgTypes {
       password: string; // String!
     }
   }
+  Query: {
+    space: { // args
+      where: NexusGenInputs['SpaceWhereUniqueInput']; // SpaceWhereUniqueInput!
+    }
+    spaces: { // args
+      after: string; // String!
+      before: string; // String!
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    venue: { // args
+      where: NexusGenInputs['VenueWhereUniqueInput']; // VenueWhereUniqueInput!
+    }
+    venues: { // args
+      after: string; // String!
+      before: string; // String!
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -111,15 +1305,15 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AuthPayload" | "Mutation" | "Query" | "User";
+export type NexusGenObjectNames = "AuthPayload" | "Mutation" | "Query" | "Space" | "User" | "Venue";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "AddressCreateManyWithoutAddressesInput" | "AddressCreateWithoutOwnerInput" | "AddressWhereUniqueInput" | "AsignaturaCreateOneWithoutAsignaturaInput" | "AsignaturaCreateWithoutDesdoblesInput" | "AsignaturaWhereUniqueInput" | "AsistenciaCreateManyWithoutAsistenciaInput" | "AsistenciaCreateManyWithoutAsistenciasInput" | "AsistenciaCreateWithoutEstudianteInput" | "AsistenciaCreateWithoutSesionInput" | "AsistenciaWhereUniqueInput" | "ContentDocumentCreateManyWithoutContentDocumentsInput" | "ContentDocumentCreateWithoutCreatorInput" | "ContentDocumentWhereUniqueInput" | "ConvocatoriaExamenCreateOneWithoutConvocatoriaInput" | "ConvocatoriaExamenCreateWithoutExamenesInput" | "ConvocatoriaExamenWhereUniqueInput" | "CursoCreateOneWithoutCursoInput" | "CursoCreateWithoutAsignaturasInput" | "CursoWhereUniqueInput" | "DepartmentCreateOneWithoutDepartmentInput" | "DepartmentCreateWithoutMembersInput" | "DepartmentWhereUniqueInput" | "DesdobleCreateManyWithoutDesdoblesInput" | "DesdobleCreateWithoutLeccionesInput" | "DesdobleWhereUniqueInput" | "DeviceCreateManyWithoutDevicesInput" | "DeviceCreateWithoutOwnerInput" | "DeviceWhereUniqueInput" | "DiscountCreateManyWithoutDiscountsInput" | "DiscountCreateOneWithoutDiscountInput" | "DiscountCreateWithoutItemsInput" | "DiscountCreateWithoutProductInput" | "DiscountRequestCreateManyWithoutDiscountRequestsInput" | "DiscountRequestCreateWithoutDiscountInput" | "DiscountRequestCreatedocumentationInput" | "DiscountRequestWhereUniqueInput" | "DiscountWhereUniqueInput" | "EstudioCreateOneWithoutEstudioInput" | "EstudioCreateWithoutTitulacionesInput" | "EstudioWhereUniqueInput" | "EventCreateManyWithoutEventsInput" | "EventCreateWithoutAuthorInput" | "EventWhereUniqueInput" | "ExamenCreateManyWithoutExamenesInput" | "ExamenCreateWithoutEspacioInput" | "ExamenWhereUniqueInput" | "ItemCreateManyWithoutItemsInput" | "ItemCreateWithoutOrderInput" | "ItemWhereUniqueInput" | "LeccionCreateManyWithoutLeccionesDisponiblesInput" | "LeccionCreateManyWithoutLeccionesGestionadasInput" | "LeccionCreateManyWithoutLeccionesInput" | "LeccionCreateOneWithoutLeccionInput" | "LeccionCreateWithoutGestorInput" | "LeccionCreateWithoutPeriodoInput" | "LeccionCreateWithoutProfesoresDisponiblesInput" | "LeccionCreateWithoutSesionesInput" | "LeccionWhereUniqueInput" | "MatriculaCreateManyWithoutMatriculasInput" | "MatriculaCreateWithoutDesdobleInput" | "MatriculaWhereUniqueInput" | "MediaCategoryCreateOneWithoutCategoryInput" | "MediaCategoryCreateWithoutFilesInput" | "MediaCategoryWhereUniqueInput" | "MediaCreateManyWithoutMediasInput" | "MediaCreateWithoutUploaderInput" | "MediaWhereUniqueInput" | "MencionCreateOneWithoutMencionInput" | "MencionCreateWithoutDesdoblesInput" | "MencionWhereUniqueInput" | "NewsCreateManyWithoutNewsesInput" | "NewsCreateWithoutAuthorInput" | "NewsWhereUniqueInput" | "OfficialDocumentCreateManyWithoutOfficialDocumentsInput" | "OfficialDocumentCreateWithoutOwnerInput" | "OfficialDocumentWhereUniqueInput" | "OrderCreateManyWithoutOrdersInput" | "OrderCreateWithoutCustomerInput" | "OrderWhereUniqueInput" | "PeriodoOperativoCreateOneWithoutPeriodoInput" | "PeriodoOperativoCreateWithoutConvocatoriasExamenesInput" | "PeriodoOperativoWhereUniqueInput" | "ProductCategoryCreateOneWithoutCategoryInput" | "ProductCategoryCreateWithoutProductsInput" | "ProductCategoryWhereUniqueInput" | "ProductCreateOneWithoutProductInput" | "ProductCreateWithoutOrdersInput" | "ProductCreateimageURLsInput" | "ProductWhereUniqueInput" | "RatioCreateOneWithoutRatioInput" | "RatioCreateWithoutAsignaturasInput" | "RatioWhereUniqueInput" | "RecurrenciaCreateManyWithoutLeccionesPlanificadasInput" | "RecurrenciaCreateManyWithoutRecurrenciasInput" | "RecurrenciaCreateWithoutLeccionInput" | "RecurrenciaCreateWithoutPlannedSpacesInput" | "RecurrenciaWhereUniqueInput" | "RoleCreateManyWithoutRolesInput" | "RoleCreateWithoutUsersInput" | "RoleWhereUniqueInput" | "SesionCreateManyWithoutSesionesInput" | "SesionCreateOneWithoutSesionInput" | "SesionCreateWithoutAsistenciaInput" | "SesionCreateWithoutAtInput" | "SesionWhereUniqueInput" | "SocialLinkCreateManyWithoutSocialNetworkLinksInput" | "SocialLinkCreateWithoutOwnerInput" | "SocialLinkWhereUniqueInput" | "SocialNetworkCreateOneWithoutSocialNetworkInput" | "SocialNetworkCreateWithoutUserLinksInput" | "SocialNetworkWhereUniqueInput" | "SpaceCreateInput" | "SpaceCreateManyWithoutPlannedSpacesInput" | "SpaceCreateManyWithoutSpacesInput" | "SpaceCreateOneWithoutAtInput" | "SpaceCreateOneWithoutPlaceInput" | "SpaceCreateWithoutEventsInput" | "SpaceCreateWithoutLeccionesPlanificadasInput" | "SpaceCreateWithoutSesionesInput" | "SpaceCreateWithoutVenueInput" | "SpaceWhereUniqueInput" | "TitulacionCreateOneWithoutTitulacionInput" | "TitulacionCreateWithoutAsignaturasInput" | "TitulacionWhereUniqueInput" | "TransactionCreateManyWithoutTransactionsInput" | "TransactionCreateWithoutOrderInput" | "TransactionWhereUniqueInput" | "UserCreateManyWithoutProfesoresDisponiblesInput" | "UserCreateOneWithoutAlumnoInput" | "UserCreateOneWithoutByInput" | "UserCreateOneWithoutEstudianteInput" | "UserCreateOneWithoutGestorInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutAsistenciasInput" | "UserCreateWithoutDiscountRequestsInput" | "UserCreateWithoutLeccionesDisponiblesInput" | "UserCreateWithoutLeccionesGestionadasInput" | "UserCreateWithoutMatriculasInput" | "UserCreateWithoutSesionesInput" | "UserWhereUniqueInput" | "VenueCreateInput" | "VenueCreateOneWithoutVenueInput" | "VenueCreateWithoutSpacesInput" | "VenueWhereUniqueInput";
 
-export type NexusGenEnumNames = "UserGroup";
+export type NexusGenEnumNames = "AppNodeStatus" | "DeviceType" | "NewsFeedCategories" | "OfficialDocumentType" | "Semestre" | "TxType" | "UserGroup" | "WeekDay";
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String" | "UUID";
+export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String" | "UUID";
 
 export type NexusGenUnionNames = never;
 
