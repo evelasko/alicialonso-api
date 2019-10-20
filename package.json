@@ -4,7 +4,7 @@
 	"description": "AliciAlonso GraphQL API",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/evelasko/aaxapi.git"
+		"url": "https://github.com/evelasko/alicialonso-api.git"
 	},
 	"author": "Enrique Velasco",
 	"license": "MIT",

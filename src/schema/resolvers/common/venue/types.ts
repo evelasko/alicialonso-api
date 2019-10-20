@@ -6,7 +6,7 @@ export const Space = objectType({
     definition(t) {
         t.model.id()
         t.model.name()
-        t.list.field('venue', { type: Venue })
+        t.model.venue()
     }
 })
 
@@ -20,6 +20,6 @@ export const Venue = objectType({
         t.model.latitude()
         t.model.longitude()
         t.model.placeID()
-        t.list.field('spaces', { type: Space })
+        t.model.spaces()
     }
 })
