@@ -45,6 +45,7 @@
 		]
 	},
 	"dependencies": {
+		"apollo-server-express": "^2.9.6",
 		"bcryptjs": "^2.4.3",
 		"bull": "^3.11.0",
 		"bull-arena": "^2.6.4",
