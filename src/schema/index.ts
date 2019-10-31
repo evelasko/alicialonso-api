@@ -32,9 +32,9 @@ const schema = makeSchema({
 
 export default schema
 
-// if (process.env.NODE_ENV === 'nexus') {
-//     setInterval(() => {
-//         console.log('schema: ', schema)
-//         // process.exit()
-//     }, 1500)
-// }
+if (process.env.NODE_ENV === 'nexus') {
+    setInterval(() => {
+        console.log('schema: ', schema)
+        // process.exit()
+    }, 1500)
+}
