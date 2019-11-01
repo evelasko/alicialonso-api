@@ -5,9 +5,10 @@ import * as types from './resolvers'
 
 const schema = makeSchema({
     types,
+    // true,
     outputs: {
         schema: path.join(__dirname, './schema.graphql'),
-        typegen: path.join(__dirname, '../types/generated/nexus.ts')
+        typegen: path.join(__dirname, '../types/generated/nexus-typegen.ts')
     },
     plugins: [nexusPrismaPlugin()],
     typegenAutoConfig: {

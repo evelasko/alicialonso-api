@@ -16,8 +16,8 @@
 		"test": "env-cmd -f ./env/dev.env jest --watchAll",
 		"dev": "env-cmd -f ./env/dev.env ts-node-dev -r tsconfig-paths/register --no-notify --respawn --transpileOnly ./src",
 		"build": "tsc",
-		"generate:photon": "yarn -s prisma2 generate",
-		"generate:nexus": "env-cmd -f ./env/nexus.env ts-node -r tsconfig-paths/register ./src/schema",
+		"generate:photon": "env-cmd -f ./env/dev.env yarn -s prisma2 generate",
+		"generate:nexus": "env-cmd -f ./env/nexus.env ts-node --transpile-only -r tsconfig-paths/register ./src/schema",
 		"generate:codegen": "graphql-codegen --config codegen.yml",
 		"postinstall": "yarn -s generate:photon && yarn -s generate:nexus",
 		"heroku-postbuild": "npm-run-all generate:*"

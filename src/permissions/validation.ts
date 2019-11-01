@@ -13,7 +13,7 @@ export const signUpValidationRule: InputRule<
             lastname: string
         }
     >
-> = inputRule(yup =>
+> = inputRule('signUpIputs')(yup =>
     yup.object().shape({
         email: yup
             .string()
@@ -42,13 +42,13 @@ export const groupRequestValidationRule: InputRule<
             groupRequest: string
         }
     >
-> = inputRule(yup =>
+> = inputRule('groupRequestInputs')(yup =>
     yup.object().shape({
         groupRequest: yup.string().oneOf(['STUDENT', 'STAFF'], errorMessages.s_groupRequestNotNeeded)
     })
 )
 
-export const validNewPassword: InputRule<Shape<object, { newPassword: string }>> = inputRule(yup =>
+export const validNewPassword: InputRule<Shape<object, { newPassword: string }>> = inputRule('newPasswordInput')(yup =>
     yup.object().shape({
         newPassword: yup
             .string()

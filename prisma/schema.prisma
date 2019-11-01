@@ -1,5 +1,6 @@
 generator photon {
   provider = "photonjs"
+
 }
 
 datasource db {
