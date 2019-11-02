@@ -1,6 +1,7 @@
-import { ApolloServer } from 'apollo-server-express'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import express, { Request, Response, NextFunction } from 'express'
 import session from 'express-session'
+import bodyParser from 'body-parser'
 // import { GraphQLServer } from 'graphql-yoga'
 import proxy from 'http-proxy-middleware'
 import hbs from 'express-handlebars'
@@ -15,44 +16,33 @@ import schema from '@schema'
 import authMiddleware from './middleware/authentication.mw'
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import { arena } from './middleware/arena.mw'
-import cors from './cors'
+// import cors from './cors'
 
 const photon = new Photon()
-
-const server = new ApolloServer({
-    schema,
-    context: async ({ req }): Promise<Context> => ({
-        photon,
-        request: req,
-        redis: redisInstance,
-        aaxCache: {},
-        user: await authMiddleware(req),
-        session: req && req.session,
-        url: req ? `${req.protocol}://${req.get('host')}` : ''
-    }),
-    engine: {
-        apiKey: process.env.ENGINE_API_KEY as string
-    }
-})
-
-// const server = new GraphQLServer({
-//     // @ts-ignore
-//     schema,
-//     middlewares: [permissions],
-//     context: async ({ request, response }): Promise<Context> => ({
-//         photon,
-//         request,
-//         response,
-//         redis: redisInstance,
-//         aaxCache: {},
-//         user: await authMiddleware(request),
-//         session: request && request.session,
-//         url: request ? `${request.protocol}://${request.get('host')}` : ''
-//     })
-// })
-
 const app = express()
 
+// graphql server
+app.use(
+    '/gql',
+    bodyParser.json(),
+    graphqlExpress({
+        schema,
+        context: async ({ req }: { req: Request }): Promise<Context> => ({
+            photon,
+            request: req,
+            redis: redisInstance,
+            aaxCache: {},
+            user: await authMiddleware(req),
+            session: req && req.session,
+            url: req ? `${req.protocol}://${req.get('host')}` : ''
+        })
+    })
+)
+
+// playground
+app.use('/ide', graphiqlExpress({ endpointURL: '/gql' }))
+
+// session setup
 app.use(
     session({
         store: new RedisStore({
@@ -112,6 +102,6 @@ app.use((err: Error | AAxError, req: Request, res: Response, next: NextFunction)
     next(err)
 })
 
-server.applyMiddleware({ app, path: '/', cors })
+// server.applyMiddleware({ app, path: '/', cors })
 
 export default app
