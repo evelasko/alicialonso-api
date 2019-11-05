@@ -1,18 +1,16 @@
 import { stringArg, arg, mutationField } from 'nexus'
-import { notifyNewGroupRequest, processGroupRequest, AAxError } from '@helpers'
 import { errorMessages } from '@constants'
+import { processGroupRequest, createGroupRequest } from '@core'
 
 export const CreateGroupRequest = mutationField('createGroupRequest', {
     type: 'AuthPayload',
     args: {
         groupRequest: arg({ type: 'UserGroup', nullable: false })
     },
-    resolve: async (parent, { groupRequest }, { user, photon }) => {
+    resolve: async (parent, { groupRequest }, { user }) => {
         if (!user) throw new Error(errorMessages.s_loginRequired)
-        await photon.users.update({ where: { email: user.email }, data: { groupRequest } })
-        await notifyNewGroupRequest(user.email)
-        photon.disconnect()
-        return { token: 'done' }
+        const response = await createGroupRequest(user.email, groupRequest)
+        return { token: response }
     }
 })
 
@@ -24,10 +22,7 @@ export const ApproveGroupRequest = mutationField('approveGroupRequest', {
     resolve: async (parent, { email }, { user }) => {
         if (!user) throw new Error(errorMessages.s_loginRequired)
         const response = await processGroupRequest('approve', email, user.email)
-        if (response instanceof AAxError) {
-            throw response
-        }
-        return { token: 'done' }
+        return { token: response }
     }
 })
 
@@ -39,9 +34,6 @@ export const RejectGroupRequest = mutationField('rejectGroupRequest', {
     resolve: async (parent, { email }, { user }) => {
         if (!user) throw new Error(errorMessages.s_loginRequired)
         const response = await processGroupRequest('reject', email, user.email)
-        if (response instanceof AAxError) {
-            throw response
-        }
-        return { token: 'done' }
+        return { token: response }
     }
 })

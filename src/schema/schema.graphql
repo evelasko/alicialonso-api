@@ -2,11 +2,513 @@
 ### Do not make changes to this file directly
 
 
+input AddressCreateManyWithoutAddressesInput {
+  connect: [AddressWhereUniqueInput!]
+  create: [AddressCreateWithoutOwnerInput!]
+}
+
+input AddressCreateWithoutOwnerInput {
+  address1: String!
+  address2: String
+  city: String
+  code: String!
+  country: String!
+  createdAt: DateTime
+  id: UUID
+  primary: Boolean
+  region: String!
+  updatedAt: DateTime
+}
+
+input AddressWhereUniqueInput {
+  id: UUID
+}
+
+enum AppNodeStatus {
+  DEFERED
+  DRAFT
+  PUBLISHED
+}
+
+input AsignaturaCreateOneWithoutAsignaturaInput {
+  connect: AsignaturaWhereUniqueInput
+  create: AsignaturaCreateWithoutDesdoblesInput
+}
+
+input AsignaturaCreateWithoutDesdoblesInput {
+  code: String!
+  createdAt: DateTime
+  creditosECTS: Int
+  curso: CursoCreateOneWithoutCursoInput!
+  description: String
+  horasBalance: Int
+  horasSemanasPlanificadas: Int
+  horasSemanasPresenciales: Int
+  horasTotalesPlanificadas: Int
+  horasTotalesPresenciales: Int
+  id: UUID
+  name: String!
+  ratio: RatioCreateOneWithoutRatioInput!
+  semsestre: Semestre
+  shortName: String!
+  spacerequirements: String
+  titulacion: TitulacionCreateOneWithoutTitulacionInput!
+  updatedAt: DateTime
+}
+
+input AsignaturaWhereUniqueInput {
+  code: String
+  id: UUID
+  name: String
+  shortName: String
+}
+
+input AsistenciaCreateManyWithoutAsistenciaInput {
+  connect: [AsistenciaWhereUniqueInput!]
+  create: [AsistenciaCreateWithoutSesionInput!]
+}
+
+input AsistenciaCreateManyWithoutAsistenciasInput {
+  connect: [AsistenciaWhereUniqueInput!]
+  create: [AsistenciaCreateWithoutEstudianteInput!]
+}
+
+input AsistenciaCreateWithoutEstudianteInput {
+  atendida: Boolean
+  dispensada: Boolean
+  id: UUID
+  justificada: Boolean
+  sesion: SesionCreateOneWithoutSesionInput!
+}
+
+input AsistenciaCreateWithoutSesionInput {
+  atendida: Boolean
+  dispensada: Boolean
+  estudiante: UserCreateOneWithoutEstudianteInput!
+  id: UUID
+  justificada: Boolean
+}
+
+input AsistenciaWhereUniqueInput {
+  id: UUID
+}
+
 """
 Authorization payload token with the key required for the mutation action requested
 """
 type AuthPayload {
   token: String!
+}
+
+input ContentDocumentCreateManyWithoutContentDocumentsInput {
+  connect: [ContentDocumentWhereUniqueInput!]
+  create: [ContentDocumentCreateWithoutCreatorInput!]
+}
+
+input ContentDocumentCreateWithoutCreatorInput {
+  body: String!
+  createdAt: DateTime
+  id: UUID
+  metadata: String!
+  subtitle: String!
+  title: String!
+  updatedAt: DateTime
+}
+
+input ContentDocumentWhereUniqueInput {
+  id: UUID
+}
+
+input ConvocatoriaExamenCreateOneWithoutConvocatoriaInput {
+  connect: ConvocatoriaExamenWhereUniqueInput
+  create: ConvocatoriaExamenCreateWithoutExamenesInput
+}
+
+input ConvocatoriaExamenCreateWithoutExamenesInput {
+  createdAt: DateTime
+  dateEnd: DateTime!
+  dateStart: DateTime!
+  id: UUID
+  name: String!
+  periodo: PeriodoOperativoCreateOneWithoutPeriodoInput!
+  updatedAt: DateTime
+}
+
+input ConvocatoriaExamenWhereUniqueInput {
+  id: UUID
+}
+
+input CursoCreateOneWithoutCursoInput {
+  connect: CursoWhereUniqueInput
+  create: CursoCreateWithoutAsignaturasInput
+}
+
+input CursoCreateWithoutAsignaturasInput {
+  createdAt: DateTime
+  id: UUID
+  identifier: String!
+  updatedAt: DateTime
+}
+
+input CursoWhereUniqueInput {
+  id: UUID
+  identifier: String
+}
+
+scalar DateTime
+
+input DepartmentCreateOneWithoutDepartmentInput {
+  connect: DepartmentWhereUniqueInput
+  create: DepartmentCreateWithoutMembersInput
+}
+
+input DepartmentCreateWithoutMembersInput {
+  id: UUID
+  name: String!
+}
+
+input DepartmentWhereUniqueInput {
+  id: UUID
+}
+
+input DesdobleCreateManyWithoutDesdoblesInput {
+  connect: [DesdobleWhereUniqueInput!]
+  create: [DesdobleCreateWithoutLeccionesInput!]
+}
+
+input DesdobleCreateWithoutLeccionesInput {
+  asignatura: AsignaturaCreateOneWithoutAsignaturaInput!
+  createdAt: DateTime
+  id: UUID
+  matriculas: MatriculaCreateManyWithoutMatriculasInput
+  mencion: MencionCreateOneWithoutMencionInput!
+  updatedAt: DateTime
+}
+
+input DesdobleWhereUniqueInput {
+  id: UUID
+}
+
+input DeviceCreateManyWithoutDevicesInput {
+  connect: [DeviceWhereUniqueInput!]
+  create: [DeviceCreateWithoutOwnerInput!]
+}
+
+input DeviceCreateWithoutOwnerInput {
+  countryCode: String
+  createdAt: DateTime
+  id: UUID
+  notificationsDevice: String!
+  notificationsPermission: Boolean
+  number: String
+  type: DeviceType
+  updatedAt: DateTime
+  verified: Boolean
+}
+
+enum DeviceType {
+  OTHER
+  PHONE
+  TABLET
+}
+
+input DeviceWhereUniqueInput {
+  id: UUID
+  notificationsDevice: String
+}
+
+input DiscountCreateManyWithoutDiscountsInput {
+  connect: [DiscountWhereUniqueInput!]
+  create: [DiscountCreateWithoutProductInput!]
+}
+
+input DiscountCreateOneWithoutDiscountInput {
+  connect: DiscountWhereUniqueInput
+  create: DiscountCreateWithoutItemsInput
+}
+
+input DiscountCreateWithoutItemsInput {
+  code: String!
+  createdAt: DateTime
+  description: String!
+  discountRequests: DiscountRequestCreateManyWithoutDiscountRequestsInput
+  id: UUID
+  name: String!
+  product: ProductCreateOneWithoutProductInput!
+  requirements: String!
+  unitPrice: Float!
+  updatedAt: DateTime
+}
+
+input DiscountCreateWithoutProductInput {
+  code: String!
+  createdAt: DateTime
+  description: String!
+  discountRequests: DiscountRequestCreateManyWithoutDiscountRequestsInput
+  id: UUID
+  items: ItemCreateManyWithoutItemsInput
+  name: String!
+  requirements: String!
+  unitPrice: Float!
+  updatedAt: DateTime
+}
+
+input DiscountRequestCreatedocumentationInput {
+  set: [String!]
+}
+
+input DiscountRequestCreateManyWithoutDiscountRequestsInput {
+  connect: [DiscountRequestWhereUniqueInput!]
+  create: [DiscountRequestCreateWithoutDiscountInput!]
+}
+
+input DiscountRequestCreateWithoutDiscountInput {
+  applied: Boolean
+  approved: Boolean
+  createdAt: DateTime
+  documentation: DiscountRequestCreatedocumentationInput
+  id: UUID
+  updatedAt: DateTime
+  user: UserCreateOneWithoutUserInput!
+}
+
+input DiscountRequestWhereUniqueInput {
+  id: UUID
+}
+
+input DiscountWhereUniqueInput {
+  id: UUID
+}
+
+input EstudioCreateOneWithoutEstudioInput {
+  connect: EstudioWhereUniqueInput
+  create: EstudioCreateWithoutTitulacionesInput
+}
+
+input EstudioCreateWithoutTitulacionesInput {
+  createdAt: DateTime
+  description: String
+  id: UUID
+  name: String!
+  shortName: String!
+  updatedAt: DateTime
+}
+
+input EstudioWhereUniqueInput {
+  id: UUID
+  name: String
+  shortName: String
+}
+
+input EventCreateManyWithoutEventsInput {
+  connect: [EventWhereUniqueInput!]
+  create: [EventCreateWithoutAuthorInput!]
+}
+
+input EventCreateWithoutAuthorInput {
+  access: String
+  accessPoint: String
+  body: String!
+  createdAt: DateTime
+  date: DateTime!
+  id: UUID
+  imageURL: String
+  organizer: String
+  place: SpaceCreateOneWithoutPlaceInput!
+  status: AppNodeStatus
+  subtitle: String
+  target: UserGroup!
+  title: String!
+  updatedAt: DateTime
+}
+
+input EventWhereUniqueInput {
+  id: UUID
+}
+
+input ExamenCreateManyWithoutExamenesInput {
+  connect: [ExamenWhereUniqueInput!]
+  create: [ExamenCreateWithoutEspacioInput!]
+}
+
+input ExamenCreateWithoutEspacioInput {
+  convocatoria: ConvocatoriaExamenCreateOneWithoutConvocatoriaInput!
+  createdAt: DateTime
+  dateTime: DateTime!
+  endTime: String!
+  id: UUID
+  leccion: LeccionCreateOneWithoutLeccionInput!
+  updatedAt: DateTime
+}
+
+input ExamenWhereUniqueInput {
+  id: UUID
+}
+
+input ItemCreateManyWithoutItemsInput {
+  connect: [ItemWhereUniqueInput!]
+  create: [ItemCreateWithoutOrderInput!]
+}
+
+input ItemCreateWithoutOrderInput {
+  createdAt: DateTime
+  discount: DiscountCreateOneWithoutDiscountInput
+  id: UUID
+  orderPrice: Float!
+  product: ProductCreateOneWithoutProductInput!
+  quantity: Int!
+  updatedAt: DateTime
+}
+
+input ItemWhereUniqueInput {
+  id: UUID
+}
+
+input LeccionCreateManyWithoutLeccionesDisponiblesInput {
+  connect: [LeccionWhereUniqueInput!]
+  create: [LeccionCreateWithoutProfesoresDisponiblesInput!]
+}
+
+input LeccionCreateManyWithoutLeccionesGestionadasInput {
+  connect: [LeccionWhereUniqueInput!]
+  create: [LeccionCreateWithoutGestorInput!]
+}
+
+input LeccionCreateManyWithoutLeccionesInput {
+  connect: [LeccionWhereUniqueInput!]
+  create: [LeccionCreateWithoutPeriodoInput!]
+}
+
+input LeccionCreateOneWithoutLeccionInput {
+  connect: LeccionWhereUniqueInput
+  create: LeccionCreateWithoutSesionesInput
+}
+
+input LeccionCreateWithoutGestorInput {
+  createdAt: DateTime
+  desdobles: DesdobleCreateManyWithoutDesdoblesInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  id: UUID
+  name: String!
+  periodo: PeriodoOperativoCreateOneWithoutPeriodoInput!
+  profesoresDisponibles: UserCreateManyWithoutProfesoresDisponiblesInput
+  recurrencias: RecurrenciaCreateManyWithoutRecurrenciasInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  updatedAt: DateTime
+}
+
+input LeccionCreateWithoutPeriodoInput {
+  createdAt: DateTime
+  desdobles: DesdobleCreateManyWithoutDesdoblesInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  gestor: UserCreateOneWithoutGestorInput!
+  id: UUID
+  name: String!
+  profesoresDisponibles: UserCreateManyWithoutProfesoresDisponiblesInput
+  recurrencias: RecurrenciaCreateManyWithoutRecurrenciasInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  updatedAt: DateTime
+}
+
+input LeccionCreateWithoutProfesoresDisponiblesInput {
+  createdAt: DateTime
+  desdobles: DesdobleCreateManyWithoutDesdoblesInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  gestor: UserCreateOneWithoutGestorInput!
+  id: UUID
+  name: String!
+  periodo: PeriodoOperativoCreateOneWithoutPeriodoInput!
+  recurrencias: RecurrenciaCreateManyWithoutRecurrenciasInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  updatedAt: DateTime
+}
+
+input LeccionCreateWithoutSesionesInput {
+  createdAt: DateTime
+  desdobles: DesdobleCreateManyWithoutDesdoblesInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  gestor: UserCreateOneWithoutGestorInput!
+  id: UUID
+  name: String!
+  periodo: PeriodoOperativoCreateOneWithoutPeriodoInput!
+  profesoresDisponibles: UserCreateManyWithoutProfesoresDisponiblesInput
+  recurrencias: RecurrenciaCreateManyWithoutRecurrenciasInput
+  updatedAt: DateTime
+}
+
+input LeccionWhereUniqueInput {
+  id: UUID
+}
+
+input MatriculaCreateManyWithoutMatriculasInput {
+  connect: [MatriculaWhereUniqueInput!]
+  create: [MatriculaCreateWithoutDesdobleInput!]
+}
+
+input MatriculaCreateWithoutDesdobleInput {
+  alumno: UserCreateOneWithoutAlumnoInput!
+  createdAt: DateTime
+  id: UUID
+  updatedAt: DateTime
+}
+
+input MatriculaWhereUniqueInput {
+  id: UUID
+}
+
+input MediaCategoryCreateOneWithoutCategoryInput {
+  connect: MediaCategoryWhereUniqueInput
+  create: MediaCategoryCreateWithoutFilesInput
+}
+
+input MediaCategoryCreateWithoutFilesInput {
+  createdAt: DateTime
+  id: UUID
+  name: String!
+  updatedAt: DateTime
+}
+
+input MediaCategoryWhereUniqueInput {
+  id: UUID
+  name: String
+}
+
+input MediaCreateManyWithoutMediasInput {
+  connect: [MediaWhereUniqueInput!]
+  create: [MediaCreateWithoutUploaderInput!]
+}
+
+input MediaCreateWithoutUploaderInput {
+  category: MediaCategoryCreateOneWithoutCategoryInput!
+  createdAt: DateTime
+  id: UUID
+  metadata: String!
+  name: String!
+  updatedAt: DateTime
+  url: String!
+}
+
+input MediaWhereUniqueInput {
+  id: UUID
+}
+
+input MencionCreateOneWithoutMencionInput {
+  connect: MencionWhereUniqueInput
+  create: MencionCreateWithoutDesdoblesInput
+}
+
+input MencionCreateWithoutDesdoblesInput {
+  createdAt: DateTime
+  id: UUID
+  name: String!
+  shortName: String!
+  updatedAt: DateTime
+}
+
+input MencionWhereUniqueInput {
+  id: UUID
+  name: String
+  shortName: String
 }
 
 type Mutation {
@@ -17,6 +519,8 @@ type Mutation {
   """
   changePassword(key: String!, newPassword: String!): AuthPayload!
   createGroupRequest(groupRequest: UserGroup!): AuthPayload!
+  createSpace(data: SpaceCreateInput!): Space!
+  createVenue(data: VenueCreateInput!): Venue!
 
   """
   Login a registered user.
@@ -39,13 +543,729 @@ type Mutation {
   signUpUser(email: String!, firstname: String!, groupRequest: UserGroup, lastname: String!, password: String!): AuthPayload!
 }
 
+input NewsCreateManyWithoutNewsesInput {
+  connect: [NewsWhereUniqueInput!]
+  create: [NewsCreateWithoutAuthorInput!]
+}
+
+input NewsCreateWithoutAuthorInput {
+  body: String!
+  category: NewsFeedCategories
+  createdAt: DateTime
+  expiration: DateTime!
+  featured: Boolean
+  id: UUID
+  imageURL: String
+  status: AppNodeStatus
+  subtitle: String
+  target: UserGroup!
+  title: String!
+  updatedAt: DateTime
+}
+
+enum NewsFeedCategories {
+  ALERT
+  CALL
+  NEWS
+}
+
+input NewsWhereUniqueInput {
+  id: UUID
+}
+
+input OfficialDocumentCreateManyWithoutOfficialDocumentsInput {
+  connect: [OfficialDocumentWhereUniqueInput!]
+  create: [OfficialDocumentCreateWithoutOwnerInput!]
+}
+
+input OfficialDocumentCreateWithoutOwnerInput {
+  createdAt: DateTime
+  expiration: DateTime!
+  id: UUID
+  number: String!
+  other: String
+  type: OfficialDocumentType
+  updatedAt: DateTime
+}
+
+enum OfficialDocumentType {
+  DRIVINGLICENSE
+  NATIONALID
+  OTHER
+  PASSPORT
+  SOCIALSECURITY
+}
+
+input OfficialDocumentWhereUniqueInput {
+  id: UUID
+  number: String
+}
+
+input OrderCreateManyWithoutOrdersInput {
+  connect: [OrderWhereUniqueInput!]
+  create: [OrderCreateWithoutCustomerInput!]
+}
+
+input OrderCreateWithoutCustomerInput {
+  createdAt: DateTime
+  id: UUID
+  items: ItemCreateManyWithoutItemsInput
+  metadata: String!
+  paymentDue: DateTime!
+  paymentSettled: Boolean
+  reference: String!
+  total: Float!
+  transactions: TransactionCreateManyWithoutTransactionsInput
+  updatedAt: DateTime
+  vatRate: Int
+}
+
+input OrderWhereUniqueInput {
+  id: UUID
+  reference: String
+}
+
+input PeriodoOperativoCreateOneWithoutPeriodoInput {
+  connect: PeriodoOperativoWhereUniqueInput
+  create: PeriodoOperativoCreateWithoutConvocatoriasExamenesInput
+}
+
+input PeriodoOperativoCreateWithoutConvocatoriasExamenesInput {
+  createdAt: DateTime
+  id: UUID
+  lecciones: LeccionCreateManyWithoutLeccionesInput
+  updatedAt: DateTime
+  yearEnd: Int!
+  yearStart: Int!
+}
+
+input PeriodoOperativoWhereUniqueInput {
+  id: UUID
+}
+
+input ProductCategoryCreateOneWithoutCategoryInput {
+  connect: ProductCategoryWhereUniqueInput
+  create: ProductCategoryCreateWithoutProductsInput
+}
+
+input ProductCategoryCreateWithoutProductsInput {
+  createdAt: DateTime
+  id: UUID
+  name: String!
+  updatedAt: DateTime
+}
+
+input ProductCategoryWhereUniqueInput {
+  id: UUID
+  name: String
+}
+
+input ProductCreateimageURLsInput {
+  set: [String!]
+}
+
+input ProductCreateOneWithoutProductInput {
+  connect: ProductWhereUniqueInput
+  create: ProductCreateWithoutOrdersInput
+}
+
+input ProductCreateWithoutOrdersInput {
+  category: ProductCategoryCreateOneWithoutCategoryInput!
+  content: String!
+  createdAt: DateTime
+  description: String!
+  discounts: DiscountCreateManyWithoutDiscountsInput
+  id: UUID
+  imageURLs: ProductCreateimageURLsInput
+  name: String!
+  unitPrice: Float!
+  updatedAt: DateTime
+}
+
+input ProductWhereUniqueInput {
+  id: UUID
+}
+
 type Query {
-  ok: Boolean!
+  """Query data of the currently authenticated user"""
+  me: User!
+  space(where: SpaceWhereUniqueInput!): Space
+  spaces(after: UUID, before: UUID, first: Int!, last: Int!, skip: Int!): [Space!]!
+  venue(where: VenueWhereUniqueInput!): Venue
+  venues(after: UUID, before: UUID, first: Int!, last: Int!, skip: Int!): [Venue!]!
+}
+
+input RatioCreateOneWithoutRatioInput {
+  connect: RatioWhereUniqueInput
+  create: RatioCreateWithoutAsignaturasInput
+}
+
+input RatioCreateWithoutAsignaturasInput {
+  id: UUID
+  multiplier: Int
+  name: String!
+}
+
+input RatioWhereUniqueInput {
+  id: UUID
+  name: String
+}
+
+input RecurrenciaCreateManyWithoutLeccionesPlanificadasInput {
+  connect: [RecurrenciaWhereUniqueInput!]
+  create: [RecurrenciaCreateWithoutPlannedSpacesInput!]
+}
+
+input RecurrenciaCreateManyWithoutRecurrenciasInput {
+  connect: [RecurrenciaWhereUniqueInput!]
+  create: [RecurrenciaCreateWithoutLeccionInput!]
+}
+
+input RecurrenciaCreateWithoutLeccionInput {
+  createdAt: DateTime
+  id: UUID
+  plannedSpaces: SpaceCreateManyWithoutPlannedSpacesInput
+  timeEnd: String!
+  timeStart: String!
+  updatedAt: DateTime
+  weekday: WeekDay
+}
+
+input RecurrenciaCreateWithoutPlannedSpacesInput {
+  createdAt: DateTime
+  id: UUID
+  leccion: LeccionCreateOneWithoutLeccionInput!
+  timeEnd: String!
+  timeStart: String!
+  updatedAt: DateTime
+  weekday: WeekDay
+}
+
+input RecurrenciaWhereUniqueInput {
+  id: UUID
+}
+
+input RoleCreateManyWithoutRolesInput {
+  connect: [RoleWhereUniqueInput!]
+  create: [RoleCreateWithoutUsersInput!]
+}
+
+input RoleCreateWithoutUsersInput {
+  createdAt: DateTime
+  id: UUID
+  name: String!
+  updatedAt: DateTime
+}
+
+input RoleWhereUniqueInput {
+  id: UUID
+}
+
+enum Semestre {
+  ANUAL
+  SEMESTRE_1
+  SEMESTRE_2
+}
+
+input SesionCreateManyWithoutSesionesInput {
+  connect: [SesionWhereUniqueInput!]
+  create: [SesionCreateWithoutAtInput!]
+}
+
+input SesionCreateOneWithoutSesionInput {
+  connect: SesionWhereUniqueInput
+  create: SesionCreateWithoutAsistenciaInput
+}
+
+input SesionCreateWithoutAsistenciaInput {
+  at: SpaceCreateOneWithoutAtInput!
+  by: UserCreateOneWithoutByInput!
+  closedAt: DateTime!
+  createdAt: DateTime
+  id: UUID
+  leccion: LeccionCreateOneWithoutLeccionInput!
+  updatedAt: DateTime
+}
+
+input SesionCreateWithoutAtInput {
+  asistencia: AsistenciaCreateManyWithoutAsistenciaInput
+  by: UserCreateOneWithoutByInput!
+  closedAt: DateTime!
+  createdAt: DateTime
+  id: UUID
+  leccion: LeccionCreateOneWithoutLeccionInput!
+  updatedAt: DateTime
+}
+
+input SesionWhereUniqueInput {
+  id: UUID
+}
+
+input SocialLinkCreateManyWithoutSocialNetworkLinksInput {
+  connect: [SocialLinkWhereUniqueInput!]
+  create: [SocialLinkCreateWithoutOwnerInput!]
+}
+
+input SocialLinkCreateWithoutOwnerInput {
+  id: UUID
+  link: String!
+  socialNetwork: SocialNetworkCreateOneWithoutSocialNetworkInput!
+}
+
+input SocialLinkWhereUniqueInput {
+  id: UUID
+  link: String
+}
+
+input SocialNetworkCreateOneWithoutSocialNetworkInput {
+  connect: SocialNetworkWhereUniqueInput
+  create: SocialNetworkCreateWithoutUserLinksInput
+}
+
+input SocialNetworkCreateWithoutUserLinksInput {
+  baseURL: String!
+  id: UUID
+  name: String!
+  ownURL: String!
+}
+
+input SocialNetworkWhereUniqueInput {
+  id: UUID
+}
+
+"""Space/room/area in a venue"""
+type Space {
+  id: UUID!
+  name: String!
+  venue: Venue!
+}
+
+input SpaceCreateInput {
+  createdAt: DateTime
+  events: EventCreateManyWithoutEventsInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  id: UUID
+  leccionesPlanificadas: RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+  name: String!
+  sesiones: SesionCreateManyWithoutSesionesInput
+  updatedAt: DateTime
+  venue: VenueCreateOneWithoutVenueInput!
+}
+
+input SpaceCreateManyWithoutPlannedSpacesInput {
+  connect: [SpaceWhereUniqueInput!]
+  create: [SpaceCreateWithoutLeccionesPlanificadasInput!]
+}
+
+input SpaceCreateManyWithoutSpacesInput {
+  connect: [SpaceWhereUniqueInput!]
+  create: [SpaceCreateWithoutVenueInput!]
+}
+
+input SpaceCreateOneWithoutAtInput {
+  connect: SpaceWhereUniqueInput
+  create: SpaceCreateWithoutSesionesInput
+}
+
+input SpaceCreateOneWithoutPlaceInput {
+  connect: SpaceWhereUniqueInput
+  create: SpaceCreateWithoutEventsInput
+}
+
+input SpaceCreateWithoutEventsInput {
+  createdAt: DateTime
+  examenes: ExamenCreateManyWithoutExamenesInput
+  id: UUID
+  leccionesPlanificadas: RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+  name: String!
+  sesiones: SesionCreateManyWithoutSesionesInput
+  updatedAt: DateTime
+  venue: VenueCreateOneWithoutVenueInput!
+}
+
+input SpaceCreateWithoutLeccionesPlanificadasInput {
+  createdAt: DateTime
+  events: EventCreateManyWithoutEventsInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  id: UUID
+  name: String!
+  sesiones: SesionCreateManyWithoutSesionesInput
+  updatedAt: DateTime
+  venue: VenueCreateOneWithoutVenueInput!
+}
+
+input SpaceCreateWithoutSesionesInput {
+  createdAt: DateTime
+  events: EventCreateManyWithoutEventsInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  id: UUID
+  leccionesPlanificadas: RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+  name: String!
+  updatedAt: DateTime
+  venue: VenueCreateOneWithoutVenueInput!
+}
+
+input SpaceCreateWithoutVenueInput {
+  createdAt: DateTime
+  events: EventCreateManyWithoutEventsInput
+  examenes: ExamenCreateManyWithoutExamenesInput
+  id: UUID
+  leccionesPlanificadas: RecurrenciaCreateManyWithoutLeccionesPlanificadasInput
+  name: String!
+  sesiones: SesionCreateManyWithoutSesionesInput
+  updatedAt: DateTime
+}
+
+input SpaceWhereUniqueInput {
+  id: UUID
+}
+
+input TitulacionCreateOneWithoutTitulacionInput {
+  connect: TitulacionWhereUniqueInput
+  create: TitulacionCreateWithoutAsignaturasInput
+}
+
+input TitulacionCreateWithoutAsignaturasInput {
+  code: String!
+  createdAt: DateTime
+  description: String
+  estudio: EstudioCreateOneWithoutEstudioInput!
+  id: UUID
+  name: String!
+  shortName: String!
+  updatedAt: DateTime
+}
+
+input TitulacionWhereUniqueInput {
+  code: String
+  id: UUID
+  name: String
+  shortName: String
+}
+
+input TransactionCreateManyWithoutTransactionsInput {
+  connect: [TransactionWhereUniqueInput!]
+  create: [TransactionCreateWithoutOrderInput!]
+}
+
+input TransactionCreateWithoutOrderInput {
+  amount: Int!
+  createdAt: DateTime
+  id: UUID
+  reference: String!
+  type: TxType
+  updatedAt: DateTime
+}
+
+input TransactionWhereUniqueInput {
+  id: UUID
+}
+
+enum TxType {
+  PAYMENT
+  PURCHASE
+  RECEIPT
+  SALE
+}
+
+"""Registered user"""
+type User {
+  email: String!
+  emailVerified: Boolean!
+  firstname: String!
+  group: UserGroup!
+  groupRequest: UserGroup
+  id: UUID!
+  isAdmin: Boolean!
+  lastname: String!
+  password: String!
+}
+
+input UserCreateManyWithoutProfesoresDisponiblesInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutLeccionesDisponiblesInput!]
+}
+
+input UserCreateOneWithoutAlumnoInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutMatriculasInput
+}
+
+input UserCreateOneWithoutByInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutSesionesInput
+}
+
+input UserCreateOneWithoutEstudianteInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutAsistenciasInput
+}
+
+input UserCreateOneWithoutGestorInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutLeccionesGestionadasInput
+}
+
+input UserCreateOneWithoutUserInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutDiscountRequestsInput
+}
+
+input UserCreateWithoutAsistenciasInput {
+  addresses: AddressCreateManyWithoutAddressesInput
+  avatar: String
+  contentDocuments: ContentDocumentCreateManyWithoutContentDocumentsInput
+  createdAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput
+  devices: DeviceCreateManyWithoutDevicesInput
+  discountRequests: DiscountRequestCreateManyWithoutDiscountRequestsInput
+  email: String!
+  emailVerified: Boolean
+  events: EventCreateManyWithoutEventsInput
+  firstname: String!
+  group: UserGroup
+  groupRequest: UserGroup
+  id: UUID
+  isAdmin: Boolean
+  lastname: String!
+  leccionesDisponibles: LeccionCreateManyWithoutLeccionesDisponiblesInput
+  leccionesGestionadas: LeccionCreateManyWithoutLeccionesGestionadasInput
+  matriculas: MatriculaCreateManyWithoutMatriculasInput
+  medias: MediaCreateManyWithoutMediasInput
+  metadata: String
+  newses: NewsCreateManyWithoutNewsesInput
+  officialDocuments: OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+  orders: OrderCreateManyWithoutOrdersInput
+  password: String!
+  roles: RoleCreateManyWithoutRolesInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  socialNetworkLinks: SocialLinkCreateManyWithoutSocialNetworkLinksInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutDiscountRequestsInput {
+  addresses: AddressCreateManyWithoutAddressesInput
+  asistencias: AsistenciaCreateManyWithoutAsistenciasInput
+  avatar: String
+  contentDocuments: ContentDocumentCreateManyWithoutContentDocumentsInput
+  createdAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput
+  devices: DeviceCreateManyWithoutDevicesInput
+  email: String!
+  emailVerified: Boolean
+  events: EventCreateManyWithoutEventsInput
+  firstname: String!
+  group: UserGroup
+  groupRequest: UserGroup
+  id: UUID
+  isAdmin: Boolean
+  lastname: String!
+  leccionesDisponibles: LeccionCreateManyWithoutLeccionesDisponiblesInput
+  leccionesGestionadas: LeccionCreateManyWithoutLeccionesGestionadasInput
+  matriculas: MatriculaCreateManyWithoutMatriculasInput
+  medias: MediaCreateManyWithoutMediasInput
+  metadata: String
+  newses: NewsCreateManyWithoutNewsesInput
+  officialDocuments: OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+  orders: OrderCreateManyWithoutOrdersInput
+  password: String!
+  roles: RoleCreateManyWithoutRolesInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  socialNetworkLinks: SocialLinkCreateManyWithoutSocialNetworkLinksInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutLeccionesDisponiblesInput {
+  addresses: AddressCreateManyWithoutAddressesInput
+  asistencias: AsistenciaCreateManyWithoutAsistenciasInput
+  avatar: String
+  contentDocuments: ContentDocumentCreateManyWithoutContentDocumentsInput
+  createdAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput
+  devices: DeviceCreateManyWithoutDevicesInput
+  discountRequests: DiscountRequestCreateManyWithoutDiscountRequestsInput
+  email: String!
+  emailVerified: Boolean
+  events: EventCreateManyWithoutEventsInput
+  firstname: String!
+  group: UserGroup
+  groupRequest: UserGroup
+  id: UUID
+  isAdmin: Boolean
+  lastname: String!
+  leccionesGestionadas: LeccionCreateManyWithoutLeccionesGestionadasInput
+  matriculas: MatriculaCreateManyWithoutMatriculasInput
+  medias: MediaCreateManyWithoutMediasInput
+  metadata: String
+  newses: NewsCreateManyWithoutNewsesInput
+  officialDocuments: OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+  orders: OrderCreateManyWithoutOrdersInput
+  password: String!
+  roles: RoleCreateManyWithoutRolesInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  socialNetworkLinks: SocialLinkCreateManyWithoutSocialNetworkLinksInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutLeccionesGestionadasInput {
+  addresses: AddressCreateManyWithoutAddressesInput
+  asistencias: AsistenciaCreateManyWithoutAsistenciasInput
+  avatar: String
+  contentDocuments: ContentDocumentCreateManyWithoutContentDocumentsInput
+  createdAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput
+  devices: DeviceCreateManyWithoutDevicesInput
+  discountRequests: DiscountRequestCreateManyWithoutDiscountRequestsInput
+  email: String!
+  emailVerified: Boolean
+  events: EventCreateManyWithoutEventsInput
+  firstname: String!
+  group: UserGroup
+  groupRequest: UserGroup
+  id: UUID
+  isAdmin: Boolean
+  lastname: String!
+  leccionesDisponibles: LeccionCreateManyWithoutLeccionesDisponiblesInput
+  matriculas: MatriculaCreateManyWithoutMatriculasInput
+  medias: MediaCreateManyWithoutMediasInput
+  metadata: String
+  newses: NewsCreateManyWithoutNewsesInput
+  officialDocuments: OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+  orders: OrderCreateManyWithoutOrdersInput
+  password: String!
+  roles: RoleCreateManyWithoutRolesInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  socialNetworkLinks: SocialLinkCreateManyWithoutSocialNetworkLinksInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutMatriculasInput {
+  addresses: AddressCreateManyWithoutAddressesInput
+  asistencias: AsistenciaCreateManyWithoutAsistenciasInput
+  avatar: String
+  contentDocuments: ContentDocumentCreateManyWithoutContentDocumentsInput
+  createdAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput
+  devices: DeviceCreateManyWithoutDevicesInput
+  discountRequests: DiscountRequestCreateManyWithoutDiscountRequestsInput
+  email: String!
+  emailVerified: Boolean
+  events: EventCreateManyWithoutEventsInput
+  firstname: String!
+  group: UserGroup
+  groupRequest: UserGroup
+  id: UUID
+  isAdmin: Boolean
+  lastname: String!
+  leccionesDisponibles: LeccionCreateManyWithoutLeccionesDisponiblesInput
+  leccionesGestionadas: LeccionCreateManyWithoutLeccionesGestionadasInput
+  medias: MediaCreateManyWithoutMediasInput
+  metadata: String
+  newses: NewsCreateManyWithoutNewsesInput
+  officialDocuments: OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+  orders: OrderCreateManyWithoutOrdersInput
+  password: String!
+  roles: RoleCreateManyWithoutRolesInput
+  sesiones: SesionCreateManyWithoutSesionesInput
+  socialNetworkLinks: SocialLinkCreateManyWithoutSocialNetworkLinksInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutSesionesInput {
+  addresses: AddressCreateManyWithoutAddressesInput
+  asistencias: AsistenciaCreateManyWithoutAsistenciasInput
+  avatar: String
+  contentDocuments: ContentDocumentCreateManyWithoutContentDocumentsInput
+  createdAt: DateTime
+  department: DepartmentCreateOneWithoutDepartmentInput
+  devices: DeviceCreateManyWithoutDevicesInput
+  discountRequests: DiscountRequestCreateManyWithoutDiscountRequestsInput
+  email: String!
+  emailVerified: Boolean
+  events: EventCreateManyWithoutEventsInput
+  firstname: String!
+  group: UserGroup
+  groupRequest: UserGroup
+  id: UUID
+  isAdmin: Boolean
+  lastname: String!
+  leccionesDisponibles: LeccionCreateManyWithoutLeccionesDisponiblesInput
+  leccionesGestionadas: LeccionCreateManyWithoutLeccionesGestionadasInput
+  matriculas: MatriculaCreateManyWithoutMatriculasInput
+  medias: MediaCreateManyWithoutMediasInput
+  metadata: String
+  newses: NewsCreateManyWithoutNewsesInput
+  officialDocuments: OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+  orders: OrderCreateManyWithoutOrdersInput
+  password: String!
+  roles: RoleCreateManyWithoutRolesInput
+  socialNetworkLinks: SocialLinkCreateManyWithoutSocialNetworkLinksInput
+  updatedAt: DateTime
 }
 
 """Basic root groups of @alicialonso registered users"""
 enum UserGroup {
-  PUBLIC
+  ESTUDIANTE
+  GENERAL
   STAFF
-  STUDENT
+}
+
+input UserWhereUniqueInput {
+  email: String
+  id: UUID
+}
+
+scalar UUID
+
+"""Places"""
+type Venue {
+  address: String!
+  id: UUID!
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  placeID: String!
+  spaces(after: UUID, before: UUID, first: Int!, last: Int!, skip: Int!): [Space!]!
+}
+
+input VenueCreateInput {
+  address: String!
+  createdAt: DateTime
+  id: UUID
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  placeID: String!
+  spaces: SpaceCreateManyWithoutSpacesInput
+  updatedAt: DateTime
+}
+
+input VenueCreateOneWithoutVenueInput {
+  connect: VenueWhereUniqueInput
+  create: VenueCreateWithoutSpacesInput
+}
+
+input VenueCreateWithoutSpacesInput {
+  address: String!
+  createdAt: DateTime
+  id: UUID
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  placeID: String!
+  updatedAt: DateTime
+}
+
+input VenueWhereUniqueInput {
+  id: UUID
+}
+
+enum WeekDay {
+  DOMINGO
+  JUEVES
+  LUNES
+  MARTES
+  MIERCOLES
+  SABADO
+  VIERNES
 }

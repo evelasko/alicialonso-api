@@ -23,7 +23,7 @@ model User {
     emailVerified           Boolean				@default(false)
     password				String
     
-    group					UserGroup			@default(PUBLIC)
+    group					UserGroup			@default(GENERAL)
     groupRequest			UserGroup?
 
     isAdmin					Boolean 			@default(false)
@@ -388,7 +388,7 @@ model News {
 
     author                  User                @relation(name: "UserNewses", onDelete: NONE)
     title                   String 
-    subtitle                String
+    subtitle                String?
     body                    String 
     imageURL                String?
     expiration              DateTime
@@ -405,7 +405,7 @@ model Event {
 
     author                  User                @relation(name: "UserEvents", onDelete: NONE)
     title                   String 
-    subtitle                String
+    subtitle                String?
     organizer               String?
     body                    String 
     imageURL                String?

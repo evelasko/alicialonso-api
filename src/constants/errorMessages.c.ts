@@ -1,4 +1,5 @@
 export const errorMessages = {
+    g_UnknownServerError: 'ha ocurrido un error en el servidor',
     s_loginRequired: 'lo que ha intentado requiere que inicie sesión',
     s_adminPrivilegesRequired: 'lo que ha intentado requiere permisos de administrador',
     d_emailAlreadyRegistered: (email: string): string => `la dirección ${email} ya tiene una cuenta registrada`,

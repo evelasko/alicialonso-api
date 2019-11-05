@@ -1,20 +1,22 @@
 import express from 'express'
 import cors from 'cors'
 import { Photon } from '@generated/photon'
-import { AAxError, processGroupRequest } from '@helpers'
+import { AAxError } from '@helpers'
+import { processGroupRequest } from '@core'
 import { redisInstance } from '@libs'
-import { errorMessages } from '@constants'
+import {
+    errorMessages,
+    authBaseRoute,
+    authConfirmationRoute,
+    authRejectGroupRequestRoute,
+    authApproveGroupRequest
+    // authResetPassword,
+    // authChangePassword
+} from '../../constants'
 // eslint-disable-next-line new-cap
 export const authRoutes = express.Router()
 authRoutes.use(express.json())
 authRoutes.use(cors())
-
-export const authBaseRoute = `/user`
-export const authConfirmationRoute = `/confirmation`
-export const authRejectGroupRequestRoute = `/grouprequest/reject`
-export const authApproveGroupRequest = `/grouprequest/approve`
-export const authResetPassword = `/password/reset`
-export const authChangePassword = `/password/change`
 
 // ROUTES
 
@@ -62,18 +64,8 @@ authRoutes.get(
         const { userSignature, adminSignature } = req.params
         try {
             const response = await processGroupRequest('approve', userSignature, adminSignature)
-            if (response instanceof AAxError) {
-                next(response)
-                return
-            }
-            res.send('<h1>Done</h1>')
-        } catch (e) {
-            const err = new AAxError(
-                `unknown error while rejecting groupRequest join\n${e}`,
-                'RejectGroupRequestRoute',
-                errorMessages.s_groupRequestNotFound,
-                false
-            )
+            res.send(`<h1>${response}</h1>`)
+        } catch (err) {
             next(err)
         }
     }
@@ -87,18 +79,8 @@ authRoutes.get(
         const { userSignature, adminSignature } = req.params
         try {
             const response = await processGroupRequest('reject', userSignature, adminSignature)
-            if (response instanceof AAxError) {
-                next(response)
-                return
-            }
-            res.send('<h1>Done</h1>')
-        } catch (e) {
-            const err = new AAxError(
-                `unknown error while rejecting groupRequest join\n${e}`,
-                'RejectGroupRequestRoute',
-                errorMessages.s_groupRequestNotFound,
-                false
-            )
+            res.send(`<h1>${response}</h1>`)
+        } catch (err) {
             next(err)
         }
     }

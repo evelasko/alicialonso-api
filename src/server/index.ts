@@ -1,46 +1,25 @@
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import express, { Request, Response, NextFunction } from 'express'
 import session from 'express-session'
-import bodyParser from 'body-parser'
-// import { GraphQLServer } from 'graphql-yoga'
 import proxy from 'http-proxy-middleware'
 import hbs from 'express-handlebars'
-import { webHookMailgun, authBaseRoute, authRoutes } from './routes'
-import { redisInstance, redisClient, RedisStore } from '@libs'
-import { redisSessionPrefix } from '@constants'
-import { Photon } from '@generated/photon'
-// import permissions from '@permissions'
-import { Context } from '@aatypes'
-import { AAxError } from '@helpers'
-import schema from '@schema'
-import authMiddleware from './middleware/authentication.mw'
+import { webHookMailgun, authRoutes } from './routes'
+import { redisClient, RedisStore } from '../libs'
+import { redisSessionPrefix, authBaseRoute } from '../constants'
+import { AAxError } from '../helpers'
+import schema from '../schema'
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import { arena } from './middleware/arena.mw'
-// import cors from './cors'
-
-const photon = new Photon()
+import cors from './cors'
+import context from './context'
 const app = express()
 
-// graphql server
-app.use(
-    '/gql',
-    bodyParser.json(),
-    graphqlExpress({
-        schema,
-        context: async ({ req }: { req: Request }): Promise<Context> => ({
-            photon,
-            request: req,
-            redis: redisInstance,
-            aaxCache: {},
-            user: await authMiddleware(req),
-            session: req && req.session,
-            url: req ? `${req.protocol}://${req.get('host')}` : ''
-        })
-    })
-)
-
-// playground
-app.use('/ide', graphiqlExpress({ endpointURL: '/gql' }))
+// server
+export const server = new ApolloServer({
+    schema,
+    context,
+    playground: true
+})
 
 // session setup
 app.use(
@@ -64,13 +43,13 @@ app.use(
 // routes
 app.use('/wh/mailgun', webHookMailgun)
 app.use(authBaseRoute, authRoutes)
-app.use('/images', express.static('images'))
-app.use('/resources', express.static('resources'))
 
 // voyager route
-app.use('/gqlmap', voyagerMiddleware({ endpointUrl: 'http://localhost:4000' }))
+app.use('/gqlmap', voyagerMiddleware({ endpointUrl: 'http://localhost:4000/gql' }))
 // arena route
 app.use('/queues', arena)
+// coverage route
+app.use('/coverage', express.static('coverage/lcov-report'))
 
 // mobile routes proxy
 app.enable('trust proxy')
@@ -102,6 +81,6 @@ app.use((err: Error | AAxError, req: Request, res: Response, next: NextFunction)
     next(err)
 })
 
-// server.applyMiddleware({ app, path: '/', cors })
+server.applyMiddleware({ app, path: '/gql', cors })
 
 export default app

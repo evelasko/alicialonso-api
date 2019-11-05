@@ -1,3 +1,6 @@
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+// const { compilerOptions } = require('./tsconfig')
+
 module.exports = {
     preset: 'ts-jest',
     globals: {
@@ -5,16 +8,20 @@ module.exports = {
           tsConfig: 'tsconfig.jest.json'
         }
     },
-    moduleNameMapper: {
-      "/@constants/": "<rootDir>/src/constants/",
-      "\\@helpers": "<rootDir>/src/helpers/index.ts",
-      "@libs": "<rootDir>/src/libs/",
-      "@permissions": "<rootDir>/src/permissions/",
-      "@queue": "<rootDir>/src/queue/",
-      "@schema": "<rootDir>/src/schema/",
-      "@server/": "<rootDir>/src/server/",
-      "@aatypes": "<rootDir>/src/types/"
+    moduleNameMapper: pathsToModuleNameMapper({
+      "@constants": ["src/constants/"],
+      "@helpers": ["src/helpers/"],
+      "@libs": ["src/libs/"],
+      "@permissions": ["src/permissions/"],
+      "@queue": ["src/queue/"],
+      "@schema": ["src/schema/"],
+      "@server": ["src/server/"],
+      "@aatypes": ["src/types/"],
+      "@core": ["src/core/"]
     },
+    {
+      prefix: '<rootDir>/'
+    }),
     globalSetup: './tests/config/globalSetup.js',
     globalTeardown: './tests/config/globalTeardown.js',
     moduleFileExtensions: [ 'ts', 'js' ],
@@ -22,10 +29,12 @@ module.exports = {
      '^.+\\.(ts|tsx)$': "ts-jest"
     },
     testMatch: [
-     '**/tests/**/*.test.(ts)'
+     '**/tests/**/*.test.(ts)',
+     '**/tests/**/*.spec.(ts)'
     ],
     testEnvironment: 'node',
     verbose: true,
     collectCoverage: true,
-    collectCoverageFrom: ['src/**/*.{ts}'],
+    // collectCoverageFrom: ['src/**/*.{ts}'],
+    testSequencer: './tests/config/sequencer.js'
 };

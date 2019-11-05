@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable require-jsdoc */
-import NodeCache from 'node-cache'
+import NodeCache, { Key } from 'node-cache'
 import { useNodeCacheAdapter } from 'type-cacheable'
-// TODO resolve the many problems of the node-cache class: https://medium.com/@danielsternlicht/caching-like-a-boss-in-nodejs-9bccbbc71b9b
+
 /**
  * node-cache alicialonso custom class
  *
  * @export
  * @class Cache
  */
-export default class Cache {
+export class NodeCacheService {
     public cache: NodeCache
 
     /**
@@ -18,43 +19,52 @@ export default class Cache {
      */
     constructor(ttlSeconds: number | undefined) {
         this.cache = new NodeCache({
-            stdTTL: ttlSeconds || 0,
-            checkperiod: ttlSeconds || 0 * 0.2,
+            stdTTL: ttlSeconds || 0, // the standard ttl as number in seconds for every generated cache element. 0 = unlimited
+            checkperiod: ttlSeconds || 0 * 0.2, // The period in seconds, as a number, used for the automatic delete check interval. 0 = no periodic check
             useClones: false
         })
         useNodeCacheAdapter(this.cache)
     }
 
-    get(key: string, storeFunction: () => any) {
-        const value = this.cache.get(key)
-        if (value) {
-            return Promise.resolve(value)
-        }
-
-        return storeFunction().then((result: any) => {
-            this.cache.set(key, result)
-            return result
-        })
+    set(key: Key, value: any): { key: Key; value: any } {
+        this.cache.set(key, value)
+        return { key, value }
     }
 
-    del(keys: any) {
+    // TODO Fix storeFunction to make it accept a fn returning the value to set
+    // async get(key: string | number, storeFunction?: () => any): Promise<any> {
+    //     const value = this.cache.get(key)
+    //     if (value) return value
+    //     if (!storeFunction) return null
+    //     const result = await storeFunction()
+    //     this.cache.set(key, result)
+    //     return result
+    // }
+    get(key: Key): any | null {
+        return this.cache.get(key)
+    }
+
+    del(keys: Key | Key[]): Key | Key[] {
         this.cache.del(keys)
+        return keys
     }
 
-    delStartWith(startStr: string | null) {
-        if (!startStr) {
-            return
+    delByPrefix(prefixStr: string | null): number | null {
+        if (!prefixStr) {
+            return null
         }
-
+        let deleted = 0
         const keys = this.cache.keys()
         for (const key of keys) {
-            if (key.indexOf(startStr) === 0) {
+            if (key.indexOf(prefixStr) === 0) {
                 this.del(key)
+                deleted++
             }
         }
+        return deleted
     }
 
-    flush() {
+    flush(): void {
         this.cache.flushAll()
     }
 }

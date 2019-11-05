@@ -1,9 +1,14 @@
 import { stringArg, arg, mutationField } from 'nexus'
 import bcrypt from 'bcryptjs'
-import { sendVerificationEmail, notifyNewGroupRequest, sendPasswordResetEmail, generateLoginToken } from '@helpers'
-import { generateVerificationKey, generateResetPasswordKey } from '@constants'
-import { LoginPayload } from '@aatypes'
-import { redisInstance } from '@libs'
+import {
+    sendVerificationEmail,
+    notifyNewGroupRequest,
+    sendPasswordResetEmail,
+    generateLoginToken
+} from '../../../../../helpers'
+import { generateVerificationKey, generateResetPasswordKey } from '../../../../../constants'
+import { LoginPayload } from '../../../../../types'
+import { redisInstance } from '../../../../../libs'
 
 export const SignUpUser = mutationField('signUpUser', {
     type: 'AuthPayload',
@@ -43,7 +48,7 @@ export const Login = mutationField('login', {
     },
     resolve: async (parent, { email }, { photon }) => {
         // retreive user's data
-        const user: LoginPayload = await photon.users.findOne({
+        const user: LoginPayload | null = await photon.users.findOne({
             where: { email },
             select: { id: true, isAdmin: true, group: true, email: true }
         })

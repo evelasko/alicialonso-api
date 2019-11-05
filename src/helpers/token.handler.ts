@@ -1,7 +1,7 @@
 import { sign, verify } from 'jsonwebtoken'
 import { AAxError } from './error.handler'
-import { errorMessages } from '@constants'
-import { LoginPayload } from '@aatypes'
+import { errorMessages } from '../constants'
+import { LoginPayload } from '../types'
 
 const secret = process.env.JWT_SECRET as string
 
@@ -15,7 +15,7 @@ export async function generateLoginToken(loginPayload: LoginPayload): Promise<st
     return token
 }
 
-const resolveJWTError = (err: Error): AAxError => {
+export const resolveJWTError = (err: Error): AAxError => {
     return new AAxError(
         `ERROR: ${err || 'Unknown'}`,
         `decode[Reset|Login]Token()`,

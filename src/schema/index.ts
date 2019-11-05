@@ -1,9 +1,11 @@
 import path from 'path'
 import { makeSchema } from 'nexus'
 import { nexusPrismaPlugin } from 'nexus-prisma'
+import { applyMiddleware } from 'graphql-middleware'
 import * as types from './resolvers'
+import permissions from '../permissions'
 
-const schema = makeSchema({
+let schema = makeSchema({
     types,
     // true,
     outputs: {
@@ -31,11 +33,11 @@ const schema = makeSchema({
     }
 })
 
+schema = applyMiddleware(schema, permissions)
 export default schema
 
 if (process.env.NODE_ENV === 'nexus') {
     setInterval(() => {
-        console.log('schema: ', schema)
-        // process.exit()
-    }, 1500)
+        process.exit()
+    }, 10500)
 }

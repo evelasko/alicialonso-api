@@ -22,7 +22,7 @@ model User {
     emailVerified           Boolean				@default(false)
     password				String
     
-    group					UserGroup			@default(PUBLIC)
+    group					UserGroup			@default(GENERAL)
     groupRequest			UserGroup?
 
     isAdmin					Boolean 			@default(false)

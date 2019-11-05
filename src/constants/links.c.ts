@@ -1,9 +1,4 @@
-import {
-    authBaseRoute,
-    authConfirmationRoute,
-    authApproveGroupRequest,
-    authRejectGroupRequestRoute
-} from '@server/routes'
+import { authBaseRoute, authConfirmationRoute, authApproveGroupRequest, authRejectGroupRequestRoute } from './routes.c'
 import { encryptString } from '../helpers'
 
 export const links = {

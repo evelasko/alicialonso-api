@@ -1,7 +1,7 @@
 import { Shape } from 'yup'
 import { InputRule } from 'graphql-shield/dist/rules'
 import { inputRule } from 'graphql-shield'
-import { errorMessages } from '@constants'
+import { errorMessages } from '../constants'
 
 export const signUpValidationRule: InputRule<
     Shape<
