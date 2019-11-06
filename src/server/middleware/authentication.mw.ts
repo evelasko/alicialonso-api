@@ -11,7 +11,7 @@ const photon = new Photon()
  * @param {Request} Request Request: { headers, session }
  * @return {(Promise<LoginPayload | null>)} LoginPayload or null if auth fails
  */
-export default async ({ headers, session }: Request): Promise<LoginPayload | null> => {
+export const authMiddleware = async ({ headers, session }: Request): Promise<LoginPayload | null> => {
     // athentication by session cookie
     if (session && Object.prototype.hasOwnProperty.call(session, 'user')) {
         return session.user
