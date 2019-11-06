@@ -6,18 +6,16 @@ import { LoginPayload } from '../../types'
 const photon = new Photon()
 
 /**
- * Authentication middleware performed while processing resolvers context upon new request
- * @export
- * @param {Request} Request Request: { headers }
- * @return {(Promise<LoginPayload | null>)} Return object with user info or null if auth fails
+ * Authentication middleware performed before processing resolvers context upon new request.
+ * Permissions skips auth check if user:LoginPayload is present and valid in context:Context
+ * @param {Request} Request Request: { headers, session }
+ * @return {(Promise<LoginPayload | null>)} LoginPayload or null if auth fails
  */
-export default async ({ headers }: Request): Promise<LoginPayload | null> => {
-    // TODO finish implementation of cookie authentication
+export default async ({ headers, session }: Request): Promise<LoginPayload | null> => {
     // athentication by session cookie
-    // if (Object.prototype.hasOwnProperty.call(session, 'userId')) {
-    //     return true
-    // }
-    // TODO this requires cache control
+    if (session && Object.prototype.hasOwnProperty.call(session, 'user')) {
+        return session.user
+    }
 
     // authentication by login token
     if (Object.prototype.hasOwnProperty.call(headers, 'auth')) {

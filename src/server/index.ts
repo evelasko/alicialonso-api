@@ -1,54 +1,27 @@
-import { ApolloServer } from 'apollo-server-express'
 import express, { Request, Response, NextFunction } from 'express'
-import session from 'express-session'
 import proxy from 'http-proxy-middleware'
 import hbs from 'express-handlebars'
 import { webHookMailgun, authRoutes } from './routes'
-import { redisClient, RedisStore } from '../libs'
-import { redisSessionPrefix, authBaseRoute } from '../constants'
-import { AAxError } from '../helpers'
-import schema from '../schema'
+import { authBaseRoute } from '@constants'
+import { AAxError } from '@helpers'
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import { arena } from './middleware/arena.mw'
 import cors from './cors'
-import context from './context'
+import session from './session'
+import server from './apollo'
+
 const app = express()
 
-// server
-export const server = new ApolloServer({
-    schema,
-    context,
-    playground: true
-})
-
 // session setup
-app.use(
-    session({
-        store: new RedisStore({
-            client: redisClient,
-            prefix: redisSessionPrefix
-        }),
-        name: 'aaxid',
-        secret: process.env.SESSION_SECRET as string,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
-        }
-    })
-)
+app.use(session)
 
 // routes
 app.use('/wh/mailgun', webHookMailgun)
 app.use(authBaseRoute, authRoutes)
 
-// voyager route
+// info routes
 app.use('/gqlmap', voyagerMiddleware({ endpointUrl: 'http://localhost:4000/gql' }))
-// arena route
 app.use('/queues', arena)
-// coverage route
 app.use('/coverage', express.static('coverage/lcov-report'))
 
 // mobile routes proxy
@@ -81,6 +54,7 @@ app.use((err: Error | AAxError, req: Request, res: Response, next: NextFunction)
     next(err)
 })
 
+// apollo hook
 server.applyMiddleware({ app, path: '/gql', cors })
 
 export default app

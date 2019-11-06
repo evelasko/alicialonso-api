@@ -10,6 +10,9 @@ import { generateVerificationKey, generateResetPasswordKey } from '../../../../.
 import { LoginPayload } from '../../../../../types'
 import { redisInstance } from '../../../../../libs'
 
+// TODO move all resolver functions to @core/auth.core.ts
+// TODO add logout mutation
+
 export const SignUpUser = mutationField('signUpUser', {
     type: 'AuthPayload',
     description: `Signs up a new user.
@@ -46,7 +49,7 @@ export const Login = mutationField('login', {
         email: stringArg({ required: true }),
         password: stringArg({ required: true })
     },
-    resolve: async (parent, { email }, { photon }) => {
+    resolve: async (parent, { email }, { session, photon }) => {
         // retreive user's data
         const user: LoginPayload | null = await photon.users.findOne({
             where: { email },
@@ -55,15 +58,9 @@ export const Login = mutationField('login', {
         if (!user) {
             return { token: '#' }
         }
+        if (session) session.user = user
 
-        // TODO initialize session
-        // const { id, isAdmin, group } = user
-        // session.userId = id
-        // session.isAdmin = isAdmin
-        // session.group = group
-        return {
-            token: await generateLoginToken(user)
-        }
+        return { token: await generateLoginToken(user) }
     }
 })
 

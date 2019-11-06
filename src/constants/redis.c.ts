@@ -5,6 +5,7 @@ import moment from 'moment'
 export const keyDivider = ':'
 
 // key prefixes must always end with the divider
+export const redisSessionName = (): string => `aa${keyDivider}${v4()}`
 export const redisSessionPrefix = 'sess' + keyDivider
 export const userSessionIdPrefix = 'userSids' + keyDivider
 export const resetPasswordPrefix = 'forgotPassword' + keyDivider
