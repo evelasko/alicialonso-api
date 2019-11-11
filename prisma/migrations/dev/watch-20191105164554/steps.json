@@ -1,0 +1,25 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "name": "group",
+      "default": {
+        "ConstantLiteral": "GENERAL"
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "News",
+      "name": "subtitle",
+      "arity": "optional"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "Event",
+      "name": "subtitle",
+      "arity": "optional"
+    }
+  ]
+}

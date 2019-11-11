@@ -4,7 +4,8 @@ import {
     sendVerificationEmail,
     notifyNewGroupRequest,
     sendPasswordResetEmail,
-    generateLoginToken
+    generateLoginToken,
+    sendEmail
 } from '../../../../../helpers'
 import { generateVerificationKey, generateResetPasswordKey } from '../../../../../constants'
 import { LoginPayload } from '../../../../../types'
