@@ -1,7 +1,7 @@
 import { Job } from 'bull'
 import { Mailgun } from '../libs'
 import { AAxError, renderTemplateHTML } from '.'
-import { emailQueue } from '@queue'
+import { emailQueue } from '../queue'
 
 /**
  * Send a transactional email from info@alicialonso.org

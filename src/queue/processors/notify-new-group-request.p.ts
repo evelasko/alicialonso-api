@@ -1,26 +1,33 @@
 import { Job } from 'bull'
 import { Photon } from '@generated/photon'
-import { sendEmail, getAdminEmails } from '@helpers'
+import { sendEmail, getAdminEmails, AAxError } from '../../helpers'
 import { links } from '../../constants'
-// TODO JSDoc
 
 /**
- *
- *
- * @export
+ * Processes queue job notifyNewGroupRequest
  * @param {Job} job
  * @return {Promise<void>}
  */
 export default async function(job: Job): Promise<void> {
+    // uses new photon instance to be handled inside queue
     const photon = new Photon()
     const { userEmail } = job.data
 
     const adminEmails = await getAdminEmails()
-    const { firstname, lastname, groupRequest } = await photon.users.findOne({
+    const user = await photon.users.findOne({
         where: { email: userEmail },
         select: { firstname: true, lastname: true, groupRequest: true }
     })
 
+    if (!user) {
+        throw new AAxError(
+            'No user returned from query',
+            'notify-new-group-request.ts',
+            'No hemos encontrado el usuario',
+            false
+        )
+    }
+    const { firstname, lastname, groupRequest } = user
     // TODO design email template for new group request admin notification
     adminEmails.forEach(async (adminEmail: string) => {
         await sendEmail(

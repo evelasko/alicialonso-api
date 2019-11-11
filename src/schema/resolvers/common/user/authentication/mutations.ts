@@ -1,9 +1,18 @@
 import { stringArg, arg, mutationField } from 'nexus'
 import bcrypt from 'bcryptjs'
-import { sendVerificationEmail, notifyNewGroupRequest, sendPasswordResetEmail, generateLoginToken } from '@helpers'
-import { generateVerificationKey, generateResetPasswordKey } from '@constants'
-import { LoginPayload } from '@aatypes'
-import { redisInstance } from '@libs'
+import {
+    sendVerificationEmail,
+    notifyNewGroupRequest,
+    sendPasswordResetEmail,
+    generateLoginToken,
+    sendEmail
+} from '../../../../../helpers'
+import { generateVerificationKey, generateResetPasswordKey } from '../../../../../constants'
+import { LoginPayload } from '../../../../../types'
+import { redisInstance } from '../../../../../libs'
+
+// TODO move all resolver functions to @core/auth.core.ts
+// TODO add logout mutation
 
 export const SignUpUser = mutationField('signUpUser', {
     type: 'AuthPayload',
@@ -41,24 +50,18 @@ export const Login = mutationField('login', {
         email: stringArg({ required: true }),
         password: stringArg({ required: true })
     },
-    resolve: async (parent, { email }, { photon }) => {
+    resolve: async (parent, { email }, { session, photon }) => {
         // retreive user's data
-        const user: LoginPayload = await photon.users.findOne({
+        const user: LoginPayload | null = await photon.users.findOne({
             where: { email },
             select: { id: true, isAdmin: true, group: true, email: true }
         })
         if (!user) {
             return { token: '#' }
         }
+        if (session) session.user = user
 
-        // TODO initialize session
-        // const { id, isAdmin, group } = user
-        // session.userId = id
-        // session.isAdmin = isAdmin
-        // session.group = group
-        return {
-            token: await generateLoginToken(user)
-        }
+        return { token: await generateLoginToken(user) }
     }
 })
 

@@ -1,7 +1,7 @@
 import { Job } from 'bull'
-import { redisQueue } from '@queue'
-import { redisInstance } from '@libs'
-import { keyExpiration } from '@constants'
+import { redisQueue } from '../queue'
+import { redisInstance } from '../libs'
+import { keyExpiration } from '../constants'
 
 // FUNCTIONS PROCESSED BY QUEUE JOBS
 

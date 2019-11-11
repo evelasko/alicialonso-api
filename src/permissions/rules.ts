@@ -1,10 +1,10 @@
 import { v4 } from 'uuid'
 import bcrypt from 'bcryptjs'
 import { rule } from 'graphql-shield'
-import { sendVerificationEmail } from '@helpers'
-import { emailVerificationPrefix, errorMessages } from '@constants'
-import { redisInstance } from '@libs'
-import { Context } from '@aatypes'
+import { sendVerificationEmail } from '../helpers'
+import { emailVerificationPrefix, errorMessages } from '../constants'
+import { redisInstance } from '../libs'
+import { Context } from '../types'
 
 export const isAuthenticatedUser = rule({ cache: 'contextual' })(async (parent, args, { user }) =>
     user ? true : errorMessages.s_loginRequired

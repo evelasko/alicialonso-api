@@ -26,7 +26,7 @@ emailQueue.process(
     async job => {
         await sendEmailProcessor.default(job)
     }
-    // require.resolve('./processors/send-email.p'),
+    // require.resolve('./processors/send-email.p.js')
 )
 emailQueue.process(
     'sendVerificationEmail',

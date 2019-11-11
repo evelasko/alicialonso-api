@@ -6,7 +6,7 @@ export const signUpUser = gql`
         $password: String!
         $firstname: String!
         $lastname: String!
-        $groupRequest: UserGroup = PUBLIC
+        $groupRequest: UserGroup = GENERAL
     ) {
         signUpUser(
             firstname: $firstname

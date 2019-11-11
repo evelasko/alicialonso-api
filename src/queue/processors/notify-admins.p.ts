@@ -1,13 +1,9 @@
 import { Job } from 'bull'
-// FIXTHIS Implement Photon
-import { getAdminEmails } from '@helpers'
-import { sendEmail, encryptString } from '../../helpers'
-// TODO JSDoc
+import { sendEmail, encryptString, getAdminEmails } from '../../helpers'
 
 /**
+ * Queue processor function to notify admins via email
  *
- *
- * @export
  * @param {Job} job
  * @return {Promise<void>}
  */

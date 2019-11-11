@@ -2,30 +2,37 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-var-requires */
-require('ts-node/register')
-// const util = require('util')
-const detect = require('detect-port')
-const child_process = require('child_process')
-// const exec = util.promisify(require('child_process').exec)
-const { execSync } = require('child_process')
-const server = require('../../src/server').default
-const { options } = require('../../src')
 
-// function seedSync() {
-//     return execSync('prisma seed -e ./env/test.env --reset')
-// }
+// const util = require('util')
+// const detect = require('detect-port')
+// const exec = util.promisify(require('child_process').exec)
+// const app = require('../../src/server').default
+
+require('ts-node/register')
+const path = require('path')
+const moduleAlias = require('module-alias')
+
+moduleAlias.addAliases({
+    '@helpers'  : path.join(__dirname, '../../src/helpers'),
+    '@constants'  : path.join(__dirname, '../../src/constants'),
+    '@libs'  : path.join(__dirname, '../../src/libs'),
+    '@permissions'  : path.join(__dirname, '../../src/permissions'),
+    '@queue'  : path.join(__dirname, '../../src/queue'),
+    '@schema'  : path.join(__dirname, '../../src/schema'),
+    '@server'  : path.join(__dirname, '../../src/server'),
+    '@aatypes'  : path.join(__dirname, '../../src/types'),
+    '@core'  : path.join(__dirname, '../../src/core'),
+})
+
+const startTestServer = require('../config/testServer').default
+const resetAndSeed = require('./seed').default
+const child_process = require('child_process')
+
 
 module.exports = async function() {
-    seedSync()
 
-    // start the server if the port is available
-    const port = 5000
-    await detect(port, _port => {
-        if (port === _port) {
-            server.start(options)
-        }
-    })
-
+    global.stopServer = await startTestServer()
+    global.testData = await resetAndSeed()
     // start ultrahook for mailgun webhook responses
     // mapping requests from mailgun.alicialonso.ultrahook.com
     // to http://localhost:${port}/wh/mailgun/
@@ -35,12 +42,10 @@ module.exports = async function() {
     // of the child process
 
     global.mailgunUltrahook = child_process.exec(
-        `ultrahook -k ${process.env.ULTRAHOOK_API_KEY} mailgun http://localhost:${port}/wh/mailgun/`,
+        `ultrahook -k ${process.env.ULTRAHOOK_API_KEY} mailgun http://localhost:4000/wh/mailgun/`,
         (error, stdout, stderr) => {
             // console.log('UH: ', stdout)
         }
     )
-
-    global.seedSync = seedSync
     return null
 }

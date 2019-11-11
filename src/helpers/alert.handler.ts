@@ -1,4 +1,4 @@
-import { Mailgun } from '@libs'
+import { Mailgun } from '../libs'
 
 /**
  * Send an error alert via email to process.env.RECIPIENT_WEBMASTER

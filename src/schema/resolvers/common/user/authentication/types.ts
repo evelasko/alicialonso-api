@@ -8,18 +8,18 @@ export const AuthPayload = objectType({
     }
 })
 
-// export const User = objectType({
-//     name: 'User',
-//     description: `Registered user`,
-//     definition(t) {
-//         t.model.id()
-//         t.model.firstname()
-//         t.model.lastname()
-//         t.model.email()
-//         t.model.emailVerified()
-//         t.model.password()
-//         t.model.group()
-//         t.model.groupRequest()
-//         t.model.isAdmin()
-//     }
-// })
+export const User = objectType({
+    name: 'User',
+    description: `Registered user`,
+    definition(t) {
+        t.model.id()
+        t.model.firstname()
+        t.model.lastname()
+        t.model.email()
+        t.model.emailVerified()
+        t.model.password()
+        t.model.group()
+        t.model.groupRequest()
+        t.model.isAdmin()
+    }
+})

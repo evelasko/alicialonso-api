@@ -17,8 +17,9 @@
             "@permissions": ["permissions/"],
             "@queue": ["queue/"],
             "@schema": ["schema/"],
-            "@server/*": ["server/*"],
-            "@aatypes": ["types/"]
+            "@server": ["server/"],
+            "@aatypes": ["types/"],
+            "@core": ["core/"]
         }, 
         "allowSyntheticDefaultImports": true,
         "traceResolution":true,
@@ -31,6 +32,7 @@
     },
     "include": [
         "src/**/*.ts",
+        "tests/**/*.ts"
     ],
     "exclude": [
         "dist",

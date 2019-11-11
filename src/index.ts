@@ -12,7 +12,6 @@ ${err}\n\n=============================================\n\n\n
 })
 
 const port = process.env.NODE_ENV !== 'test' ? parseInt(process.env.PORT || '4000', 10) : 5000
-
 app.listen({ port }, () => {
     console.log('サーバ 💃 alicialonso@:', port || 4000)
 })

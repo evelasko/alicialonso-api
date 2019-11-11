@@ -23,6 +23,8 @@ export type LoginPayload = {
     isAdmin: boolean
     group: UserGroup
     email: string
+    iat?: number
+    exp?: number
 }
 
 export const createContext: ContextCallback = async ({ request, response }): Promise<Context> => ({

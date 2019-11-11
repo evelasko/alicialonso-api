@@ -1,4 +1,4 @@
-export * from './generated/nexus'
+export * from './generated/nexus-typegen'
 import { UserGroup } from '@generated/photon'
 
 export * from './context'
