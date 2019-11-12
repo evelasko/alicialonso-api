@@ -1,47 +1,30 @@
-import express from 'express'
-import proxy from 'http-proxy-middleware'
-import hbs from 'express-handlebars'
-import { webHookMailgun, authRoutes } from './routes'
-import { authBaseRoute } from '@constants'
-import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
-import cors from './cors'
-import session from './session'
-import server from './apollo'
-import { arena, errorHandlingMiddleware } from './middleware'
-const app = express()
+import { $log, ServerLoader } from '@tsed/common'
+import { Server, port } from './Server'
 
-// session setup
-app.use(session)
+/**
+ * Server bootstrap function
+ */
+export async function bootstrap(): Promise<void> {
+    try {
+        $log.debug(`実行をサーバポート${port}に`)
+        const server = await ServerLoader.bootstrap(Server)
+        await server.listen()
+        $log.debug('サーバ実行する')
+    } catch (err) {
+        $log.error(err)
+    }
+}
 
-// system routes
-app.use('/wh/mailgun', webHookMailgun)
-app.use(authBaseRoute, authRoutes)
+// ------- old code
 
-// system info routes
-app.use('/gqlmap', voyagerMiddleware({ endpointUrl: 'http://localhost:4000/gql' }))
-app.use('/queues', arena)
-app.use('/coverage', express.static('coverage/lcov-report'))
+// // system routes
+// app.use('/wh/mailgun', webHookMailgun)
+// app.use(authBaseRoute, authRoutes)
 
-// mobile routes proxy
-app.enable('trust proxy')
-app.use(
-    '/mobile',
-    proxy({
-        target: process.env.HOST,
-        changeOrigin: true,
-        pathRewrite: { '/mobile': '' }
-    })
-)
+// // default html renderer
+// app.set('views', 'src/server/views/')
+// app.engine('.hbs', hbs({ extname: '.hbs' }))
+// app.set('view engine', '.hbs')
 
-// default html renderer
-app.set('views', 'src/server/views/')
-app.engine('.hbs', hbs({ extname: '.hbs' }))
-app.set('view engine', '.hbs')
-
-// error handler middleware
-app.use(errorHandlingMiddleware)
-
-// apollo middleware
-server.applyMiddleware({ app, path: '/gql', cors })
-
-export default app
+// // error handler middleware
+// app.use(errorHandlingMiddleware)

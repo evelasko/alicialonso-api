@@ -1,7 +1,7 @@
 import Redis from 'ioredis'
 import { Request, Response } from 'express'
 import { Photon, UserGroup } from '@generated/photon'
-import authMiddleware from '../server/middleware/authentication.mw'
+import { authMiddleware } from '../server/middlewares/authentication.mw'
 import { redisContextInstance } from 'libs'
 import { ContextCallback } from 'graphql-yoga/dist/types'
 

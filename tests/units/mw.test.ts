@@ -1,4 +1,4 @@
-import authMiddleware from '../../src/server/middleware/authentication.mw'
+import authMiddleware from '../../src/server/middlewares/authentication.mw'
 import { generateLoginToken } from '../../src/helpers'
 import { LoginPayload } from '../../src/types'
 import { Request } from 'express'

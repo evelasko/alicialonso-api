@@ -33,7 +33,8 @@
         "no-param-reassign":0,
         "camelcase":"off",
         "@typescript-eslint/camelcase": ["error", { "properties": "never" }],
-        "@typescript-eslint/ban-ts-ignore":0
+        "@typescript-eslint/ban-ts-ignore":0,
+        "new-cap":"off"
     },
     "settings": {
         "import/extensions": [".js",".jsx",".ts",".tsx"],
