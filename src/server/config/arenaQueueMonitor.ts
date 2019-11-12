@@ -12,6 +12,6 @@ export const arena = Arena(
         ]
     },
     {
-        disableListen: true
+        disableListen: process.env.NODE_ENV === 'production' ? false : true
     }
 )

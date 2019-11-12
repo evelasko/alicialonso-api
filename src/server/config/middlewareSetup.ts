@@ -7,7 +7,7 @@ import proxy from 'http-proxy-middleware'
 import express from 'express'
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import session from './session'
-import { arena } from '../middlewares'
+import { arena } from './arenaQueueMonitor'
 import server from './apollo'
 import cors from './cors'
 
