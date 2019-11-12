@@ -19,12 +19,6 @@ export async function bootstrap(): Promise<void> {
 
 // // system routes
 // app.use('/wh/mailgun', webHookMailgun)
-// app.use(authBaseRoute, authRoutes)
-
-// // default html renderer
-// app.set('views', 'src/server/views/')
-// app.engine('.hbs', hbs({ extname: '.hbs' }))
-// app.set('view engine', '.hbs')
 
 // // error handler middleware
 // app.use(errorHandlingMiddleware)

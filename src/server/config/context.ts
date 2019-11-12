@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { Context } from '@aatypes'
 import { redisInstance, photon } from '@libs'
-import { authMiddleware } from './middlewares/authentication.mw'
+import { authMiddleware } from '../middlewares/authentication.mw'
 
 const context = async ({ req }: { req: Request }): Promise<Context> => ({
     photon,
