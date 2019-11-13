@@ -1,5 +1,6 @@
 import { ServerLoader, ServerSettings } from '@tsed/common'
 import path from 'path'
+import cons from 'consolidate'
 import { settings, beforeRoutesInitMiddleware, beforeListenMiddleware, templateEngineSetup } from './config'
 
 export const rootDir = path.resolve(__dirname)
@@ -16,7 +17,10 @@ export class Server extends ServerLoader {
      * @memberof Server
      */
     $onInit(): void {
-        templateEngineSetup(this)
+        // templateEngineSetup(this)
+        this.set('view engine', 'hbs')
+        this.set('views', `${rootDir}/views`)
+        this.engine('hbs', cons.handlebars)
     }
     /** Apply all server middlewares required before initializing routes
      * @memberof Server

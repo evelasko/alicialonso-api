@@ -8,7 +8,6 @@ import { IModuleOptions } from '@tsed/common'
  */
 export const settings = (rootDir: string, port: string | number): Partial<IModuleOptions> => ({
     rootDir,
-    viewsDir: `${rootDir}/views`,
     acceptMimes: ['application/json', 'urlencoded'],
     port,
     componentsScan: [`${rootDir}/middlewares/*.ts`, `${rootDir}/services/*.ts`],
