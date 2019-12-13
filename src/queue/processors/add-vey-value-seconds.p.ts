@@ -1,5 +1,7 @@
 import { Job } from 'bull'
-import { redisInstance } from '../../libs'
+
+import { redisInstance } from '../../helpers'
+
 // TODO JSDoc
 /**
  *
@@ -8,7 +10,5 @@ import { redisInstance } from '../../libs'
  * @param {Job} job
  * @return {Promise<void>}
  */
-export default async function(job: Job): Promise<void> {
-    const { key, value, seconds } = job.data
+export default async ({ data: { key, value, seconds } }: Job): Promise<string> =>
     await redisInstance.set(key, value, 'ex', seconds || 60 * 60 * 24)
-}

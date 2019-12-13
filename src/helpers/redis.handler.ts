@@ -1,7 +1,18 @@
 import { Job } from 'bull'
-import { redisQueue } from '../queue'
-import { redisInstance } from '../libs'
+import connectRedis from 'connect-redis'
+import session from 'express-session'
+import Redis from 'ioredis'
+import redis from 'redis'
+
 import { keyExpiration } from '../constants'
+import { redisQueue } from '../queue'
+
+export const RedisStore = connectRedis(session)
+export const redisInstance = new Redis(process.env.REDIS_URL as string)
+export const redisContextInstance = new Redis(process.env.REDIS_URL as string)
+export const redisClient = redis.createClient({
+    url: process.env.REDIS_URL as string
+})
 
 // FUNCTIONS PROCESSED BY QUEUE JOBS
 
@@ -43,8 +54,8 @@ export async function removeKey(key: string): Promise<Job> {
  * @param {string} email
  * @return {Promise<void>}
  */
-export async function setVerificationKey(key: string, email: string): Promise<void> {
-    await redisInstance.set(key, email, 'ex', keyExpiration.emailVerification)
+export async function setVerificationKey(key: string, email: string): Promise<string> {
+    return redisInstance.set(key, email, 'ex', keyExpiration.emailVerification)
 }
 
 /**
@@ -53,6 +64,6 @@ export async function setVerificationKey(key: string, email: string): Promise<vo
  * @param {string} email
  * @return {Promise<void>}
  */
-export async function setPasswordResetKey(key: string, email: string): Promise<void> {
-    await redisInstance.set(key, email, 'ex', keyExpiration.resetPassword)
+export async function setPasswordResetKey(key: string, email: string): Promise<string> {
+    return redisInstance.set(key, email, 'ex', keyExpiration.resetPassword)
 }

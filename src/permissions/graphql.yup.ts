@@ -1,19 +1,18 @@
-import { Shape } from 'yup'
-import { InputRule } from 'graphql-shield/dist/rules'
 import { inputRule } from 'graphql-shield'
+import { InputRule } from 'graphql-shield/dist/rules'
+import { Shape } from 'yup'
+
 import { errorMessages } from '../constants'
 
-export const signUpValidationRule: InputRule<
-    Shape<
-        object,
-        {
-            email: string
-            password: string
-            firstname: string
-            lastname: string
-        }
-    >
-> = inputRule('signUpIputs')(yup =>
+export const signUpValidationRule: InputRule<Shape<
+    object,
+    {
+        email: string
+        password: string
+        firstname: string
+        lastname: string
+    }
+>> = inputRule('signUpIputs')(yup =>
     yup.object().shape({
         email: yup
             .string()
@@ -35,14 +34,12 @@ export const signUpValidationRule: InputRule<
     })
 )
 
-export const groupRequestValidationRule: InputRule<
-    Shape<
-        object,
-        {
-            groupRequest: string
-        }
-    >
-> = inputRule('groupRequestInputs')(yup =>
+export const groupRequestValidationRule: InputRule<Shape<
+    object,
+    {
+        groupRequest: string
+    }
+>> = inputRule('groupRequestInputs')(yup =>
     yup.object().shape({
         groupRequest: yup.string().oneOf(['STUDENT', 'STAFF'], errorMessages.s_groupRequestNotNeeded)
     })

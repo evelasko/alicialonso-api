@@ -3,11 +3,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-// const util = require('util')
-// const detect = require('detect-port')
-// const exec = util.promisify(require('child_process').exec)
-// const app = require('../../src/server').default
-
 require('ts-node/register')
 const path = require('path')
 const moduleAlias = require('module-alias')
@@ -25,14 +20,13 @@ moduleAlias.addAliases({
 })
 
 const startTestServer = require('../config/testServer').default
-const resetAndSeed = require('./seed').default
+const resetAndSeed = require('./testDb').default
 const child_process = require('child_process')
-
 
 module.exports = async function() {
 
     global.stopServer = await startTestServer()
-    global.testData = await resetAndSeed()
+    // global.testData = await resetAndSeed()
     // start ultrahook for mailgun webhook responses
     // mapping requests from mailgun.alicialonso.ultrahook.com
     // to http://localhost:${port}/wh/mailgun/

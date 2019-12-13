@@ -1,6 +1,8 @@
-import express from 'express'
 import cors from 'cors'
-import { aaxEvents } from '../../helpers'
+/* eslint-disable functional/no-expression-statement */
+import express from 'express'
+
+// import { aaxEvents } from '../../helpers'
 
 // -- Mailgun Webhook Routes Config
 // eslint-disable-next-line new-cap
@@ -18,6 +20,6 @@ webHookMailgun.post('/', ({ body }, res) => {
         'event-data': { event, recipient }
     } = body
     const severity = event === 'failed' ? body['event-data'].severity : ''
-    aaxEvents.emit('mailgunevent', event, recipient, severity)
+    // aaxEvents.emit('mailgunevent', event, recipient, severity)
     res.send('')
 })

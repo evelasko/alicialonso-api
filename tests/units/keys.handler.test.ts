@@ -1,10 +1,7 @@
 import {
-    generateResetPasswordKey,
-    generateVerificationKey,
-    getKeyNature,
-    resetPasswordPrefix,
-    emailVerificationPrefix
-} from '../../src/constants'
+    emailVerificationPrefix, generateResetPasswordKey, generateVerificationKey, getKeyNature,
+    resetPasswordPrefix
+} from '@constants'
 
 describe('keys handler helper functions tests', () => {
     test('should generate an email verification key', () => {

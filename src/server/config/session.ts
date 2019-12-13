@@ -1,8 +1,9 @@
 import session from 'express-session'
-import { redisClient, RedisStore } from '@libs'
-import { redisSessionPrefix, redisSessionName } from '@constants'
 
-export default session({
+import { redisSessionName, redisSessionPrefix } from '@constants'
+import { redisClient, RedisStore } from '@helpers'
+
+export const sess = session({
     store: new RedisStore({
         client: redisClient,
         prefix: redisSessionPrefix

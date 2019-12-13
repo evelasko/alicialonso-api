@@ -1,18 +1,14 @@
-import express from 'express'
+/* eslint-disable functional/no-conditional-statement */
+/* eslint-disable functional/no-try-statement */
+/* eslint-disable functional/no-expression-statement */
 import cors from 'cors'
-import { Photon } from '@generated/photon'
-import { AAxError } from '@helpers'
-import { processGroupRequest } from '@core'
-import { redisInstance } from '@libs'
-import {
-    errorMessages,
-    authBaseRoute,
-    authConfirmationRoute,
-    authRejectGroupRequestRoute,
-    authApproveGroupRequest
-    // authResetPassword,
-    // authChangePassword
-} from '../../constants'
+import express from 'express'
+
+import { redisInstance } from '@helpers'
+import { Photon } from '@prisma/photon'
+
+import { authApproveGroupRequest, authConfirmationRoute, authRejectGroupRequestRoute } from '../../constants'
+
 // eslint-disable-next-line new-cap
 export const authRoutes = express.Router()
 authRoutes.use(express.json())
@@ -36,23 +32,22 @@ authRoutes.get(`${authConfirmationRoute}/:key`, express.urlencoded({ extended: t
             res.send(`Ok`)
             photon.disconnect()
         } else {
-            next(
-                new AAxError(
-                    `Unknown error: didn't received user's email from redis key ${key}`,
-                    `route:${authBaseRoute}${authConfirmationRoute}`,
-                    errorMessages.s_invalidCodeExpired,
-                    false
-                )
-            )
+            next()
+            // new AAxError(
+            //     `Unknown error: didn't received user's email from redis key ${key}`,
+            //     `route:${authBaseRoute}${authConfirmationRoute}`,
+            //     errorMessages.s_invalidCodeExpired,
+            //     false
+            // )
         }
     } catch (e) {
-        const err = new AAxError(
-            `${e}`,
-            `route:${authBaseRoute}${authConfirmationRoute}`,
-            errorMessages.s_invalidCodeExpired,
-            false
-        )
-        next(err)
+        // const err = new AAxError(
+        //     `${e}`,
+        //     `route:${authBaseRoute}${authConfirmationRoute}`,
+        //     errorMessages.s_invalidCodeExpired,
+        //     false
+        // )
+        next(e)
     }
 })
 
@@ -63,7 +58,7 @@ authRoutes.get(
     async (req, res, next) => {
         const { userSignature, adminSignature } = req.params
         try {
-            const response = await processGroupRequest('approve', userSignature, adminSignature)
+            const response = '?' // await processGroupRequest('approve', userSignature, adminSignature)
             res.send(`<h1>${response}</h1>`)
         } catch (err) {
             next(err)
@@ -78,7 +73,7 @@ authRoutes.get(
     async (req, res, next) => {
         const { userSignature, adminSignature } = req.params
         try {
-            const response = await processGroupRequest('reject', userSignature, adminSignature)
+            const response = '?' // await processGroupRequest('reject', userSignature, adminSignature)
             res.send(`<h1>${response}</h1>`)
         } catch (err) {
             next(err)

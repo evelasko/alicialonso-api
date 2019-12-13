@@ -1,5 +1,8 @@
-import crypto from 'crypto'
+import { always, cond, T } from 'ramda'
+import SimpleCrypto from 'simple-crypto-js'
 import validator from 'validator'
+
+export const cypher = new SimpleCrypto(process.env.JWT_SECRET as string)
 
 /**
  * Entcrypt a string
@@ -7,10 +10,7 @@ import validator from 'validator'
  * @return {string} the encrypted string
  */
 export function encryptString(data: string): string {
-    const key = crypto.createCipher('aes-128-cbc', process.env.JWT_SECRET as string)
-    let cry = key.update(data, 'utf8', 'hex')
-    cry += key.final('hex')
-    return cry
+    return cypher.encrypt(data)
 }
 
 /**
@@ -19,10 +19,8 @@ export function encryptString(data: string): string {
  * @return {string} the original string
  */
 export function decryptString(encrypted: string): string {
-    const key = crypto.createDecipher('aes-128-cbc', process.env.JWT_SECRET as string)
-    let str = key.update(encrypted, 'hex', 'utf8')
-    str += key.final('utf8')
-    return str
+    const decrypted = cypher.decrypt(encrypted)
+    return typeof decrypted === 'string' ? decrypted : ''
 }
 
 /**
@@ -31,8 +29,9 @@ export function decryptString(encrypted: string): string {
  * @return {(string | null)} returns and email address or null if the decrypted string is not and emai address
  */
 export function processEncryptedEmail(encryptedEmail: string): string | null {
-    if (validator.isEmail(encryptedEmail)) return encryptedEmail
-    const decrypted = decryptString(encryptedEmail)
-    if (validator.isEmail(decrypted)) return decrypted
-    return null
+    return cond([
+        [(e: string) => validator.isEmail(e), always(encryptedEmail)],
+        [(e: string) => validator.isEmail(decryptString(e)), always(decryptString(encryptedEmail))],
+        [T, always(null)]
+    ])(encryptedEmail as never)
 }

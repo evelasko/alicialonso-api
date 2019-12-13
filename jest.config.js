@@ -5,19 +5,18 @@ module.exports = {
     preset: 'ts-jest',
     globals: {
         'ts-jest': {
-          tsConfig: 'tsconfig.jest.json'
+          tsConfig: 'tsconfig.jest.json',
+          warnOnly: true
         }
     },
     moduleNameMapper: pathsToModuleNameMapper({
       "@constants": ["src/constants/"],
       "@helpers": ["src/helpers/"],
-      "@libs": ["src/libs/"],
       "@permissions": ["src/permissions/"],
       "@queue": ["src/queue/"],
       "@schema": ["src/schema/"],
       "@server": ["src/server/"],
       "@aatypes": ["src/types/"],
-      "@core": ["src/core/"]
     },
     {
       prefix: '<rootDir>/'
@@ -34,7 +33,6 @@ module.exports = {
     ],
     testEnvironment: 'node',
     verbose: true,
-    collectCoverage: true,
-    // collectCoverageFrom: ['src/**/*.{ts}'],
+    collectCoverage: false,
     testSequencer: './tests/config/sequencer.js'
 };

@@ -1,12 +1,11 @@
-/* eslint-disable require-jsdoc */
 import { ApolloServer } from 'apollo-server-express'
-import context from './context'
+
 import schema from '@schema'
 
-const server = new ApolloServer({
+import { context } from './context'
+
+export const server = new ApolloServer({
     schema,
     context,
     playground: true
 })
-
-export default server

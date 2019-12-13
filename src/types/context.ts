@@ -1,39 +1,24 @@
+import { Request } from 'express'
 import Redis from 'ioredis'
-import { Request, Response } from 'express'
-import { Photon, UserGroup } from '@generated/photon'
-import { authMiddleware } from '../server/middlewares/authentication.mw'
-import { redisContextInstance } from 'libs'
-import { ContextCallback } from 'graphql-yoga/dist/types'
 
-const photon = new Photon()
+import { Photon, UserGroup } from '@prisma/photon'
 
 export type Context = {
-    photon: Photon
-    request: Request
-    response?: Response
-    session?: Request['session']
-    user: LoginPayload | null
-    redis?: Redis.Redis
-    url?: string
-    aaxCache: object
+    readonly photon: Photon
+    readonly request: Request
+    readonly session?: Request['session']
+    readonly user: LoginPayload | null
+    readonly redis?: Redis.Redis
+    readonly url?: string
+    readonly aaxCache: object
+    shieldCache?: { [key: string]: string }
 }
 
 export type LoginPayload = {
-    id: string
-    isAdmin: boolean
-    group: UserGroup
-    email: string
-    iat?: number
-    exp?: number
+    readonly id: string
+    readonly isAdmin: boolean
+    readonly group: UserGroup
+    readonly email: string
+    readonly iat?: number
+    readonly exp?: number
 }
-
-export const createContext: ContextCallback = async ({ request, response }): Promise<Context> => ({
-    photon,
-    request,
-    response,
-    redis: redisContextInstance,
-    aaxCache: {},
-    user: await authMiddleware(request),
-    session: request && request.session,
-    url: request ? `${request.protocol}://${request.get('host')}` : ''
-})

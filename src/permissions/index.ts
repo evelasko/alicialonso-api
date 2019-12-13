@@ -1,4 +1,5 @@
-import { shield, and } from 'graphql-shield'
+import { and, shield } from 'graphql-shield'
+
 import * as rules from './rules'
 import * as validationRules from './validation'
 
@@ -12,11 +13,14 @@ const permissions = shield(
             login: rules.credentialsCheck,
             requestResetPassword: rules.emailRegistered,
             changePassword: and(validationRules.validNewPassword, rules.keyExists),
-            createGroupRequest: and(rules.isAuthenticatedUser, validationRules.groupRequestValidationRule),
-            approveGroupRequest: and(rules.isAdminUser, rules.groupRequestPending),
-            rejectGroupRequest: and(rules.isAdminUser, rules.groupRequestPending),
+            // createGroupRequest: and(rules.isAuthenticatedUser, validationRules.groupRequestValidationRule),
+            // approveGroupRequest: and(rules.isAdminUser, rules.groupRequestPending),
+            // rejectGroupRequest: and(rules.isAdminUser, rules.groupRequestPending),
             createSpace: rules.isAdminUser,
-            createVenue: rules.isAdminUser
+            createVenue: rules.isAdminUser,
+            createSocialNetwork: rules.isAdminUser,
+            addAddress: rules.isAuthenticatedUser,
+            updateAddress: rules.isAuthenticatedUser
         }
     },
     {

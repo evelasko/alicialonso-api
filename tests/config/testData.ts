@@ -1,39 +1,75 @@
-import {
-    NewsCreateInput,
-    EventCreateInput,
-    SpaceCreateInput,
-    VenueCreateInput,
-    UserGroup,
-    UserCreateInput,
-    UserDelegate,
-    VenueDelegate,
-    SpaceDelegate,
-    NewsDelegate,
-    EventDelegate
-} from '@generated/photon'
-import { v4 } from 'uuid'
-import moment from 'moment'
 import bcrypt from 'bcryptjs'
+import faker from 'faker'
+import { readFileSync, writeFileSync } from 'fs'
+import moment from 'moment'
+import path from 'path'
+import { curry, flatten, map, prop, times } from 'ramda'
+import { v4 } from 'uuid'
+
 import { photon } from '@libs'
+import {
+    EventCreateInput, EventDelegate, NewsCreateInput, NewsDelegate, SpaceCreateInput, SpaceDelegate,
+    UserCreateInput, UserDelegate, UserGroup, VenueCreateInput, VenueDelegate
+} from '@prisma/photon'
 
-export const passwordRaw = '1234567890'
+const generateUser = curry((isAdmin: boolean, emailVerified: boolean, group: UserGroup):UserCreateInput => {
+    const firstname = faker.name.firstName()
+    const lastname = faker.name.lastName()
+    return Object.assign({}, {
+        id: v4(),
+        firstname,
+        lastname,
+        email: faker.internet.email(firstname.toLowerCase(), lastname.toLowerCase()),
+        password: faker.internet.password(12),
+        isAdmin, emailVerified, group
+    })
+})
 
-export const ids = {
-    venueA: v4(),
-    placeA: v4(),
-    venueB: v4(),
-    placeB: v4(),
-    venueC: v4(),
-    placeC: v4()
-}
-export const emails = [
-    'al@public.com',
-    'ka@public.com',
-    'fakeadmin1@alicialonso.org',
-    'fakeadmin2@alicialonso.org',
-    'tw@student.com',
-    'am@student.com'
-]
+const generateVenue = (): VenueCreateInput => Object.assign({}, {
+    id: v4(),
+    name: `${faker.company.companyName()} ${faker.company.companySuffix()}`,
+    address: `${faker.address.streetAddress}, ${faker.address.city()}. ${faker.address.zipCode()} ${faker.address.country}`,
+    placeID: v4(),
+    latitude: parseFloat(faker.address.latitude()),
+    longitude: parseFloat(faker.address.longitude())
+})
+
+const generateSpaceOfVenue = (venue: VenueCreateInput): SpaceCreateInput => Object.assign({}, {
+    id: v4(),
+    name: faker.address.secondaryAddress(),
+    venue: { connect: { id: prop('id', venue)}}
+})
+
+const generateNewsOfUser = curry((user: UserCreateInput, userGroup: UserGroup): NewsCreateInput => Object.assign({}, {
+    id: v4(),
+    title: faker.lorem.sentence(),
+    subtitle: faker.lorem.text(),
+    body: faker.lorem.paragraphs(),
+    target: userGroup,
+    expiration: moment().add(3, 'days').toISOString(),
+    author: { connect: { email: prop('email', user) } }
+}))
+
+const generateEventOfUserInSpace = curry((space: SpaceCreateInput, user: UserCreateInput, userGroup: UserGroup): EventCreateInput => Object.assign({}, {
+    title: faker.lorem.sentence(),
+    subtitle: faker.lorem.text(),
+    body: faker.lorem.paragraphs(),
+    date: moment().add(faker.random.number(50)+1, 'days').toISOString(),
+    target: userGroup,
+    author: { connect: { email: prop('email', user) } },
+    place: { connect: { id: prop('id', space) } }
+}))
+
+export const groups = [UserGroup.ESTUDIANTE, UserGroup.STAFF, UserGroup.GENERAL]
+
+export const admins = times(() => generateUser(true)(true)(UserGroup.STAFF), 3) // generates 3 admins
+export const news = flatten(admins.map(admin => groups.map(generateNewsOfUser(admin)))) // generates 9 newses: 1 of each group (3) for each admin (3)
+export const venues = times(() => generateVenue(), 3) // generates 3 venues
+export const spaces = flatten(venues.map(venue => times(i => generateSpaceOfVenue(venue), 3))) // generates 9 spaces: 3 for each of 3 venues
+export const events = flatten(spaces.map(space => admins.map(admin => groups.map(generateEventOfUserInSpace(space)(admin))))) // generates 1 event for each group (3) for each admin (3) at each space (9)
+export const verifiedUsers = flatten(times(() => map(generateUser(false)(true), groups), 2)) // generates 2 verified user for each group
+export const unverifiedUsers = times(() => generateUser(false)(false)(UserGroup.GENERAL), 2) // generates 2 unverified users
+export const users = flatten([admins, verifiedUsers, unverifiedUsers])
 
 export interface TestDataItem {
     node: string
@@ -41,256 +77,42 @@ export interface TestDataItem {
     items: UserCreateInput[] | VenueCreateInput[] | SpaceCreateInput[] | NewsCreateInput[] | EventCreateInput[]
 }
 
-export const userItems = async (): Promise<UserCreateInput[]> => [
-    {
-        firstname: 'Ashlyn',
-        lastname: 'Leech',
-        isAdmin: false,
-        emailVerified: false,
-        email: emails[0],
-        password: await bcrypt.hash(passwordRaw, 8),
-        group: UserGroup.GENERAL
-    },
-    {
-        firstname: 'Kody',
-        lastname: 'Albert',
-        isAdmin: false,
-        emailVerified: true,
-        email: emails[1],
-        group: UserGroup.GENERAL,
-        password: await bcrypt.hash(passwordRaw, 8)
-    },
-    {
-        firstname: 'Killian',
-        lastname: 'Rodrigues',
-        isAdmin: true,
-        emailVerified: true,
-        email: emails[2],
-        group: UserGroup.STAFF,
-        password: await bcrypt.hash(passwordRaw, 8)
-    },
-    {
-        firstname: 'Aviana',
-        lastname: 'Sampson',
-        isAdmin: true,
-        emailVerified: true,
-        email: emails[3],
-        group: UserGroup.STAFF,
-        password: await bcrypt.hash(passwordRaw, 8)
-    },
-    {
-        firstname: 'Tyron',
-        lastname: 'Walter',
-        isAdmin: false,
-        emailVerified: false,
-        email: emails[4],
-        group: UserGroup.ESTUDIANTE,
-        password: await bcrypt.hash(passwordRaw, 8)
-    },
-    {
-        firstname: 'Alec',
-        lastname: 'Mooney',
-        isAdmin: false,
-        emailVerified: true,
-        email: emails[5],
-        group: UserGroup.ESTUDIANTE,
-        password: await bcrypt.hash(passwordRaw, 8)
-    }
-]
+export type RawData = {
+    admins: UserCreateInput[],
+    verifiedUsers: UserCreateInput[],
+    unverifiedUsers: UserCreateInput[],
+    news: NewsCreateInput[],
+    venues: VenueCreateInput[],
+    spaces: SpaceCreateInput[],
+    events: EventCreateInput[],
+}
+
+const pathToRawData = path.join(__dirname, './data.json')
 
 /**
- * Coordinate testing data
- * @export
- * @return {Promise<TestDataItem>} Array of data objects to fill the database
+ * Coordinate testing data seed
+ * @return {TestDataItem} Array of data objects to fill the database
  */
-export default async function testData(): Promise<TestDataItem[]> {
+export function testData(): TestDataItem[] {
     const data: TestDataItem[] = []
     // add users --------------------------------------------------------
     data.push({
         node: 'users',
         delegate: photon.users,
-        items: await userItems()
+        items: users.map(user => Object.assign({}, {...user, password: bcrypt.hashSync(user.password) }))
     })
     // add venues --------------------------------------------------------
-    data.push({
-        node: 'venues',
-        delegate: photon.venues,
-        items: [
-            {
-                id: ids.venueA,
-                name: 'Venue A',
-                address: 'Address Venue A',
-                placeID: 'ABN2324sd',
-                latitude: 123.5643,
-                longitude: 4532.6655
-            },
-            {
-                id: ids.venueB,
-                name: 'Venue B',
-                address: 'Address Venue B',
-                placeID: 'w9r7tw7gforwufg',
-                latitude: 1243.0098,
-                longitude: 12.3322
-            },
-            {
-                id: ids.venueC,
-                name: 'Venue C',
-                address: 'Address Venue C',
-                placeID: 'w9r7gforwufg',
-                latitude: 1243.008,
-                longitude: 12.32
-            }
-        ]
-    })
+    data.push({ node: 'venues', delegate: photon.venues, items: venues })
     // add spaces --------------------------------------------------------
-    data.push({
-        node: 'spaces',
-        delegate: photon.spaces,
-        items: [
-            {
-                id: ids.placeA,
-                name: 'Place A',
-                venue: { connect: { id: ids.venueA } }
-            },
-            {
-                id: ids.placeB,
-                name: 'Place B',
-                venue: { connect: { id: ids.venueB } }
-            },
-            {
-                id: ids.placeC,
-                name: 'Place C',
-                venue: { connect: { id: ids.venueC } }
-            }
-        ]
-    })
+    data.push({ node: 'spaces', delegate: photon.spaces, items: spaces })
     // add news --------------------------------------------------------
-    data.push({
-        node: 'news',
-        delegate: photon.news,
-        items: [
-            {
-                title: 'News Public 1',
-                body: 'Body of News Public 1',
-                target: UserGroup.GENERAL,
-                expiration: moment()
-                    .add(3, 'days')
-                    .toISOString(),
-                author: { connect: { email: emails[3] } }
-            },
-            {
-                title: 'News Public 2',
-                body: 'Body of News Public 2',
-                target: UserGroup.GENERAL,
-                expiration: moment()
-                    .add(3, 'days')
-                    .toISOString(),
-                author: { connect: { email: emails[3] } }
-            },
-            {
-                title: 'News Staff 1',
-                body: 'Body of News Staff 1',
-                target: UserGroup.STAFF,
-                expiration: moment()
-                    .add(3, 'days')
-                    .toISOString(),
-                author: { connect: { email: emails[3] } }
-            },
-            {
-                title: 'News Staff 2',
-                body: 'Body of News Staff 2',
-                target: UserGroup.STAFF,
-                expiration: moment()
-                    .add(3, 'days')
-                    .toISOString(),
-                author: { connect: { email: emails[3] } }
-            },
-            {
-                title: 'News Student 1',
-                body: 'Body of News Student 1',
-                target: UserGroup.ESTUDIANTE,
-                expiration: moment()
-                    .add(3, 'days')
-                    .toISOString(),
-                author: { connect: { email: emails[3] } }
-            },
-            {
-                title: 'News Student 2',
-                body: 'Body of News Student 2',
-                target: UserGroup.ESTUDIANTE,
-                expiration: moment()
-                    .add(3, 'days')
-                    .toISOString(),
-                author: { connect: { email: emails[3] } }
-            }
-        ]
-    })
+    data.push({ node: 'news', delegate: photon.news, items: news })
     // add events --------------------------------------------------------
-    data.push({
-        node: 'events',
-        delegate: photon.events,
-        items: [
-            {
-                title: 'Event Public In Time',
-                body: 'Body of Event Public In Time',
-                date: moment()
-                    .add(10, 'days')
-                    .toISOString(),
-                target: UserGroup.GENERAL,
-                place: { connect: { id: ids.placeA } },
-                author: { connect: { email: emails[4] } }
-            },
-            {
-                title: 'Event Staff In Time',
-                body: 'Body of Event Staff In Time',
-                date: moment()
-                    .add(10, 'days')
-                    .toISOString(),
-                target: UserGroup.STAFF,
-                place: { connect: { id: ids.placeB } },
-                author: { connect: { email: emails[4] } }
-            },
-            {
-                title: 'Event Student In Time',
-                body: 'Body of Event Student In Time',
-                date: moment()
-                    .add(10, 'days')
-                    .toISOString(),
-                target: UserGroup.ESTUDIANTE,
-                place: { connect: { id: ids.placeC } },
-                author: { connect: { email: emails[4] } }
-            },
-            {
-                title: 'Event Public Expired',
-                body: 'Body of Event Public Expired',
-                date: moment()
-                    .subtract(10, 'days')
-                    .toISOString(),
-                target: UserGroup.GENERAL,
-                place: { connect: { id: ids.placeA } },
-                author: { connect: { email: emails[4] } }
-            },
-            {
-                title: 'Event Staff Expired',
-                body: 'Body of Event Staff Expired',
-                date: moment()
-                    .subtract(10, 'days')
-                    .toISOString(),
-                target: UserGroup.STAFF,
-                place: { connect: { id: ids.placeB } },
-                author: { connect: { email: emails[4] } }
-            },
-            {
-                title: 'Event Student Expired',
-                body: 'Body of Event Student Expired',
-                date: moment()
-                    .subtract(10, 'days')
-                    .toISOString(),
-                target: UserGroup.ESTUDIANTE,
-                place: { connect: { id: ids.placeC } },
-                author: { connect: { email: emails[4] } }
-            }
-        ]
-    })
+    data.push({ node: 'events', delegate: photon.events, items: events })
+    
+    const testRawData: RawData = { admins, news, venues, spaces, events, verifiedUsers, unverifiedUsers }
+    writeFileSync(pathToRawData, JSON.stringify(testRawData), {encoding: 'utf8'})
     return data
 }
+
+export const getRawData = (): RawData => JSON.parse(readFileSync(pathToRawData, {encoding: 'utf8'}))

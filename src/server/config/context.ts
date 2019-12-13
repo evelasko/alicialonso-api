@@ -1,35 +1,33 @@
+import { ExpressContext } from 'apollo-server-express/src/ApolloServer'
 import { Request } from 'express'
+import { has } from 'ramda'
+
 import { Context, LoginPayload } from '@aatypes'
-import { redisInstance, photon } from '@libs'
-import { AAxError, decodeLoginToken } from '@helpers'
+import { decodeLoginToken, redisInstance } from '@helpers'
+import { Photon } from '@prisma/photon'
 
-const contextAuth = async ({ headers, session }: Request): Promise<LoginPayload | null> => {
-    // athentication by session cookie
-    if (session && Object.prototype.hasOwnProperty.call(session, 'user')) {
-        return session.user
-    }
+const photon = new Photon()
 
-    // authentication by login token
-    if (Object.prototype.hasOwnProperty.call(headers, 'auth')) {
-        const user: AAxError | LoginPayload = await decodeLoginToken(headers.auth as string)
-        if (!(user instanceof AAxError) && Object.prototype.hasOwnProperty.call(user, 'id')) {
-            if (Object.prototype.hasOwnProperty.call(user, 'iat')) delete user.iat
-            if (Object.prototype.hasOwnProperty.call(user, 'exp')) delete user.exp
-            return user
-        }
-    }
-    // authentication by device id
-    if (Object.prototype.hasOwnProperty.call(headers, 'device')) {
-        const user: LoginPayload | null = await photon.devices
-            .findOne({ where: { id: headers.device as string } })
-            .owner({ select: { id: true, isAdmin: true, group: true, email: true } })
+// TODO Authentication thru JWT
+// authentication by login token
+export const resolveAuthToken = async (headers: Request['headers']): Promise<LoginPayload | null> =>
+    headers && has('auth')(headers) ? decodeLoginToken(headers.auth as string) : null
 
-        if (user) return user
-    }
-    return null
+// TODO Authentication thru device ID
+export const resolveDeviceToken = async (headers: Request['headers']): Promise<LoginPayload | null> => {
+    const user: LoginPayload | null = await photon.devices
+        .findOne({ where: { id: headers.device as string } })
+        .owner({ select: { id: true, isAdmin: true, group: true, email: true } })
+    return user && has('email')(user) ? user : null
 }
 
-const context = async ({ req }: { req: Request }): Promise<Context> => ({
+export const contextAuth = async ({ headers, session }: Request): Promise<LoginPayload | null> => {
+    // athentication by session cookie
+    return session && has('user')(session) ? session.user : null // (await resolveAuthToken(headers)) || (await resolveDeviceToken(headers))
+}
+
+// eslint-disable-next-line functional/prefer-readonly-type
+export const context = async ({ req }: ExpressContext): Promise<Context> => ({
     photon,
     request: req,
     redis: redisInstance,
@@ -39,4 +37,6 @@ const context = async ({ req }: { req: Request }): Promise<Context> => ({
     url: req ? `${req.protocol}://${req.get('host')}` : ''
 })
 
-export default context
+export const setContextShieldCache = <T>(context: Context) => (key: string, value: T): T | null =>
+    // eslint-disable-next-line functional/immutable-data
+    value ? Object.assign(context, { shieldCache: { [key]: value } }).shieldCache[key] : null

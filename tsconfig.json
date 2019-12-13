@@ -13,13 +13,11 @@
         "paths": {
             "@constants": ["constants/"],
             "@helpers": ["helpers/"],
-            "@libs": ["libs/"],
             "@permissions": ["permissions/"],
             "@queue": ["queue/"],
             "@schema": ["schema/"],
             "@server": ["server/"],
             "@aatypes": ["types/"],
-            "@core": ["core/"]
         }, 
         "allowSyntheticDefaultImports": true,
         "traceResolution":true,
@@ -31,11 +29,11 @@
         "emitDecoratorMetadata": true
     },
     "include": [
-        "src/**/*.ts",
-        "tests/**/*.ts"
+        "src/**/*.ts"
     ],
     "exclude": [
         "dist",
-        "node_modules",
+        "./node_modules/*",
+        "tests/**/*.ts"
     ]
 }

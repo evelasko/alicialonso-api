@@ -1,23 +1,25 @@
-import path from 'path'
+import { applyMiddleware } from 'graphql-middleware'
 import { makeSchema } from 'nexus'
 import { nexusPrismaPlugin } from 'nexus-prisma'
-import { applyMiddleware } from 'graphql-middleware'
-import * as types from './resolvers'
-import permissions from '../permissions'
+import path from 'path'
 
-let schema = makeSchema({
+import permissions from '@permissions'
+
+import * as types from './resolvers'
+
+const preSchema = makeSchema({
     types,
-    // true,
+    // @ts-ignore
+    plugins: [nexusPrismaPlugin()],
     outputs: {
         schema: path.join(__dirname, './schema.graphql'),
         typegen: path.join(__dirname, '../types/generated/nexus-typegen.ts')
     },
-    plugins: [nexusPrismaPlugin()],
     typegenAutoConfig: {
         contextType: 'Context.Context',
         sources: [
             {
-                source: '@generated/photon',
+                source: '@prisma/photon',
                 alias: 'photon'
             },
             {
@@ -33,11 +35,6 @@ let schema = makeSchema({
     }
 })
 
-schema = applyMiddleware(schema, permissions)
-export default schema
+const schema = applyMiddleware(preSchema, permissions)
 
-if (process.env.NODE_ENV === 'nexus') {
-    setInterval(() => {
-        process.exit()
-    }, 10500)
-}
+export default schema

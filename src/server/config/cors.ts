@@ -1,4 +1,4 @@
-const cors = {
+export const cors = {
     origin: [
         'http://localhost:3000',
         'http://localhost:3001',
@@ -12,5 +12,3 @@ const cors = {
     credentials: true,
     optionsSuccessStatus: 200
 }
-
-export default cors

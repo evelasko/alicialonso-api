@@ -1,6 +1,7 @@
-import { photon } from '@libs'
+import { Photon, User, UserSelect, UserWhereInput } from '@prisma/photon'
 
-export const getAdminEmails = async (): Promise<string[]> => {
-    const emails = await photon.users.findMany({ where: { isAdmin: true }, select: { email: true } })
-    return emails.map(({ email }) => email)
-}
+const photon = new Photon()
+
+export const getManyUsers = (where: UserWhereInput): ((select: UserSelect) => Promise<Array<User>>) => async (
+    select: UserSelect
+) => await photon.users.findMany({ where, select })

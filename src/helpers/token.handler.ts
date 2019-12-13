@@ -1,6 +1,6 @@
 import { sign, verify } from 'jsonwebtoken'
-import { AAxError } from './error.handler'
-import { errorMessages } from '../constants'
+import R from 'ramda'
+
 import { LoginPayload } from '../types'
 
 const secret = process.env.JWT_SECRET as string
@@ -15,36 +15,12 @@ export async function generateLoginToken(loginPayload: LoginPayload): Promise<st
     return token
 }
 
-export const resolveJWTError = (err: Error): AAxError => {
-    return new AAxError(
-        `ERROR: ${err || 'Unknown'}`,
-        `decode[Reset|Login]Token()`,
-        // eslint-disable-next-line no-nested-ternary
-        Object.prototype.hasOwnProperty.call(err, 'message')
-            ? err.message === 'jwt expired'
-                ? errorMessages.s_invalidCodeExpired
-                : errorMessages.s_invalidCodeProvided
-            : errorMessages.s_invalidCodeProvided,
-        false
-    )
-}
-
 /**
  * Decode an authorization login token
  * @param {string} token
- * @return {(Promise<LoginPayload | AAxError>)} { id, isAdmin, group, email } | formatted AAxError
+ * @return {LoginPayload | null} { id, isAdmin, group, email } | formatted AAxError
  */
-export async function decodeLoginToken(token: string): Promise<LoginPayload | AAxError> {
-    try {
-        const decoded = await verify(token, secret)
-        if (Object.prototype.hasOwnProperty.call(decoded, 'id')) {
-            return decoded as LoginPayload
-        }
-        return resolveJWTError({
-            name: 'Error decoding token',
-            message: 'decoded token not valid: id, isAdmin and group properties are missin'
-        })
-    } catch (err) {
-        return resolveJWTError(err)
-    }
+export function decodeLoginToken(token: string): LoginPayload | null {
+    const decoded = verify(token, secret)
+    return decoded && R.has('id')(decoded) ? (decoded as LoginPayload) : null
 }

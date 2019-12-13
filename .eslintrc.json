@@ -9,7 +9,8 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended",
         "prettier/@typescript-eslint",
-        "plugin:jest/recommended"
+        "plugin:jest/recommended",
+        "plugin:functional/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -22,11 +23,12 @@
         "project": "./tsconfig.json"
     },
     "plugins": [
-        "@typescript-eslint", "prettier", "jest"
+        "@typescript-eslint", "prettier", "jest", "functional"
     ],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": "warn",
         "no-console":0,
+        "new-cap":"off",
         "import/no-cycle":0,
         "import/prefer-default-import":0,
         "import/prefer-default-export":0,
@@ -34,8 +36,23 @@
         "camelcase":"off",
         "@typescript-eslint/camelcase": ["error", { "properties": "never" }],
         "@typescript-eslint/ban-ts-ignore":0,
-        "new-cap":"off"
+        "functional/prefer-readonly-type": "off"
     },
+    "overrides": [
+        {
+            "files": [ "src/**/*.io.ts" ],
+            "rules": {
+                "functional/no-expression-statement": "off"
+            }
+        },
+        {
+            "files": [ "tests/**.*"],
+            "rules": {
+                "functional/no-expression-statement": "off",
+                "functional/functional-parameters": "off"
+            }
+        }
+    ],
     "settings": {
         "import/extensions": [".js",".jsx",".ts",".tsx"],
         "import/parsers": {

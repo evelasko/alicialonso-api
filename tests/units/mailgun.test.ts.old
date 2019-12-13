@@ -1,0 +1,13 @@
+/* eslint-disable functional/functional-parameters */
+/* eslint-disable functional/no-expression-statement */
+import { Mailgun } from '@libs'
+
+test('send email', async () => {
+    const t = await Mailgun.sendMail({
+        from: 'fundacion@alicialonso.org',
+        to: 'aaxusers@mail.alicialonso.org',
+        subject: 'Nota de Prensa: Nov, 2019.',
+        text: `test` // , html: '',
+    })
+    expect(t).not.toBeUndefined()
+})

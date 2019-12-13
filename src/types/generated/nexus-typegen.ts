@@ -4,7 +4,7 @@
  */
 
 import * as Context from "../context"
-import * as photon from "@generated/photon"
+import * as photon from "@prisma/photon"
 
 
 
@@ -150,6 +150,7 @@ export interface NexusGenInputs {
   }
   DepartmentWhereUniqueInput: { // input type
     id?: any | null; // UUID
+    name?: string | null; // String
   }
   DesdobleCreateManyWithoutDesdoblesInput: { // input type
     connect?: NexusGenInputs['DesdobleWhereUniqueInput'][] | null; // [DesdobleWhereUniqueInput!]
@@ -635,14 +636,30 @@ export interface NexusGenInputs {
     connect?: NexusGenInputs['SocialLinkWhereUniqueInput'][] | null; // [SocialLinkWhereUniqueInput!]
     create?: NexusGenInputs['SocialLinkCreateWithoutOwnerInput'][] | null; // [SocialLinkCreateWithoutOwnerInput!]
   }
+  SocialLinkCreateManyWithoutUserLinksInput: { // input type
+    connect?: NexusGenInputs['SocialLinkWhereUniqueInput'][] | null; // [SocialLinkWhereUniqueInput!]
+    create?: NexusGenInputs['SocialLinkCreateWithoutSocialNetworkInput'][] | null; // [SocialLinkCreateWithoutSocialNetworkInput!]
+  }
   SocialLinkCreateWithoutOwnerInput: { // input type
     id?: any | null; // UUID
     link: string; // String!
     socialNetwork: NexusGenInputs['SocialNetworkCreateOneWithoutSocialNetworkInput']; // SocialNetworkCreateOneWithoutSocialNetworkInput!
   }
+  SocialLinkCreateWithoutSocialNetworkInput: { // input type
+    id?: any | null; // UUID
+    link: string; // String!
+    owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
+  }
   SocialLinkWhereUniqueInput: { // input type
     id?: any | null; // UUID
     link?: string | null; // String
+  }
+  SocialNetworkCreateInput: { // input type
+    baseURL: string; // String!
+    id?: any | null; // UUID
+    name: string; // String!
+    ownURL: string; // String!
+    userLinks?: NexusGenInputs['SocialLinkCreateManyWithoutUserLinksInput'] | null; // SocialLinkCreateManyWithoutUserLinksInput
   }
   SocialNetworkCreateOneWithoutSocialNetworkInput: { // input type
     connect?: NexusGenInputs['SocialNetworkWhereUniqueInput'] | null; // SocialNetworkWhereUniqueInput
@@ -655,7 +672,10 @@ export interface NexusGenInputs {
     ownURL: string; // String!
   }
   SocialNetworkWhereUniqueInput: { // input type
+    baseURL?: string | null; // String
     id?: any | null; // UUID
+    name?: string | null; // String
+    ownURL?: string | null; // String
   }
   SpaceCreateInput: { // input type
     createdAt?: any | null; // DateTime
@@ -781,6 +801,10 @@ export interface NexusGenInputs {
   UserCreateOneWithoutGestorInput: { // input type
     connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
     create?: NexusGenInputs['UserCreateWithoutLeccionesGestionadasInput'] | null; // UserCreateWithoutLeccionesGestionadasInput
+  }
+  UserCreateOneWithoutOwnerInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutSocialNetworkLinksInput'] | null; // UserCreateWithoutSocialNetworkLinksInput
   }
   UserCreateOneWithoutUserInput: { // input type
     connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
@@ -972,6 +996,37 @@ export interface NexusGenInputs {
     socialNetworkLinks?: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'] | null; // SocialLinkCreateManyWithoutSocialNetworkLinksInput
     updatedAt?: any | null; // DateTime
   }
+  UserCreateWithoutSocialNetworkLinksInput: { // input type
+    addresses?: NexusGenInputs['AddressCreateManyWithoutAddressesInput'] | null; // AddressCreateManyWithoutAddressesInput
+    asistencias?: NexusGenInputs['AsistenciaCreateManyWithoutAsistenciasInput'] | null; // AsistenciaCreateManyWithoutAsistenciasInput
+    avatar?: string | null; // String
+    contentDocuments?: NexusGenInputs['ContentDocumentCreateManyWithoutContentDocumentsInput'] | null; // ContentDocumentCreateManyWithoutContentDocumentsInput
+    createdAt?: any | null; // DateTime
+    department?: NexusGenInputs['DepartmentCreateOneWithoutDepartmentInput'] | null; // DepartmentCreateOneWithoutDepartmentInput
+    devices?: NexusGenInputs['DeviceCreateManyWithoutDevicesInput'] | null; // DeviceCreateManyWithoutDevicesInput
+    discountRequests?: NexusGenInputs['DiscountRequestCreateManyWithoutDiscountRequestsInput'] | null; // DiscountRequestCreateManyWithoutDiscountRequestsInput
+    email: string; // String!
+    emailVerified?: boolean | null; // Boolean
+    events?: NexusGenInputs['EventCreateManyWithoutEventsInput'] | null; // EventCreateManyWithoutEventsInput
+    firstname: string; // String!
+    group?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    groupRequest?: NexusGenEnums['UserGroup'] | null; // UserGroup
+    id?: any | null; // UUID
+    isAdmin?: boolean | null; // Boolean
+    lastname: string; // String!
+    leccionesDisponibles?: NexusGenInputs['LeccionCreateManyWithoutLeccionesDisponiblesInput'] | null; // LeccionCreateManyWithoutLeccionesDisponiblesInput
+    leccionesGestionadas?: NexusGenInputs['LeccionCreateManyWithoutLeccionesGestionadasInput'] | null; // LeccionCreateManyWithoutLeccionesGestionadasInput
+    matriculas?: NexusGenInputs['MatriculaCreateManyWithoutMatriculasInput'] | null; // MatriculaCreateManyWithoutMatriculasInput
+    medias?: NexusGenInputs['MediaCreateManyWithoutMediasInput'] | null; // MediaCreateManyWithoutMediasInput
+    metadata?: string | null; // String
+    newses?: NexusGenInputs['NewsCreateManyWithoutNewsesInput'] | null; // NewsCreateManyWithoutNewsesInput
+    officialDocuments?: NexusGenInputs['OfficialDocumentCreateManyWithoutOfficialDocumentsInput'] | null; // OfficialDocumentCreateManyWithoutOfficialDocumentsInput
+    orders?: NexusGenInputs['OrderCreateManyWithoutOrdersInput'] | null; // OrderCreateManyWithoutOrdersInput
+    password: string; // String!
+    roles?: NexusGenInputs['RoleCreateManyWithoutRolesInput'] | null; // RoleCreateManyWithoutRolesInput
+    sesiones?: NexusGenInputs['SesionCreateManyWithoutSesionesInput'] | null; // SesionCreateManyWithoutSesionesInput
+    updatedAt?: any | null; // DateTime
+  }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
     id?: any | null; // UUID
@@ -1018,11 +1073,18 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  Address: photon.Address;
   AuthPayload: { // root type
     token: string; // String!
   }
+  Department: photon.Department;
+  Device: photon.Device;
   Mutation: {};
+  OfficialDocument: photon.OfficialDocument;
   Query: {};
+  Role: photon.Role;
+  SocialLink: photon.SocialLink;
+  SocialNetwork: photon.SocialNetwork;
   Space: photon.Space;
   User: photon.User;
   Venue: photon.Venue;
@@ -1143,8 +1205,11 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   SesionCreateWithoutAtInput: NexusGenInputs['SesionCreateWithoutAtInput'];
   SesionWhereUniqueInput: NexusGenInputs['SesionWhereUniqueInput'];
   SocialLinkCreateManyWithoutSocialNetworkLinksInput: NexusGenInputs['SocialLinkCreateManyWithoutSocialNetworkLinksInput'];
+  SocialLinkCreateManyWithoutUserLinksInput: NexusGenInputs['SocialLinkCreateManyWithoutUserLinksInput'];
   SocialLinkCreateWithoutOwnerInput: NexusGenInputs['SocialLinkCreateWithoutOwnerInput'];
+  SocialLinkCreateWithoutSocialNetworkInput: NexusGenInputs['SocialLinkCreateWithoutSocialNetworkInput'];
   SocialLinkWhereUniqueInput: NexusGenInputs['SocialLinkWhereUniqueInput'];
+  SocialNetworkCreateInput: NexusGenInputs['SocialNetworkCreateInput'];
   SocialNetworkCreateOneWithoutSocialNetworkInput: NexusGenInputs['SocialNetworkCreateOneWithoutSocialNetworkInput'];
   SocialNetworkCreateWithoutUserLinksInput: NexusGenInputs['SocialNetworkCreateWithoutUserLinksInput'];
   SocialNetworkWhereUniqueInput: NexusGenInputs['SocialNetworkWhereUniqueInput'];
@@ -1169,6 +1234,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserCreateOneWithoutByInput: NexusGenInputs['UserCreateOneWithoutByInput'];
   UserCreateOneWithoutEstudianteInput: NexusGenInputs['UserCreateOneWithoutEstudianteInput'];
   UserCreateOneWithoutGestorInput: NexusGenInputs['UserCreateOneWithoutGestorInput'];
+  UserCreateOneWithoutOwnerInput: NexusGenInputs['UserCreateOneWithoutOwnerInput'];
   UserCreateOneWithoutUserInput: NexusGenInputs['UserCreateOneWithoutUserInput'];
   UserCreateWithoutAsistenciasInput: NexusGenInputs['UserCreateWithoutAsistenciasInput'];
   UserCreateWithoutDiscountRequestsInput: NexusGenInputs['UserCreateWithoutDiscountRequestsInput'];
@@ -1176,6 +1242,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserCreateWithoutLeccionesGestionadasInput: NexusGenInputs['UserCreateWithoutLeccionesGestionadasInput'];
   UserCreateWithoutMatriculasInput: NexusGenInputs['UserCreateWithoutMatriculasInput'];
   UserCreateWithoutSesionesInput: NexusGenInputs['UserCreateWithoutSesionesInput'];
+  UserCreateWithoutSocialNetworkLinksInput: NexusGenInputs['UserCreateWithoutSocialNetworkLinksInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
   VenueCreateInput: NexusGenInputs['VenueCreateInput'];
   VenueCreateOneWithoutVenueInput: NexusGenInputs['VenueCreateOneWithoutVenueInput'];
@@ -1192,26 +1259,93 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  Address: { // field return type
+    address1: string; // String!
+    address2: string | null; // String
+    city: string | null; // String
+    code: string; // String!
+    country: string; // String!
+    id: any; // UUID!
+    owner: NexusGenRootTypes['User']; // User!
+    primary: boolean; // Boolean!
+    region: string; // String!
+  }
   AuthPayload: { // field return type
     token: string; // String!
   }
+  Department: { // field return type
+    id: any; // UUID!
+    members: NexusGenRootTypes['User'][]; // [User!]!
+    name: string; // String!
+  }
+  Device: { // field return type
+    countryCode: string | null; // String
+    id: any; // UUID!
+    notificationsDevice: string; // String!
+    notificationsPermission: boolean; // Boolean!
+    number: string | null; // String
+    owner: NexusGenRootTypes['User']; // User!
+    type: NexusGenEnums['DeviceType']; // DeviceType!
+    verified: boolean; // Boolean!
+  }
   Mutation: { // field return type
-    approveGroupRequest: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    addAddress: NexusGenRootTypes['Address']; // Address!
+    addSocialLink: NexusGenRootTypes['SocialLink']; // SocialLink!
     changePassword: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-    createGroupRequest: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    createSocialNetwork: NexusGenRootTypes['SocialNetwork']; // SocialNetwork!
     createSpace: NexusGenRootTypes['Space']; // Space!
     createVenue: NexusGenRootTypes['Venue']; // Venue!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-    rejectGroupRequest: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     requestResetPassword: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    shield: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     signUpUser: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    updateAddress: NexusGenRootTypes['Address']; // Address!
+  }
+  OfficialDocument: { // field return type
+    expiration: any; // DateTime!
+    id: any; // UUID!
+    number: string; // String!
+    other: string | null; // String
+    owner: NexusGenRootTypes['User']; // User!
+    type: NexusGenEnums['OfficialDocumentType']; // OfficialDocumentType!
   }
   Query: { // field return type
+    address: NexusGenRootTypes['Address'] | null; // Address
+    addresses: NexusGenRootTypes['Address'][]; // [Address!]!
+    department: NexusGenRootTypes['Department'] | null; // Department
+    departments: NexusGenRootTypes['Department'][]; // [Department!]!
+    device: NexusGenRootTypes['Device'] | null; // Device
+    devices: NexusGenRootTypes['Device'][]; // [Device!]!
     me: NexusGenRootTypes['User']; // User!
+    officialDocument: NexusGenRootTypes['OfficialDocument'] | null; // OfficialDocument
+    officialDocuments: NexusGenRootTypes['OfficialDocument'][]; // [OfficialDocument!]!
+    role: NexusGenRootTypes['Role'] | null; // Role
+    roles: NexusGenRootTypes['Role'][]; // [Role!]!
+    socialLink: NexusGenRootTypes['SocialLink'] | null; // SocialLink
+    socialLinks: NexusGenRootTypes['SocialLink'][]; // [SocialLink!]!
+    socialNetwork: NexusGenRootTypes['SocialNetwork'] | null; // SocialNetwork
+    socialNetworks: NexusGenRootTypes['SocialNetwork'][]; // [SocialNetwork!]!
     space: NexusGenRootTypes['Space'] | null; // Space
     spaces: NexusGenRootTypes['Space'][]; // [Space!]!
     venue: NexusGenRootTypes['Venue'] | null; // Venue
     venues: NexusGenRootTypes['Venue'][]; // [Venue!]!
+  }
+  Role: { // field return type
+    id: any; // UUID!
+    name: string; // String!
+    users: NexusGenRootTypes['User'][]; // [User!]!
+  }
+  SocialLink: { // field return type
+    id: any; // UUID!
+    link: string; // String!
+    socialNetwork: NexusGenRootTypes['SocialNetwork']; // SocialNetwork!
+  }
+  SocialNetwork: { // field return type
+    baseURL: string; // String!
+    id: any; // UUID!
+    name: string; // String!
+    ownURL: string; // String!
+    userLinks: NexusGenRootTypes['SocialLink'][]; // [SocialLink!]!
   }
   Space: { // field return type
     id: any; // UUID!
@@ -1219,6 +1353,9 @@ export interface NexusGenFieldTypes {
     venue: NexusGenRootTypes['Venue']; // Venue!
   }
   User: { // field return type
+    addresses: NexusGenRootTypes['Address'][]; // [Address!]!
+    department: NexusGenRootTypes['Department'] | null; // Department
+    devices: NexusGenRootTypes['Device'][]; // [Device!]!
     email: string; // String!
     emailVerified: boolean; // Boolean!
     firstname: string; // String!
@@ -1227,7 +1364,10 @@ export interface NexusGenFieldTypes {
     id: any; // UUID!
     isAdmin: boolean; // Boolean!
     lastname: string; // String!
+    officialDocuments: NexusGenRootTypes['OfficialDocument'][]; // [OfficialDocument!]!
     password: string; // String!
+    roles: NexusGenRootTypes['Role'][]; // [Role!]!
+    socialNetworkLinks: NexusGenRootTypes['SocialLink'][]; // [SocialLink!]!
   }
   Venue: { // field return type
     address: string; // String!
@@ -1241,16 +1381,35 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
+  Department: {
+    members: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+  }
   Mutation: {
-    approveGroupRequest: { // args
-      email: string; // String!
+    addAddress: { // args
+      address1: string; // String!
+      address2?: string | null; // String
+      city: string; // String!
+      code: string; // String!
+      country: string; // String!
+      primary?: boolean | null; // Boolean
+      region: string; // String!
+    }
+    addSocialLink: { // args
+      link: string; // String!
+      network: string; // String!
     }
     changePassword: { // args
       key: string; // String!
       newPassword: string; // String!
     }
-    createGroupRequest: { // args
-      groupRequest: NexusGenEnums['UserGroup']; // UserGroup!
+    createSocialNetwork: { // args
+      data: NexusGenInputs['SocialNetworkCreateInput']; // SocialNetworkCreateInput!
     }
     createSpace: { // args
       data: NexusGenInputs['SpaceCreateInput']; // SpaceCreateInput!
@@ -1262,11 +1421,11 @@ export interface NexusGenArgTypes {
       email: string; // String!
       password: string; // String!
     }
-    rejectGroupRequest: { // args
-      email: string; // String!
-    }
     requestResetPassword: { // args
       email: string; // String!
+    }
+    shield: { // args
+      msg: string; // String!
     }
     signUpUser: { // args
       email: string; // String!
@@ -1275,8 +1434,88 @@ export interface NexusGenArgTypes {
       lastname: string; // String!
       password: string; // String!
     }
+    updateAddress: { // args
+      address1?: string | null; // String
+      address2?: string | null; // String
+      city?: string | null; // String
+      code?: string | null; // String
+      country?: string | null; // String
+      id: string; // String!
+      primary?: boolean | null; // Boolean
+      region?: string | null; // String
+    }
   }
   Query: {
+    address: { // args
+      where: NexusGenInputs['AddressWhereUniqueInput']; // AddressWhereUniqueInput!
+    }
+    addresses: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    department: { // args
+      where: NexusGenInputs['DepartmentWhereUniqueInput']; // DepartmentWhereUniqueInput!
+    }
+    departments: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    device: { // args
+      where: NexusGenInputs['DeviceWhereUniqueInput']; // DeviceWhereUniqueInput!
+    }
+    devices: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    officialDocument: { // args
+      where: NexusGenInputs['OfficialDocumentWhereUniqueInput']; // OfficialDocumentWhereUniqueInput!
+    }
+    officialDocuments: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    role: { // args
+      where: NexusGenInputs['RoleWhereUniqueInput']; // RoleWhereUniqueInput!
+    }
+    roles: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    socialLink: { // args
+      where: NexusGenInputs['SocialLinkWhereUniqueInput']; // SocialLinkWhereUniqueInput!
+    }
+    socialLinks: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    socialNetwork: { // args
+      where: NexusGenInputs['SocialNetworkWhereUniqueInput']; // SocialNetworkWhereUniqueInput!
+    }
+    socialNetworks: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
     space: { // args
       where: NexusGenInputs['SpaceWhereUniqueInput']; // SpaceWhereUniqueInput!
     }
@@ -1291,6 +1530,61 @@ export interface NexusGenArgTypes {
       where: NexusGenInputs['VenueWhereUniqueInput']; // VenueWhereUniqueInput!
     }
     venues: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+  }
+  Role: {
+    users: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+  }
+  SocialNetwork: {
+    userLinks: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+  }
+  User: {
+    addresses: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    devices: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    officialDocuments: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    roles: { // args
+      after?: any | null; // UUID
+      before?: any | null; // UUID
+      first: number; // Int!
+      last: number; // Int!
+      skip: number; // Int!
+    }
+    socialNetworkLinks: { // args
       after?: any | null; // UUID
       before?: any | null; // UUID
       first: number; // Int!
@@ -1314,9 +1608,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AuthPayload" | "Mutation" | "Query" | "Space" | "User" | "Venue";
+export type NexusGenObjectNames = "Address" | "AuthPayload" | "Department" | "Device" | "Mutation" | "OfficialDocument" | "Query" | "Role" | "SocialLink" | "SocialNetwork" | "Space" | "User" | "Venue";
 
-export type NexusGenInputNames = "AddressCreateManyWithoutAddressesInput" | "AddressCreateWithoutOwnerInput" | "AddressWhereUniqueInput" | "AsignaturaCreateOneWithoutAsignaturaInput" | "AsignaturaCreateWithoutDesdoblesInput" | "AsignaturaWhereUniqueInput" | "AsistenciaCreateManyWithoutAsistenciaInput" | "AsistenciaCreateManyWithoutAsistenciasInput" | "AsistenciaCreateWithoutEstudianteInput" | "AsistenciaCreateWithoutSesionInput" | "AsistenciaWhereUniqueInput" | "ContentDocumentCreateManyWithoutContentDocumentsInput" | "ContentDocumentCreateWithoutCreatorInput" | "ContentDocumentWhereUniqueInput" | "ConvocatoriaExamenCreateOneWithoutConvocatoriaInput" | "ConvocatoriaExamenCreateWithoutExamenesInput" | "ConvocatoriaExamenWhereUniqueInput" | "CursoCreateOneWithoutCursoInput" | "CursoCreateWithoutAsignaturasInput" | "CursoWhereUniqueInput" | "DepartmentCreateOneWithoutDepartmentInput" | "DepartmentCreateWithoutMembersInput" | "DepartmentWhereUniqueInput" | "DesdobleCreateManyWithoutDesdoblesInput" | "DesdobleCreateWithoutLeccionesInput" | "DesdobleWhereUniqueInput" | "DeviceCreateManyWithoutDevicesInput" | "DeviceCreateWithoutOwnerInput" | "DeviceWhereUniqueInput" | "DiscountCreateManyWithoutDiscountsInput" | "DiscountCreateOneWithoutDiscountInput" | "DiscountCreateWithoutItemsInput" | "DiscountCreateWithoutProductInput" | "DiscountRequestCreateManyWithoutDiscountRequestsInput" | "DiscountRequestCreateWithoutDiscountInput" | "DiscountRequestCreatedocumentationInput" | "DiscountRequestWhereUniqueInput" | "DiscountWhereUniqueInput" | "EstudioCreateOneWithoutEstudioInput" | "EstudioCreateWithoutTitulacionesInput" | "EstudioWhereUniqueInput" | "EventCreateManyWithoutEventsInput" | "EventCreateWithoutAuthorInput" | "EventWhereUniqueInput" | "ExamenCreateManyWithoutExamenesInput" | "ExamenCreateWithoutEspacioInput" | "ExamenWhereUniqueInput" | "ItemCreateManyWithoutItemsInput" | "ItemCreateWithoutOrderInput" | "ItemWhereUniqueInput" | "LeccionCreateManyWithoutLeccionesDisponiblesInput" | "LeccionCreateManyWithoutLeccionesGestionadasInput" | "LeccionCreateManyWithoutLeccionesInput" | "LeccionCreateOneWithoutLeccionInput" | "LeccionCreateWithoutGestorInput" | "LeccionCreateWithoutPeriodoInput" | "LeccionCreateWithoutProfesoresDisponiblesInput" | "LeccionCreateWithoutSesionesInput" | "LeccionWhereUniqueInput" | "MatriculaCreateManyWithoutMatriculasInput" | "MatriculaCreateWithoutDesdobleInput" | "MatriculaWhereUniqueInput" | "MediaCategoryCreateOneWithoutCategoryInput" | "MediaCategoryCreateWithoutFilesInput" | "MediaCategoryWhereUniqueInput" | "MediaCreateManyWithoutMediasInput" | "MediaCreateWithoutUploaderInput" | "MediaWhereUniqueInput" | "MencionCreateOneWithoutMencionInput" | "MencionCreateWithoutDesdoblesInput" | "MencionWhereUniqueInput" | "NewsCreateManyWithoutNewsesInput" | "NewsCreateWithoutAuthorInput" | "NewsWhereUniqueInput" | "OfficialDocumentCreateManyWithoutOfficialDocumentsInput" | "OfficialDocumentCreateWithoutOwnerInput" | "OfficialDocumentWhereUniqueInput" | "OrderCreateManyWithoutOrdersInput" | "OrderCreateWithoutCustomerInput" | "OrderWhereUniqueInput" | "PeriodoOperativoCreateOneWithoutPeriodoInput" | "PeriodoOperativoCreateWithoutConvocatoriasExamenesInput" | "PeriodoOperativoWhereUniqueInput" | "ProductCategoryCreateOneWithoutCategoryInput" | "ProductCategoryCreateWithoutProductsInput" | "ProductCategoryWhereUniqueInput" | "ProductCreateOneWithoutProductInput" | "ProductCreateWithoutOrdersInput" | "ProductCreateimageURLsInput" | "ProductWhereUniqueInput" | "RatioCreateOneWithoutRatioInput" | "RatioCreateWithoutAsignaturasInput" | "RatioWhereUniqueInput" | "RecurrenciaCreateManyWithoutLeccionesPlanificadasInput" | "RecurrenciaCreateManyWithoutRecurrenciasInput" | "RecurrenciaCreateWithoutLeccionInput" | "RecurrenciaCreateWithoutPlannedSpacesInput" | "RecurrenciaWhereUniqueInput" | "RoleCreateManyWithoutRolesInput" | "RoleCreateWithoutUsersInput" | "RoleWhereUniqueInput" | "SesionCreateManyWithoutSesionesInput" | "SesionCreateOneWithoutSesionInput" | "SesionCreateWithoutAsistenciaInput" | "SesionCreateWithoutAtInput" | "SesionWhereUniqueInput" | "SocialLinkCreateManyWithoutSocialNetworkLinksInput" | "SocialLinkCreateWithoutOwnerInput" | "SocialLinkWhereUniqueInput" | "SocialNetworkCreateOneWithoutSocialNetworkInput" | "SocialNetworkCreateWithoutUserLinksInput" | "SocialNetworkWhereUniqueInput" | "SpaceCreateInput" | "SpaceCreateManyWithoutPlannedSpacesInput" | "SpaceCreateManyWithoutSpacesInput" | "SpaceCreateOneWithoutAtInput" | "SpaceCreateOneWithoutPlaceInput" | "SpaceCreateWithoutEventsInput" | "SpaceCreateWithoutLeccionesPlanificadasInput" | "SpaceCreateWithoutSesionesInput" | "SpaceCreateWithoutVenueInput" | "SpaceWhereUniqueInput" | "TitulacionCreateOneWithoutTitulacionInput" | "TitulacionCreateWithoutAsignaturasInput" | "TitulacionWhereUniqueInput" | "TransactionCreateManyWithoutTransactionsInput" | "TransactionCreateWithoutOrderInput" | "TransactionWhereUniqueInput" | "UserCreateManyWithoutProfesoresDisponiblesInput" | "UserCreateOneWithoutAlumnoInput" | "UserCreateOneWithoutByInput" | "UserCreateOneWithoutEstudianteInput" | "UserCreateOneWithoutGestorInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutAsistenciasInput" | "UserCreateWithoutDiscountRequestsInput" | "UserCreateWithoutLeccionesDisponiblesInput" | "UserCreateWithoutLeccionesGestionadasInput" | "UserCreateWithoutMatriculasInput" | "UserCreateWithoutSesionesInput" | "UserWhereUniqueInput" | "VenueCreateInput" | "VenueCreateOneWithoutVenueInput" | "VenueCreateWithoutSpacesInput" | "VenueWhereUniqueInput";
+export type NexusGenInputNames = "AddressCreateManyWithoutAddressesInput" | "AddressCreateWithoutOwnerInput" | "AddressWhereUniqueInput" | "AsignaturaCreateOneWithoutAsignaturaInput" | "AsignaturaCreateWithoutDesdoblesInput" | "AsignaturaWhereUniqueInput" | "AsistenciaCreateManyWithoutAsistenciaInput" | "AsistenciaCreateManyWithoutAsistenciasInput" | "AsistenciaCreateWithoutEstudianteInput" | "AsistenciaCreateWithoutSesionInput" | "AsistenciaWhereUniqueInput" | "ContentDocumentCreateManyWithoutContentDocumentsInput" | "ContentDocumentCreateWithoutCreatorInput" | "ContentDocumentWhereUniqueInput" | "ConvocatoriaExamenCreateOneWithoutConvocatoriaInput" | "ConvocatoriaExamenCreateWithoutExamenesInput" | "ConvocatoriaExamenWhereUniqueInput" | "CursoCreateOneWithoutCursoInput" | "CursoCreateWithoutAsignaturasInput" | "CursoWhereUniqueInput" | "DepartmentCreateOneWithoutDepartmentInput" | "DepartmentCreateWithoutMembersInput" | "DepartmentWhereUniqueInput" | "DesdobleCreateManyWithoutDesdoblesInput" | "DesdobleCreateWithoutLeccionesInput" | "DesdobleWhereUniqueInput" | "DeviceCreateManyWithoutDevicesInput" | "DeviceCreateWithoutOwnerInput" | "DeviceWhereUniqueInput" | "DiscountCreateManyWithoutDiscountsInput" | "DiscountCreateOneWithoutDiscountInput" | "DiscountCreateWithoutItemsInput" | "DiscountCreateWithoutProductInput" | "DiscountRequestCreateManyWithoutDiscountRequestsInput" | "DiscountRequestCreateWithoutDiscountInput" | "DiscountRequestCreatedocumentationInput" | "DiscountRequestWhereUniqueInput" | "DiscountWhereUniqueInput" | "EstudioCreateOneWithoutEstudioInput" | "EstudioCreateWithoutTitulacionesInput" | "EstudioWhereUniqueInput" | "EventCreateManyWithoutEventsInput" | "EventCreateWithoutAuthorInput" | "EventWhereUniqueInput" | "ExamenCreateManyWithoutExamenesInput" | "ExamenCreateWithoutEspacioInput" | "ExamenWhereUniqueInput" | "ItemCreateManyWithoutItemsInput" | "ItemCreateWithoutOrderInput" | "ItemWhereUniqueInput" | "LeccionCreateManyWithoutLeccionesDisponiblesInput" | "LeccionCreateManyWithoutLeccionesGestionadasInput" | "LeccionCreateManyWithoutLeccionesInput" | "LeccionCreateOneWithoutLeccionInput" | "LeccionCreateWithoutGestorInput" | "LeccionCreateWithoutPeriodoInput" | "LeccionCreateWithoutProfesoresDisponiblesInput" | "LeccionCreateWithoutSesionesInput" | "LeccionWhereUniqueInput" | "MatriculaCreateManyWithoutMatriculasInput" | "MatriculaCreateWithoutDesdobleInput" | "MatriculaWhereUniqueInput" | "MediaCategoryCreateOneWithoutCategoryInput" | "MediaCategoryCreateWithoutFilesInput" | "MediaCategoryWhereUniqueInput" | "MediaCreateManyWithoutMediasInput" | "MediaCreateWithoutUploaderInput" | "MediaWhereUniqueInput" | "MencionCreateOneWithoutMencionInput" | "MencionCreateWithoutDesdoblesInput" | "MencionWhereUniqueInput" | "NewsCreateManyWithoutNewsesInput" | "NewsCreateWithoutAuthorInput" | "NewsWhereUniqueInput" | "OfficialDocumentCreateManyWithoutOfficialDocumentsInput" | "OfficialDocumentCreateWithoutOwnerInput" | "OfficialDocumentWhereUniqueInput" | "OrderCreateManyWithoutOrdersInput" | "OrderCreateWithoutCustomerInput" | "OrderWhereUniqueInput" | "PeriodoOperativoCreateOneWithoutPeriodoInput" | "PeriodoOperativoCreateWithoutConvocatoriasExamenesInput" | "PeriodoOperativoWhereUniqueInput" | "ProductCategoryCreateOneWithoutCategoryInput" | "ProductCategoryCreateWithoutProductsInput" | "ProductCategoryWhereUniqueInput" | "ProductCreateOneWithoutProductInput" | "ProductCreateWithoutOrdersInput" | "ProductCreateimageURLsInput" | "ProductWhereUniqueInput" | "RatioCreateOneWithoutRatioInput" | "RatioCreateWithoutAsignaturasInput" | "RatioWhereUniqueInput" | "RecurrenciaCreateManyWithoutLeccionesPlanificadasInput" | "RecurrenciaCreateManyWithoutRecurrenciasInput" | "RecurrenciaCreateWithoutLeccionInput" | "RecurrenciaCreateWithoutPlannedSpacesInput" | "RecurrenciaWhereUniqueInput" | "RoleCreateManyWithoutRolesInput" | "RoleCreateWithoutUsersInput" | "RoleWhereUniqueInput" | "SesionCreateManyWithoutSesionesInput" | "SesionCreateOneWithoutSesionInput" | "SesionCreateWithoutAsistenciaInput" | "SesionCreateWithoutAtInput" | "SesionWhereUniqueInput" | "SocialLinkCreateManyWithoutSocialNetworkLinksInput" | "SocialLinkCreateManyWithoutUserLinksInput" | "SocialLinkCreateWithoutOwnerInput" | "SocialLinkCreateWithoutSocialNetworkInput" | "SocialLinkWhereUniqueInput" | "SocialNetworkCreateInput" | "SocialNetworkCreateOneWithoutSocialNetworkInput" | "SocialNetworkCreateWithoutUserLinksInput" | "SocialNetworkWhereUniqueInput" | "SpaceCreateInput" | "SpaceCreateManyWithoutPlannedSpacesInput" | "SpaceCreateManyWithoutSpacesInput" | "SpaceCreateOneWithoutAtInput" | "SpaceCreateOneWithoutPlaceInput" | "SpaceCreateWithoutEventsInput" | "SpaceCreateWithoutLeccionesPlanificadasInput" | "SpaceCreateWithoutSesionesInput" | "SpaceCreateWithoutVenueInput" | "SpaceWhereUniqueInput" | "TitulacionCreateOneWithoutTitulacionInput" | "TitulacionCreateWithoutAsignaturasInput" | "TitulacionWhereUniqueInput" | "TransactionCreateManyWithoutTransactionsInput" | "TransactionCreateWithoutOrderInput" | "TransactionWhereUniqueInput" | "UserCreateManyWithoutProfesoresDisponiblesInput" | "UserCreateOneWithoutAlumnoInput" | "UserCreateOneWithoutByInput" | "UserCreateOneWithoutEstudianteInput" | "UserCreateOneWithoutGestorInput" | "UserCreateOneWithoutOwnerInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutAsistenciasInput" | "UserCreateWithoutDiscountRequestsInput" | "UserCreateWithoutLeccionesDisponiblesInput" | "UserCreateWithoutLeccionesGestionadasInput" | "UserCreateWithoutMatriculasInput" | "UserCreateWithoutSesionesInput" | "UserCreateWithoutSocialNetworkLinksInput" | "UserWhereUniqueInput" | "VenueCreateInput" | "VenueCreateOneWithoutVenueInput" | "VenueCreateWithoutSpacesInput" | "VenueWhereUniqueInput";
 
 export type NexusGenEnumNames = "AppNodeStatus" | "DeviceType" | "NewsFeedCategories" | "OfficialDocumentType" | "Semestre" | "TxType" | "UserGroup" | "WeekDay";
 

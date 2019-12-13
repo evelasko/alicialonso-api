@@ -1,23 +1,24 @@
 import { ValidationError } from 'yup'
-import { alertWebmaster } from '.'
+
+// import { sendQueuedEmail } from '.'
+// import { ifElse, always } from 'ramda'
+// import { Job } from 'bull'
 
 /**
  * Custom Error class: AliciAlonso API
  * @class AAxError
  * @extends {Error}
  */
-export class AAxError extends Error {
-    errorSource: string
+// eslint-disable-next-line functional/prefer-type-literal
+export interface AAxError extends Error {
     userMessage: string
+}
 
-    /**
-     *Creates an instance of AAxError.
-     * @param {string} message the system's error message
-     * @param {string} errorSource the function/method throwing the error
-     * @param {string} userMessage the message for the end user
-     * @param {boolean} notifyWebmaster send an email to the webmaster's email address specified in the environment variable RECIPIENT_WEBMASTER
-     * @memberof AAxError
-     */
+export const newError = (message: string, userMessage: string): AAxError =>
+    Object.assign(new Error(message), { userMessage })
+
+/*
+
     constructor(message: string, errorSource: string, userMessage: string, notifyWebmaster: boolean) {
         super(message)
         this.userMessage = userMessage
@@ -34,6 +35,8 @@ export class AAxError extends Error {
         }
     }
 }
+
+*/
 
 export const formatYupError: (err: ValidationError) => string = err => {
     return err.errors[0]

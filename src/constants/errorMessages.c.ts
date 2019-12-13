@@ -10,7 +10,7 @@ export const errorMessages = {
     d_errorSendingEmailTo: (email: string): string => `error al intentar enviar email a la dirección ${email}`,
     d_emailNotVerified: (email: string): string =>
         `debe verificar su dirección de email, hemos enviado las instrucciones a ${email}`,
-    s_passwordMismatch: 'la contraseña introducida no coincide',
+    s_passwordMismatch: (email: string): string => `la contraseña introducida para la cuenta ${email} no coincide`,
     s_invalidEmail: 'debe introducir una dirección de email válida',
     s_passwordTooShort: 'la contraseña debe contener más de 8 caracteres',
     s_passwordTooLong: 'la contraseña no puede superar los 100 caracteres',

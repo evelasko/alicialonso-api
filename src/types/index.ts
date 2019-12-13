@@ -1,11 +1,11 @@
-export * from './generated/nexus-typegen'
-import { UserGroup } from '@generated/photon'
+// export * from './generated/nexus-typegen'
+import { UserGroup } from '@prisma/photon'
 
 export * from './context'
-export interface UserCache {
-    id: string
-    email: string
-    hpassword: string
-    isAdmin: boolean
-    group: UserGroup
+export type UserCache = {
+    readonly id: string
+    readonly email: string
+    readonly hpassword: string
+    readonly isAdmin: boolean
+    readonly group: UserGroup
 }
