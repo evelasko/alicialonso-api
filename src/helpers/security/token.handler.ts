@@ -1,7 +1,7 @@
 import { sign, verify } from 'jsonwebtoken'
 import R from 'ramda'
 
-import { LoginPayload } from '../types'
+import { LoginPayload } from '../../types'
 
 const secret = process.env.JWT_SECRET as string
 

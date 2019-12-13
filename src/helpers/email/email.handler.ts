@@ -3,8 +3,8 @@ import MailgunTransport from 'mailgun-nodemailer-transport'
 import nodemailer from 'nodemailer'
 import Mail from 'nodemailer/lib/mailer'
 
-import { emailQueue } from '../queue'
-import { hbsFromFile } from './'
+import { hbsFromFile } from '../'
+import { emailQueue } from '../../queue'
 
 export const Mailgun: Mail = nodemailer.createTransport(
     new MailgunTransport({
