@@ -6,11 +6,12 @@ import path from 'path'
 import { curry, flatten, map, prop, times } from 'ramda'
 import { v4 } from 'uuid'
 
-import { photon } from '@libs'
 import {
-    EventCreateInput, EventDelegate, NewsCreateInput, NewsDelegate, SpaceCreateInput, SpaceDelegate,
-    UserCreateInput, UserDelegate, UserGroup, VenueCreateInput, VenueDelegate
+    EventCreateInput, EventDelegate, NewsCreateInput, NewsDelegate, Photon, SpaceCreateInput,
+    SpaceDelegate, UserCreateInput, UserDelegate, UserGroup, VenueCreateInput, VenueDelegate
 } from '@prisma/photon'
+
+const photon = new Photon()
 
 const generateUser = curry((isAdmin: boolean, emailVerified: boolean, group: UserGroup):UserCreateInput => {
     const firstname = faker.name.firstName()
