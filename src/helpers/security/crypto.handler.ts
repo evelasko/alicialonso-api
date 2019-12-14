@@ -2,7 +2,7 @@ import { always, cond, T } from 'ramda'
 import SimpleCrypto from 'simple-crypto-js'
 import validator from 'validator'
 
-export const cypher = new SimpleCrypto(process.env.JWT_SECRET as string)
+export const cypher = new SimpleCrypto((process.env.JWT_SECRET as string) || 'testSecret')
 
 /**
  * Entcrypt a string

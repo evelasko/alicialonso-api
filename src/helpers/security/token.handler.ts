@@ -3,7 +3,7 @@ import { always, is, tryCatch, where } from 'ramda'
 
 import { LoginPayload } from '../../types'
 
-const secret = process.env.JWT_SECRET as string
+const secret = (process.env.JWT_SECRET as string) || 'testSecret'
 
 /**
  * Generates a login authorization token

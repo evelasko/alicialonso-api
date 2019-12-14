@@ -17,7 +17,7 @@ export const sess = session({
         prefix: redisSessionPrefix
     }),
     name: redisSessionName(),
-    secret: process.env.SESSION_SECRET as string,
+    secret: (process.env.SESSION_SECRET as string) || 'testSecret',
     resave: false,
     saveUninitialized: false,
     cookie: {

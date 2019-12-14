@@ -34,7 +34,7 @@ app.enable('trust proxy')
 app.use(
     '/mobile',
     proxy({
-        target: process.env.HOST,
+        target: process.env.HOST || 'http://localhost:4000',
         changeOrigin: true,
         pathRewrite: { '/mobile': '' }
     })
