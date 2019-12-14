@@ -1,5 +1,3 @@
-import { v4 } from 'uuid'
-
 import { sendQueuedEmail } from '@helpers'
 
 import { emailQueue } from '../../src/queue'

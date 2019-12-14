@@ -25,7 +25,7 @@ const child_process = require('child_process')
 
 module.exports = async function() {
 
-    global.stopServer = await startTestServer()
+    // global.stopServer = await startTestServer()
     // global.testData = await resetAndSeed()
     // start ultrahook for mailgun webhook responses
     // mapping requests from mailgun.alicialonso.ultrahook.com
@@ -35,11 +35,11 @@ module.exports = async function() {
     // that are called when certain events occur during the life cycle
     // of the child process
 
-    global.mailgunUltrahook = child_process.exec(
-        `ultrahook -k ${process.env.ULTRAHOOK_API_KEY} mailgun http://localhost:4000/wh/mailgun/`,
-        (error, stdout, stderr) => {
-            // console.log('UH: ', stdout)
-        }
-    )
+    // global.mailgunUltrahook = child_process.exec(
+    //     `ultrahook -k ${process.env.ULTRAHOOK_API_KEY} mailgun http://localhost:4000/wh/mailgun/`,
+    //     (error, stdout, stderr) => {
+    //         // console.log('UH: ', stdout)
+    //     }
+    // )
     return null
 }

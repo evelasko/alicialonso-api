@@ -3,5 +3,4 @@ node_modules
 dist
 .vscode/
 .TODO
-src/types/generated/nexus.ts
-src/schema/schema.graphql
+coverage/lcov-report

@@ -37,5 +37,8 @@ module.exports = {
     collectCoverageFrom: [
       "src/**/*.ts"
     ],
+    coverageReporters: [
+      "lcov"
+    ],
     testSequencer: './tests/config/sequencer.js'
 };

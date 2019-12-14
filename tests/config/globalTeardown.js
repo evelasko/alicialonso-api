@@ -1,4 +1,4 @@
 require("ts-node/register");
 module.exports = async function() {
-   global.stopServer()
+   // global.stopServer()
 }
