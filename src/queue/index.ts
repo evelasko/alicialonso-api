@@ -5,7 +5,7 @@ import * as addKeyValueSeconds from './processors/add-vey-value-seconds.p'
 import * as removeKey from './processors/remove-key.p'
 import * as sendEmailProcessor from './processors/send-email.p'
 
-export const emailQueue = new Queue('emailQueue', process.env.REDIS_URL as string)
+export const emailQueue = new Queue('emailQueue', process.env.REDIS_QUEUE_URL as string)
 
 // TODO check if possible to direct runtime to the resolve expression in any environment except test
 export const sendEmail = emailQueue.process(

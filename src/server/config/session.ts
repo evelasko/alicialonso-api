@@ -1,16 +1,13 @@
 // import connectRedis from 'connect-redis'
 import session from 'express-session'
-import Redis from 'ioredis'
-import redis from 'redis'
 
 import { redisSessionName, redisSessionPrefix } from '@constants'
+import { redisClient } from '@helpers'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const redisStore = require('connect-redis')(session)
 // const RedisStore = connectRedis(session)
-const redisClient = redis.createClient({
-    url: process.env.REDIS_URL as string
-})
+
 export const sess = session({
     store: new redisStore({
         client: redisClient,
