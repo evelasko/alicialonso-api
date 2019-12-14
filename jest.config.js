@@ -34,6 +34,8 @@ module.exports = {
     ],
     testEnvironment: 'node',
     verbose: true,
-    collectCoverage: false,
+    collectCoverageFrom: [
+      "src/**/*.ts"
+    ],
     testSequencer: './tests/config/sequencer.js'
 };
