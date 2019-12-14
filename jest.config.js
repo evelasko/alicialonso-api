@@ -35,7 +35,9 @@ module.exports = {
     testEnvironment: 'node',
     verbose: true,
     collectCoverageFrom: [
-      "src/**/*.ts"
+      "src/**/*.ts",
+      "!src/types/generated/*.ts",
+      "!src/schema/resolvers/**/*.ts"
     ],
     coverageReporters: [
       "lcov"
