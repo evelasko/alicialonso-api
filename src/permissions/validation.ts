@@ -2,7 +2,7 @@ import { inputRule } from 'graphql-shield'
 import { InputRule } from 'graphql-shield/dist/rules'
 import { Shape } from 'yup'
 
-import { errorMessages } from '../constants'
+import { errorMessages } from '@constants'
 
 export const signUpValidationRule: InputRule<Shape<
     object,

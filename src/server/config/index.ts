@@ -1,6 +1,6 @@
 export * from './apollo'
 export * from './arenaQueueMonitor'
-export * from './context'
+export * from '../../helpers/core/context.handler'
 export * from './cors'
 export { sess as session } from './session'
 export * from './voyager'

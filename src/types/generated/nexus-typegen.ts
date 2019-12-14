@@ -150,7 +150,6 @@ export interface NexusGenInputs {
   }
   DepartmentWhereUniqueInput: { // input type
     id?: any | null; // UUID
-    name?: string | null; // String
   }
   DesdobleCreateManyWithoutDesdoblesInput: { // input type
     connect?: NexusGenInputs['DesdobleWhereUniqueInput'][] | null; // [DesdobleWhereUniqueInput!]
@@ -672,10 +671,7 @@ export interface NexusGenInputs {
     ownURL: string; // String!
   }
   SocialNetworkWhereUniqueInput: { // input type
-    baseURL?: string | null; // String
     id?: any | null; // UUID
-    name?: string | null; // String
-    ownURL?: string | null; // String
   }
   SpaceCreateInput: { // input type
     createdAt?: any | null; // DateTime

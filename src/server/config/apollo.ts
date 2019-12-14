@@ -1,8 +1,7 @@
 import { ApolloServer } from 'apollo-server-express'
 
+import { context } from '@helpers'
 import schema from '@schema'
-
-import { context } from './context'
 
 export const server = new ApolloServer({
     schema,

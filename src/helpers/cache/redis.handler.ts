@@ -1,13 +1,10 @@
 import { Job } from 'bull'
-import connectRedis from 'connect-redis'
-import session from 'express-session'
 import Redis from 'ioredis'
 import redis from 'redis'
 
 import { keyExpiration } from '../../constants'
 import { redisQueue } from '../../queue'
 
-export const RedisStore = connectRedis(session)
 export const redisInstance = new Redis(process.env.REDIS_URL as string)
 export const redisContextInstance = new Redis(process.env.REDIS_URL as string)
 export const redisClient = redis.createClient({

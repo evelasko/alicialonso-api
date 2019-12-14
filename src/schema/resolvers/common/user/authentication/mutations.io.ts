@@ -21,7 +21,7 @@ export const SignUpUser = mutationField('signUpUser', {
         password: stringArg({ required: true }),
         groupRequest: arg({ type: 'UserGroup', required: false })
     },
-    resolve: async (parent, args, { photon }) => {
+    resolve: async (parent, args, { photon, request }) => {
         args.password = await bcrypt.hash(args.password, 8)
         await photon.users.create({ data: { ...args } })
 

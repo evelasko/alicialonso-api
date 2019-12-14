@@ -56,4 +56,3 @@ export default app
 export * from './config'
 export * from './middleware'
 export * from './routes'
-export * from './cache'

@@ -1,12 +1,13 @@
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
-// const { compilerOptions } = require('./tsconfig')
 
 module.exports = {
     preset: 'ts-jest',
     globals: {
         'ts-jest': {
           tsConfig: 'tsconfig.jest.json',
-          warnOnly: true
+          diagnostics: {
+            ignoreCodes: [2339]
+          }
         }
     },
     moduleNameMapper: pathsToModuleNameMapper({
