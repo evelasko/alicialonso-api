@@ -24,8 +24,8 @@
 		"generate:photon": "env-cmd -f ./env/dev.env yarn -s prisma2 generate",
 		"generate:nexus": "env-cmd -f ./env/nexus.env ts-node --transpile-only -r tsconfig-paths/register ./src/schema",
 		"generate:codegen": "graphql-codegen --config codegen.yml",
-		"postinstall": "yarn -s generate:photon && yarn -s generate:nexus",
-		"heroku-postbuild": "npm-run-all generate:*"
+		"generate:templatetypes": "template-typegen src/server/views src/types/generated/templateTypes.ts",
+		"postinstall": "yarn -s generate:photon && yarn -s generate:nexus"
 	},
 	"_moduleAliases": {
 		"@constants": "dist/constants/",
@@ -37,7 +37,7 @@
 		"@aatypes": "dist/types/"
 	},
 	"prettier": {
-		"printWidth": 120,
+		"printWidth": 100,
 		"tabWidth": 4,
 		"singleQuote": true,
 		"semi": false,
@@ -151,6 +151,7 @@
 		"prisma2": "^2.0.0-preview018.1",
 		"safe-buffer": "^5.2.0",
 		"supertest": "^4.0.2",
+		"template-typegen": "^0.0.4",
 		"ts-jest": "^24.2.0",
 		"ts-node": "8.5.4",
 		"ts-node-dev": "^1.0.0-pre.44",

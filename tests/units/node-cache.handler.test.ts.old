@@ -1,4 +1,4 @@
-import { NodeCacheService } from '../../src/libs'
+import { NodeCacheService } from '../../src/helpers'
 import { redisSessionPrefix } from '../../src/constants'
 import { v4 } from 'uuid'
 

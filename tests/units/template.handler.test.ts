@@ -4,7 +4,7 @@ import { v4 } from 'uuid'
 
 import { hbs2precompiled } from '@helpers'
 
-import { resetPassword } from '../../generated/template-types'
+import { resetPassword } from '../../src/types/generated/template-types'
 
 describe('Email html template handling', () => {
     test('should return html string from hbs file', async () => {

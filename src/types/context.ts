@@ -19,6 +19,4 @@ export type LoginPayload = {
     readonly isAdmin: boolean
     readonly group: UserGroup
     readonly email: string
-    readonly iat?: number
-    readonly exp?: number
 }
