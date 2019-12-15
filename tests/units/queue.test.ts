@@ -14,6 +14,6 @@ test('should add a queue job with sendQueuedEmail', async () => {
 
 afterAll(async (done) => {
     await emailQueue.empty()
-    await emailQueue.close(true)
+    await emailQueue.close(true).then(() => { console.log('closed redis queue client')})
     done()
 })
