@@ -1,5 +1,4 @@
-import { sendQueuedEmail } from '@helpers'
-
+import { sendQueuedEmail } from '../../src/helpers'
 import { emailQueue } from '../../src/queue'
 
 const to = 'webmaster@alicialonso.org'
