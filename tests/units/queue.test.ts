@@ -5,7 +5,7 @@ const to = 'webmaster@alicialonso.org'
 const subject = 'email from queue testing'
 const text = 'Lorem ipsum dolor et'
 
-it('should add a queue job with sendQueuedEmail', async () => {
+test('should add a queue job with sendQueuedEmail', async () => {
     const job = await sendQueuedEmail({ to, subject, text })
     const addedJob = await emailQueue.getJob(job.id)
     expect(addedJob).toBeTruthy()
@@ -14,6 +14,6 @@ it('should add a queue job with sendQueuedEmail', async () => {
 
 afterAll(async (done) => {
     await emailQueue.empty()
-    await emailQueue.close()
+    await emailQueue.close(true)
     done()
 })

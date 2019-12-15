@@ -14,7 +14,7 @@
 		"clean": "rm -rf dist && mkdir dist",
 		"clear-jest": "jest --clearCache",
 		"test": "env-cmd -f ./env/dev.env jest --watchAll",
-		"coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+		"coveralls": "jest --coverage --detectOpenHandles && cat ./coverage/lcov.info | coveralls",
 		"cov": "env-cmd -f ./env/dev.env jest --coverage && cat ./coverage/lcov.info | coveralls",
 		"dev": "env-cmd -f ./env/dev.env ts-node-dev -r tsconfig-paths/register --no-notify --respawn --transpileOnly ./src",
 		"rawdev": "env-cmd -f ./env/dev.env ts-node -r tsconfig-paths/register ./src",
