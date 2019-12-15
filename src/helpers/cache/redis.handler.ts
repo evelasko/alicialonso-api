@@ -20,7 +20,11 @@ export const redisClient = redis.createClient({
  * @param {number} seconds seconds for the value to live in the database
  * @return {Promise<Job>} the queue job created
  */
-export async function addKeyValueSeconds(key: string, value: string, seconds: number): Promise<Job> {
+export async function addKeyValueSeconds(
+    key: string,
+    value: string,
+    seconds: number
+): Promise<Job> {
     return redisQueue.add('addKeyValueSeconds', { key, value, seconds })
 }
 
