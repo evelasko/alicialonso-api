@@ -12,4 +12,8 @@ it('should add a queue job with sendQueuedEmail', async () => {
     expect(addedJob && addedJob.id).toBe(job.id)
 })
 
-afterAll(() => { emailQueue.close() })
+afterAll(async (done) => {
+    await emailQueue.empty()
+    await emailQueue.close()
+    done()
+})
