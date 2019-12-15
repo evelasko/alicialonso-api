@@ -53,8 +53,8 @@ export const Login = mutationField('login', {
             return { token: '#' }
         }
         if (session) session.user = user
-
-        return { token: await generateLoginToken(user) }
+        const loginToken = generateLoginToken(user)
+        return { token: loginToken || '' } // TODO Properly resolve login token null value
     }
 })
 

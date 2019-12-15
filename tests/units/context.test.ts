@@ -6,6 +6,7 @@ import {
 } from '../../src/helpers'
 
 const reqResMocks = httpMocks.createMocks()
+
 describe('Graphql context object tests', () => {
     it('should return a context object', async () => {
         const received = await context(reqResMocks)
