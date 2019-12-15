@@ -19,9 +19,9 @@ moduleAlias.addAliases({
     '@core'  : path.join(__dirname, '../../src/core'),
 })
 
-const startTestServer = require('../config/testServer').default
-const resetAndSeed = require('./testDb').default
-const child_process = require('child_process')
+// const startTestServer = require('../config/testServer').default
+// const resetAndSeed = require('./testDb').default
+// const child_process = require('child_process')
 
 module.exports = async function() {
 
