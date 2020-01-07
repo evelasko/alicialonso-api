@@ -22,7 +22,9 @@ export const emailNotRegistered = rule({ cache: 'strict' })(async (parent, { ema
         : errorMessages.d_emailAlreadyRegistered(email)
 )
 
-export const emailRegistered = rule({ cache: 'strict' })(async (parent, { email }, { photon }: Context) =>
+export const emailRegistered = rule({
+    cache: 'strict'
+})(async (parent, { email }, { photon }: Context) =>
     (await photon.users.findOne({ where: { email }, select: { firstname: true } }))
         ? true
         : errorMessages.d_emailNotRegistered(email)
@@ -35,21 +37,24 @@ export const emailRegistered = rule({ cache: 'strict' })(async (parent, { email 
  * (3) emailVerified must be true
  * (4) passwords must match
  */
-export const credentialsCheck = rule({ cache: 'strict' })(async (parent, { email, password }, { photon }: Context) =>
-    userCredentialsCheck(
-        password,
-        await photon.users.findOne({
-            where: { email },
-            select: { password: true, emailVerified: true }
-        })
-    )(email)
+export const credentialsCheck = rule({ cache: 'strict' })(
+    async (parent, { email, password }, { photon }: Context) =>
+        userCredentialsCheck(
+            password,
+            await photon.users.findOne({
+                where: { email },
+                select: { password: true, emailVerified: true }
+            })
+        )(email)
 )
 
 export const keyExists = rule({ cache: 'strict' })(async (parent, { key }, context) =>
     (await redisInstance.get(key)) !== undefined ? true : errorMessages.s_invalidCodeProvided
 )
 
-export const groupRequestPending = rule({ cache: 'strict' })(async (parent, { email }, context: Context) =>
+export const groupRequestPending = rule({
+    cache: 'strict'
+})(async (parent, { email }, context: Context) =>
     setContextShieldCache<{ groupRequest: UserGroup | null } | null>(context)(
         'groupRequest',
         propOr(
@@ -60,4 +65,10 @@ export const groupRequestPending = rule({ cache: 'strict' })(async (parent, { em
     )
         ? true
         : errorMessages.s_groupRequestNotFound
+)
+
+export const shieldCacheCheck = rule()(async (parent, { msg }, context: Context) =>
+    setContextShieldCache<string | undefined>(context)('msg', msg)
+        ? true
+        : 'shieldCache received nothing to store...'
 )

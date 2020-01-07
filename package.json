@@ -27,6 +27,8 @@
 		"generate:nexus": "env-cmd -f ./env/nexus.env ts-node --transpile-only -r tsconfig-paths/register ./src/schema",
 		"generate:codegen": "graphql-codegen --config codegen.yml",
 		"generate:templatetypes": "template-typegen src/server/views src/types/generated/templateTypes.ts",
+		"generate:docs:md": "env-cmd -f ./env/dev.env typedoc src/ --target ES6 --mode file --plugin typedoc-plugin-markdown --out ./docs",
+		"generate:docs:html": "env-cmd -f ./env/dev.env typedoc src/ --target ES6 --mode file --theme minimal --out ./docs",
 		"postinstall": "./scripts/genphoton.sh"
 	},
 	"_moduleAliases": {
@@ -159,6 +161,8 @@
 		"ts-node": "8.5.4",
 		"ts-node-dev": "^1.0.0-pre.44",
 		"tsconfig-paths": "^3.9.0",
+		"typedoc": "^0.15.5",
+		"typedoc-plugin-markdown": "^2.2.14",
 		"typescript": "^3.7.3"
 	}
 }

@@ -49,7 +49,9 @@ export const Shield = mutationField('shield', {
     resolve: async (parent, args, { shieldCache }) => {
         console.log(shieldCache)
         return {
-            token: shieldCache ? `Taken from context: ${shieldCache.msg ? shieldCache.msg : 'nothing'}` : 'sorry...'
+            token: shieldCache
+                ? `Taken from context: ${shieldCache.msg ? shieldCache.msg : 'nothing'}`
+                : 'sorry...'
         }
     }
 })

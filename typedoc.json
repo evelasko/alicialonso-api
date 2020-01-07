@@ -1,0 +1,7 @@
+{
+    "out": "docs",
+    "mode": "file",
+    "ignoreCompilerErrors": true,
+    "target": "ES6",
+    "exclude": "/**/generated/*.ts"
+}

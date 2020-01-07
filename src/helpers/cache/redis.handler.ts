@@ -11,6 +11,11 @@ export const redisClient = redis.createClient({
     url: process.env.REDIS_URL as string
 })
 
+const e = redisClient.on('connect', _ => console.log('main Redis client connected'))
+const c = redisClient.on('error', err =>
+    console.log('Something went wrong with the Redis client:' + err)
+)
+
 // FUNCTIONS PROCESSED BY QUEUE JOBS
 
 /**

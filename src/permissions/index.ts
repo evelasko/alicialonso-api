@@ -20,7 +20,8 @@ const permissions = shield(
             createVenue: rules.isAdminUser,
             createSocialNetwork: rules.isAdminUser,
             addAddress: rules.isAuthenticatedUser,
-            updateAddress: rules.isAuthenticatedUser
+            updateAddress: rules.isAuthenticatedUser,
+            shield: rules.shieldCacheCheck
         }
     },
     {
