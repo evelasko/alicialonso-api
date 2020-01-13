@@ -27,7 +27,6 @@ app.use(authBaseRoute, authRoutes)
 // system info routes
 app.use('/gqlmap', voyager)
 app.use('/queues', arena)
-app.use('/coverage', express.static('coverage/lcov-report'))
 
 // mobile routes proxy
 app.enable('trust proxy')

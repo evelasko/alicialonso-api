@@ -4,3 +4,4 @@ dist
 .vscode/
 .TODO
 coverage/lcov-report
+prisma/generated

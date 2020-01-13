@@ -1,7 +1,16 @@
 /* eslint-disable functional/functional-parameters */
 /* eslint-disable functional/no-expression-statement */
 // @ts-ignore
-// import 'module-alias/register'
+
+require('module-alias').addAliases({
+    '@constants': __dirname + '/constants',
+    '@helpers': __dirname + '/helpers',
+    '@permissions': __dirname + '/permissions',
+    '@queue': __dirname + '/queue',
+    '@schema': __dirname + '/schema',
+    '@server': __dirname + '/server',
+    '@aatypes': __dirname + '/types'
+})
 
 import app from './server'
 

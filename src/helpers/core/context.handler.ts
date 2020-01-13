@@ -16,7 +16,9 @@ export const resolveAuthToken = async (headers: Request['headers']): Promise<Log
     headers && has('auth')(headers) ? decodeLoginToken(headers.auth as string) : null
 
 // TODO Authentication thru device ID
-export const resolveDeviceToken = async (headers: Request['headers']): Promise<LoginPayload | null> => {
+export const resolveDeviceToken = async (
+    headers: Request['headers']
+): Promise<LoginPayload | null> => {
     const user: LoginPayload | null = await photon.devices
         .findOne({ where: { id: headers.device as string } })
         .owner({ select: { id: true, isAdmin: true, group: true, email: true } })
