@@ -21,7 +21,7 @@
 		"cov": "env-cmd -f ./env/dev.env jest --coverage && cat ./coverage/lcov.info | coveralls",
 		"dev": "env-cmd -f ./env/dev.env ts-node-dev -r tsconfig-paths/register --no-notify --respawn --transpileOnly ./src",
 		"rawdev": "env-cmd -f ./env/dev.env ts-node -r tsconfig-paths/register ./src",
-		"start": "ts-node -r tsconfig-paths/register ./src",
+		"start": "ts-node -r tsconfig-paths/register -T ./src",
 		"prisma:dev": "env-cmd -f ./env/dev.env yarn prisma2 dev",
 		"prisma:liftsave": "env-cmd -f ./env/dev.env yarn prisma2 lift save",
 		"prisma:liftup": "env-cmd -f ./env/dev.env yarn prisma2 lift up",
