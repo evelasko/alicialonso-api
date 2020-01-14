@@ -285,10 +285,6 @@ input DiscountCreateWithoutProductInput {
   updatedAt: DateTime
 }
 
-input DiscountRequestCreatedocumentationInput {
-  set: [String!]
-}
-
 input DiscountRequestCreateManyWithoutDiscountRequestsInput {
   connect: [DiscountRequestWhereUniqueInput!]
   create: [DiscountRequestCreateWithoutDiscountInput!]
@@ -298,7 +294,6 @@ input DiscountRequestCreateWithoutDiscountInput {
   applied: Boolean
   approved: Boolean
   createdAt: DateTime
-  documentation: DiscountRequestCreatedocumentationInput
   id: UUID
   updatedAt: DateTime
   user: UserCreateOneWithoutUserInput!
@@ -709,10 +704,6 @@ input ProductCategoryWhereUniqueInput {
   name: String
 }
 
-input ProductCreateimageURLsInput {
-  set: [String!]
-}
-
 input ProductCreateOneWithoutProductInput {
   connect: ProductWhereUniqueInput
   create: ProductCreateWithoutOrdersInput
@@ -725,7 +716,6 @@ input ProductCreateWithoutOrdersInput {
   description: String!
   discounts: DiscountCreateManyWithoutDiscountsInput
   id: UUID
-  imageURLs: ProductCreateimageURLsInput
   name: String!
   unitPrice: Float!
   updatedAt: DateTime

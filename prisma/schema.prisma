@@ -502,7 +502,7 @@ model Product {
     content                 String
     unitPrice               Float 
     category                ProductCategory     @relation(name: "ProductCategories", onDelete: NONE)
-    imageURLs               String[]            @scalarList(strategy: RELATION)
+//  imageURLs               String[]
     discounts               Discount[]          @relation(name: "ProductDiscounts", onDelete: CASCADE)
     orders                  Item[]              @relation(name: "ProductsInOrder")
 }
@@ -533,7 +533,7 @@ model DiscountRequest {
     user                    User                @relation(name: "UserDiscountRequests", onDelete: NONE)
     applied                 Boolean             @default(false)
     approved                Boolean             @default(false)
-    documentation           String[]            @scalarList(strategy: RELATION)
+//　 documentation           String[]
 }
 
 enum TxType {
