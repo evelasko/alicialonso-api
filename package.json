@@ -45,7 +45,7 @@
 	},
 	"dependencies": {
 		"@prisma/photon": "^2.0.0-preview018.1",
-		"apollo-server-express": "^2.9.13",
+		"apollo-server-express": "^2.14.2",
 		"bcryptjs": "^2.4.3",
 		"bull": "^3.12.1",
 		"bull-arena": "^2.6.4",
