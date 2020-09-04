@@ -78,7 +78,7 @@
 		"nodemailer": "^6.4.1",
 		"ramda": "^0.26.1",
 		"redis": "^2.8.0",
-		"simple-crypto-js": "^2.2.0",
+		"simple-crypto-js": "^2.3.0",
 		"type-cacheable": "^2.0.0",
 		"typescript-rest": "^2.2.2",
 		"uuid": "^3.3.3",
