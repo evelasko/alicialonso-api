@@ -75,7 +75,7 @@
 		"nexus-prisma": "^0.6.1",
 		"node-cache": "^5.1.0",
 		"node-redsys-api": "^0.0.5",
-		"nodemailer": "^6.4.1",
+		"nodemailer": "^6.4.16",
 		"ramda": "^0.26.1",
 		"redis": "^2.8.0",
 		"simple-crypto-js": "^2.2.0",
